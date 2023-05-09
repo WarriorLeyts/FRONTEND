@@ -7,7 +7,7 @@ export default function postSize(message) {
   arrDomen.forEach((domen) => { // находим элемент массива с доменом
     arrMessage.forEach((el) => {
       if (el.includes(domen)) {
-        res = message.replace(el, ''); // удаляем url
+        res = res.replace(el, ''); // удаляем url
       }
     });
   });
