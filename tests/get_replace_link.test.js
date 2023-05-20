@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import getReplaceLink from '../public/assets/get_replace_link.js';
 
-describe('Функция замены ссылки на HTML код', function () {
+describe('Функция проверки замены ссылки на HTML код', function () {
   it('Замена ссылки на HTML код тест №1', function () {
     const expectedResult = 'Привет <a href="https://github.com">github.com</a>';
     const result = getReplaceLink('Привет github.com');
