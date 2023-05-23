@@ -4,7 +4,7 @@ import emailValidation from '../public/assets/email_validation.js';
 describe('Функция проверки валидности эмайл', function () {
   it('Валидность эмайл тест №1', function () {
     const expectedResult = true;
-    const result = emailValidation('nn@ma.ru');
+    const result = emailValidation('nan@ma.ru');
     assert.equal(expectedResult, result);
   });
   it('Валидность эмайл тест №2', function () {
@@ -55,6 +55,11 @@ describe('Функция проверки валидности эмайл', func
   it('Валидность эмайл тест №11', function () {
     const expectedResult = false;
     const result = emailValidation('n@bk.ru');
+    assert.equal(expectedResult, result);
+  });
+  it('Валидность эмайл тест №12', function () {
+    const expectedResult = false;
+    const result = emailValidation('');
     assert.equal(expectedResult, result);
   });
 });
