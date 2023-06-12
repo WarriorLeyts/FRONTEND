@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Twiitter demo</title>
     <script crossorigin src="/assets/index.js" type="module"></script>
 </head>
 <body>
     <header> 
-      <div class="container">
+      <div class="container registration">
           <img class="logo" src="img/logo.svg">
           <div class="entry">
              <h1 class="entry__title"> Оставайся на связи с друзьями, даже когда их нет рядом</h1>
@@ -21,6 +22,11 @@
             </div>
          </div>
          <div class="bg-friends"></div>
+         <main class="statistics">
+            <div class="statistic"><p class="statistic__count">481</p><span class="statistic__description">Пользователей зарегистрировано</span></div>
+            <div class="statistic"><p class="statistic__count">140K</p><span class="statistic__description">Сообщений написано</span></div>
+            <div class="statistic"><p class="statistic__count">389</p><span class="statistic__description">Написано сегодня</span></div>
+         </main>
     </header>
 </body>
 </html>
