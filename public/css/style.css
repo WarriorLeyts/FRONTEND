@@ -13,6 +13,10 @@
   margin: auto;
 }
 
+.container2 {
+  margin: auto;
+}
+
 .registration {
   display: flex;
   flex-direction: column;
