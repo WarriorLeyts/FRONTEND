@@ -11,20 +11,16 @@
 
 .container1 {
   margin: auto;
-  min-width: 360px;
-  max-width: 412px;
 }
 
-.container {
-  min-width: 328px;
+.container2 {
+  margin: auto;
 }
 
 .registration {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin: 0px 16px;
 }
 
 .entry {
@@ -36,11 +32,24 @@
   font-size: 32px;
   line-height: 38px;
   text-align: center;
-  margin: 0px 20px 22px 20px;
+  margin-bottom: 24px;
+}
+@media (min-width: 1280px) {
+  .entry .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .entry .mgtext {
+    margin-right: 50px;
+  }
 }
 .entry .entry__link {
   display: inline-block;
   text-decoration: none;
+  width: 328px;
+  margin: auto;
   border: 1px solid #0057FF;
   text-align: center;
   padding: 15px 1px;
@@ -55,6 +64,12 @@
   background: #0057FF;
   transition: all 0.5s;
 }
+@media (min-width: 1280px) {
+  .entry .entry__link {
+    width: 260px;
+    margin: 0;
+  }
+}
 .entry .entry__link-mg {
   margin-top: 16px;
 }
@@ -67,9 +82,8 @@
 }
 
 .bg-friends {
-  margin: auto;
   margin-top: 24px;
-  height: 160px;
+  min-height: 160px;
   background-image: url("../img/bg_friends.jpeg");
   background-repeat: no-repeat;
   background-position: center;
@@ -108,6 +122,7 @@
 .block-last-message {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 .block-last-message .last-message__title {
   padding-top: 45px;
@@ -120,13 +135,15 @@
 .block-last-message .line {
   border-top: 1px solid #E9E9E9;
   height: 1px;
-  margin: 16px 0px 16px 0;
+  width: 100%;
+  padding: 16px 0px 16px 0;
 }
 .block-last-message .post {
   display: grid;
   grid-template-columns: 1fr 5fr;
   grid-column-gap: 16px;
   margin: 0px 16px;
+  width: 90%;
 }
 .block-last-message .post .post__avatar {
   width: 52px;
@@ -136,7 +153,7 @@
   display: flex;
   flex-direction: column;
   grid-row-gap: 5px;
-  max-width: 312px;
+  min-width: 260px;
 }
 .block-last-message .post .user .user-information {
   display: flex;
@@ -208,4 +225,35 @@
   font-size: 14px;
   line-height: 24px;
   color: #B1B1B1;
+}
+
+@media (min-width: 1000px) {
+  .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .entry__link {
+    width: 260px;
+  }
 }/*# sourceMappingURL=style.css.map */

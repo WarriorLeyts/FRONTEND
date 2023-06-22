@@ -1,0 +1,30 @@
+@media (min-width: 1000px){
+.container2 {
+ width: 1280px;
+ display: flex;
+ flex-direction: row;
+ height: 640px;
+ }
+.bg-friends {
+ margin: 0;
+ background-size: 195% 133%;
+ width: 640px;
+ height: auto;
+ background-position: -240px -160px;
+}
+.registration {
+ margin: 0px;
+ margin-left: 70px;
+ width: 640px; 
+ align-self: flex-start;
+ align-items: flex-start;
+ justify-content: flex-start;
+}
+.logo{
+ margin-top: 30px;
+ margin-bottom: 40px;
+}
+.entry__link{
+ width: 260px;
+}
+}
