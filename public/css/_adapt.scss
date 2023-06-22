@@ -1,4 +1,4 @@
-@media (min-width: 1000px){
+@media (min-width: 1280px){
 .container2 {
  width: 1280px;
  display: flex;
@@ -26,5 +26,14 @@
 }
 .entry__link{
  width: 260px;
+}
+.statistics {    
+ flex-direction: row;
+ grid-column-gap: 150px;
+ justify-content: center;
+ margin: auto;
+}
+.statistic {
+ grid-row-gap: 15px;
 }
 }
