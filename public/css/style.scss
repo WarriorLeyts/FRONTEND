@@ -97,6 +97,7 @@
     font-size: 48px;
     line-height: 58px;
   }
+  @import "_adapt";
   .statistic__description {
     font-weight: 300;
     font-size: 18px;
@@ -104,7 +105,9 @@
     text-align: center;
     width: 150px;
   }
+  @import "_adapt";
   }
+  @import "_adapt";
 }
 .block-last-message {
     display: flex;
