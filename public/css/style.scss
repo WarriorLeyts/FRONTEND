@@ -112,6 +112,7 @@
 .block-last-message {
     display: flex;
     flex-direction: column;
+    padding: 0 16px;
     align-items: flex-start;
   .last-message__title {
     padding-top: 45px;
@@ -121,18 +122,19 @@
     margin: 0px 16px;
     margin-bottom: 24px;
   }
+  @import "_adapt";
   .line{
     border-top: 1px solid #E9E9E9;
     height: 1px;
     width: 100%;
-    padding: 16px 0px 16px 0;
+    margin: 16px 0px 16px 0;
   }
+  @import "_adapt";
   .post{
     display: grid;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 52px 1fr;
     grid-column-gap: 16px;
-    margin: 0px 16px;
-    width: 90%;
+    width: 100%;
   .post__avatar{
     width: 52px;
     height: 52px;
@@ -160,7 +162,10 @@
       line-height: 18px;
       color: #ABACB1;
     }
+    @import "_adapt";
     }
+    @import "_adapt";
+    
     .user-information__time-message{
       width: 52px;
       p{
@@ -169,7 +174,9 @@
       text-align: right;
       color: #ABACB1;
       }
+      @import "_adapt";
     }
+    @import "_adapt";
   }  
   }
   .user-message {
@@ -183,11 +190,13 @@
     letter-spacing: 0em;
     text-align: left;
     }
+    @import "_adapt";
     img {
     max-width: 100%;
     height: auto;
     }
   }
+  @import "_adapt";
   .mg-rg{
     margin-right: 10px;
   }
@@ -214,6 +223,7 @@
     }
   }
   }
+  @import "_adapt";
 }
 }
 @import "_adapt";

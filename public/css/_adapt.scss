@@ -47,4 +47,32 @@
  font-size: 18px;
  line-height: 20px;
 } 
+.block-last-message { 
+  width: 692px;
+  margin: auto;
+}
+.user-information__time-message{
+  width: 150px;
+}
+.user-information__user-name{
+  flex-direction: row;
+}
+.user-information__user-name span {
+  margin-left: 20px;  
+}
+.last-message__title {
+  font-size: 27px;
+}
+.user-information__time-message p {
+  font-size: 14px;
+}
+.user-interaction{
+  max-width: 250px;
+}
+.line {
+  width: 692px;
+}
+.user-message p {
+font-size: 18px;
+} 
 }

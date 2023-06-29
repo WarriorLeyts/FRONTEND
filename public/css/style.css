@@ -160,6 +160,34 @@
     font-size: 18px;
     line-height: 20px;
   }
+  .statistics .statistic .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .statistics .statistic .user-information__time-message {
+    width: 150px;
+  }
+  .statistics .statistic .user-information__user-name {
+    flex-direction: row;
+  }
+  .statistics .statistic .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .statistics .statistic .last-message__title {
+    font-size: 27px;
+  }
+  .statistics .statistic .user-information__time-message p {
+    font-size: 14px;
+  }
+  .statistics .statistic .user-interaction {
+    max-width: 250px;
+  }
+  .statistics .statistic .line {
+    width: 692px;
+  }
+  .statistics .statistic .user-message p {
+    font-size: 18px;
+  }
 }
 .statistics .statistic .statistic__description {
   font-weight: 300;
@@ -217,6 +245,34 @@
     font-size: 18px;
     line-height: 20px;
   }
+  .statistics .statistic .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .statistics .statistic .user-information__time-message {
+    width: 150px;
+  }
+  .statistics .statistic .user-information__user-name {
+    flex-direction: row;
+  }
+  .statistics .statistic .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .statistics .statistic .last-message__title {
+    font-size: 27px;
+  }
+  .statistics .statistic .user-information__time-message p {
+    font-size: 14px;
+  }
+  .statistics .statistic .user-interaction {
+    max-width: 250px;
+  }
+  .statistics .statistic .line {
+    width: 692px;
+  }
+  .statistics .statistic .user-message p {
+    font-size: 18px;
+  }
 }
 @media (min-width: 1280px) {
   .statistics .container2 {
@@ -267,11 +323,40 @@
     font-size: 18px;
     line-height: 20px;
   }
+  .statistics .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .statistics .user-information__time-message {
+    width: 150px;
+  }
+  .statistics .user-information__user-name {
+    flex-direction: row;
+  }
+  .statistics .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .statistics .last-message__title {
+    font-size: 27px;
+  }
+  .statistics .user-information__time-message p {
+    font-size: 14px;
+  }
+  .statistics .user-interaction {
+    max-width: 250px;
+  }
+  .statistics .line {
+    width: 692px;
+  }
+  .statistics .user-message p {
+    font-size: 18px;
+  }
 }
 
 .block-last-message {
   display: flex;
   flex-direction: column;
+  padding: 0 16px;
   align-items: flex-start;
 }
 .block-last-message .last-message__title {
@@ -282,18 +367,173 @@
   margin: 0px 16px;
   margin-bottom: 24px;
 }
+@media (min-width: 1280px) {
+  .block-last-message .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .block-last-message .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .block-last-message .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .block-last-message .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .block-last-message .entry__link {
+    width: 260px;
+  }
+  .block-last-message .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .block-last-message .statistic {
+    grid-row-gap: 25px;
+  }
+  .block-last-message .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .block-last-message .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-last-message .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .block-last-message .user-information__time-message {
+    width: 150px;
+  }
+  .block-last-message .user-information__user-name {
+    flex-direction: row;
+  }
+  .block-last-message .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .block-last-message .last-message__title {
+    font-size: 27px;
+  }
+  .block-last-message .user-information__time-message p {
+    font-size: 14px;
+  }
+  .block-last-message .user-interaction {
+    max-width: 250px;
+  }
+  .block-last-message .line {
+    width: 692px;
+  }
+  .block-last-message .user-message p {
+    font-size: 18px;
+  }
+}
 .block-last-message .line {
   border-top: 1px solid #E9E9E9;
   height: 1px;
   width: 100%;
-  padding: 16px 0px 16px 0;
+  margin: 16px 0px 16px 0;
+}
+@media (min-width: 1280px) {
+  .block-last-message .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .block-last-message .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .block-last-message .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .block-last-message .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .block-last-message .entry__link {
+    width: 260px;
+  }
+  .block-last-message .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .block-last-message .statistic {
+    grid-row-gap: 25px;
+  }
+  .block-last-message .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .block-last-message .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-last-message .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .block-last-message .user-information__time-message {
+    width: 150px;
+  }
+  .block-last-message .user-information__user-name {
+    flex-direction: row;
+  }
+  .block-last-message .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .block-last-message .last-message__title {
+    font-size: 27px;
+  }
+  .block-last-message .user-information__time-message p {
+    font-size: 14px;
+  }
+  .block-last-message .user-interaction {
+    max-width: 250px;
+  }
+  .block-last-message .line {
+    width: 692px;
+  }
+  .block-last-message .user-message p {
+    font-size: 18px;
+  }
 }
 .block-last-message .post {
   display: grid;
-  grid-template-columns: 1fr 5fr;
+  grid-template-columns: 52px 1fr;
   grid-column-gap: 16px;
-  margin: 0px 16px;
-  width: 90%;
+  width: 100%;
 }
 .block-last-message .post .post__avatar {
   width: 52px;
@@ -325,6 +565,162 @@
   line-height: 18px;
   color: #ABACB1;
 }
+@media (min-width: 1280px) {
+  .block-last-message .post .user .user-information .user-information__user-name .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .statistic {
+    grid-row-gap: 25px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .user-information__time-message {
+    width: 150px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .user-information__user-name {
+    flex-direction: row;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .last-message__title {
+    font-size: 27px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .user-information__time-message p {
+    font-size: 14px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .user-interaction {
+    max-width: 250px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .line {
+    width: 692px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .user-message p {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1280px) {
+  .block-last-message .post .user .user-information .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .block-last-message .post .user .user-information .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .block-last-message .post .user .user-information .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .block-last-message .post .user .user-information .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .block-last-message .post .user .user-information .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user .user-information .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .block-last-message .post .user .user-information .statistic {
+    grid-row-gap: 25px;
+  }
+  .block-last-message .post .user .user-information .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .block-last-message .post .user .user-information .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-last-message .post .user .user-information .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message {
+    width: 150px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name {
+    flex-direction: row;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .block-last-message .post .user .user-information .last-message__title {
+    font-size: 27px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message p {
+    font-size: 14px;
+  }
+  .block-last-message .post .user .user-information .user-interaction {
+    max-width: 250px;
+  }
+  .block-last-message .post .user .user-information .line {
+    width: 692px;
+  }
+  .block-last-message .post .user .user-information .user-message p {
+    font-size: 18px;
+  }
+}
 .block-last-message .post .user .user-information .user-information__time-message {
   width: 52px;
 }
@@ -333,6 +729,162 @@
   font-size: 10px;
   text-align: right;
   color: #ABACB1;
+}
+@media (min-width: 1280px) {
+  .block-last-message .post .user .user-information .user-information__time-message .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .statistic {
+    grid-row-gap: 25px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .user-information__time-message {
+    width: 150px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .user-information__user-name {
+    flex-direction: row;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .last-message__title {
+    font-size: 27px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .user-information__time-message p {
+    font-size: 14px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .user-interaction {
+    max-width: 250px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .line {
+    width: 692px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .user-message p {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1280px) {
+  .block-last-message .post .user .user-information .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .block-last-message .post .user .user-information .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .block-last-message .post .user .user-information .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .block-last-message .post .user .user-information .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .block-last-message .post .user .user-information .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user .user-information .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .block-last-message .post .user .user-information .statistic {
+    grid-row-gap: 25px;
+  }
+  .block-last-message .post .user .user-information .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .block-last-message .post .user .user-information .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-last-message .post .user .user-information .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message {
+    width: 150px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name {
+    flex-direction: row;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .block-last-message .post .user .user-information .last-message__title {
+    font-size: 27px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message p {
+    font-size: 14px;
+  }
+  .block-last-message .post .user .user-information .user-interaction {
+    max-width: 250px;
+  }
+  .block-last-message .post .user .user-information .line {
+    width: 692px;
+  }
+  .block-last-message .post .user .user-information .user-message p {
+    font-size: 18px;
+  }
 }
 .block-last-message .post .user-message {
   display: flex;
@@ -346,9 +898,165 @@
   letter-spacing: 0em;
   text-align: left;
 }
+@media (min-width: 1280px) {
+  .block-last-message .post .user-message .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .block-last-message .post .user-message .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .block-last-message .post .user-message .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .block-last-message .post .user-message .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .block-last-message .post .user-message .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user-message .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .block-last-message .post .user-message .statistic {
+    grid-row-gap: 25px;
+  }
+  .block-last-message .post .user-message .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .block-last-message .post .user-message .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-last-message .post .user-message .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .block-last-message .post .user-message .user-information__time-message {
+    width: 150px;
+  }
+  .block-last-message .post .user-message .user-information__user-name {
+    flex-direction: row;
+  }
+  .block-last-message .post .user-message .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .block-last-message .post .user-message .last-message__title {
+    font-size: 27px;
+  }
+  .block-last-message .post .user-message .user-information__time-message p {
+    font-size: 14px;
+  }
+  .block-last-message .post .user-message .user-interaction {
+    max-width: 250px;
+  }
+  .block-last-message .post .user-message .line {
+    width: 692px;
+  }
+  .block-last-message .post .user-message .user-message p {
+    font-size: 18px;
+  }
+}
 .block-last-message .post .user-message img {
   max-width: 100%;
   height: auto;
+}
+@media (min-width: 1280px) {
+  .block-last-message .post .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .block-last-message .post .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .block-last-message .post .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .block-last-message .post .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .block-last-message .post .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .block-last-message .post .statistic {
+    grid-row-gap: 25px;
+  }
+  .block-last-message .post .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .block-last-message .post .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-last-message .post .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .block-last-message .post .user-information__time-message {
+    width: 150px;
+  }
+  .block-last-message .post .user-information__user-name {
+    flex-direction: row;
+  }
+  .block-last-message .post .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .block-last-message .post .last-message__title {
+    font-size: 27px;
+  }
+  .block-last-message .post .user-information__time-message p {
+    font-size: 14px;
+  }
+  .block-last-message .post .user-interaction {
+    max-width: 250px;
+  }
+  .block-last-message .post .line {
+    width: 692px;
+  }
+  .block-last-message .post .user-message p {
+    font-size: 18px;
+  }
 }
 .block-last-message .post .mg-rg {
   margin-right: 10px;
@@ -375,6 +1083,84 @@
   font-size: 14px;
   line-height: 24px;
   color: #B1B1B1;
+}
+@media (min-width: 1280px) {
+  .block-last-message .post .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .block-last-message .post .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .block-last-message .post .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .block-last-message .post .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .block-last-message .post .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .block-last-message .post .statistic {
+    grid-row-gap: 25px;
+  }
+  .block-last-message .post .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .block-last-message .post .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .block-last-message .post .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .block-last-message .post .user-information__time-message {
+    width: 150px;
+  }
+  .block-last-message .post .user-information__user-name {
+    flex-direction: row;
+  }
+  .block-last-message .post .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .block-last-message .post .last-message__title {
+    font-size: 27px;
+  }
+  .block-last-message .post .user-information__time-message p {
+    font-size: 14px;
+  }
+  .block-last-message .post .user-interaction {
+    max-width: 250px;
+  }
+  .block-last-message .post .line {
+    width: 692px;
+  }
+  .block-last-message .post .user-message p {
+    font-size: 18px;
+  }
 }
 
 @media (min-width: 1280px) {
@@ -425,5 +1211,33 @@
   .statistic__description {
     font-size: 18px;
     line-height: 20px;
+  }
+  .block-last-message {
+    width: 692px;
+    margin: auto;
+  }
+  .user-information__time-message {
+    width: 150px;
+  }
+  .user-information__user-name {
+    flex-direction: row;
+  }
+  .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .last-message__title {
+    font-size: 27px;
+  }
+  .user-information__time-message p {
+    font-size: 14px;
+  }
+  .user-interaction {
+    max-width: 250px;
+  }
+  .line {
+    width: 692px;
+  }
+  .user-message p {
+    font-size: 18px;
   }
 }/*# sourceMappingURL=style.css.map */
