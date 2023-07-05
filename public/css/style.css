@@ -34,7 +34,93 @@
   text-align: center;
   margin-bottom: 24px;
 }
+.entry .fz-title {
+  font-size: 20px;
+}
 @media (min-width: 1280px) {
+  .entry .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .entry .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .entry .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .entry .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .entry .entry__link {
+    width: 260px;
+  }
+  .entry .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .entry .statistic {
+    grid-row-gap: 25px;
+  }
+  .entry .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .entry .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .entry .block-last-message {
+    width: 692px;
+    margin: auto;
+    margin-bottom: 25px;
+  }
+  .entry .user-information__time-message {
+    width: 150px;
+  }
+  .entry .user-information__user-name {
+    flex-direction: row;
+  }
+  .entry .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .entry .last-message__title {
+    font-size: 27px;
+  }
+  .entry .user-information__time-message p {
+    font-size: 14px;
+  }
+  .entry .user-interaction {
+    max-width: 280px;
+  }
+  .entry .line {
+    width: 692px;
+  }
+  .entry .user-message p {
+    font-size: 18px;
+  }
+  .entry .entry__link {
+    width: 260px;
+  }
+  .entry .entry-block__link {
+    margin: 0;
+  }
   .entry .entry__title {
     width: 440px;
     font-size: 42px;
@@ -44,12 +130,50 @@
   .entry .mgtext {
     margin-right: 50px;
   }
+  .entry .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .entry .call-block .entry {
+    margin: auto;
+  }
+  .entry .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .entry .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .entry .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .entry .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
+  }
 }
-.entry .entry__link {
+.entry .entry-block__link {
+  display: flex;
+  flex-direction: column;
+  grid-row-gap: 16px;
+  margin: auto;
+}
+.entry .entry-block__link .entry__link {
   display: inline-block;
   text-decoration: none;
   width: 328px;
-  margin: auto;
   border: 1px solid #0057FF;
   text-align: center;
   padding: 15px 1px;
@@ -59,19 +183,264 @@
   color: #0057FF;
   transition: all 0.5s;
 }
-.entry .entry__link:hover {
+.entry .entry-block__link .entry__link:hover {
   color: #FFFFFF;
   background: #0057FF;
   transition: all 0.5s;
 }
 @media (min-width: 1280px) {
-  .entry .entry__link {
+  .entry .entry-block__link .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .entry .entry-block__link .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .entry .entry-block__link .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .entry .entry-block__link .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .entry .entry-block__link .entry__link {
     width: 260px;
+  }
+  .entry .entry-block__link .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .entry .entry-block__link .statistic {
+    grid-row-gap: 25px;
+  }
+  .entry .entry-block__link .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .entry .entry-block__link .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .entry .entry-block__link .block-last-message {
+    width: 692px;
+    margin: auto;
+    margin-bottom: 25px;
+  }
+  .entry .entry-block__link .user-information__time-message {
+    width: 150px;
+  }
+  .entry .entry-block__link .user-information__user-name {
+    flex-direction: row;
+  }
+  .entry .entry-block__link .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .entry .entry-block__link .last-message__title {
+    font-size: 27px;
+  }
+  .entry .entry-block__link .user-information__time-message p {
+    font-size: 14px;
+  }
+  .entry .entry-block__link .user-interaction {
+    max-width: 280px;
+  }
+  .entry .entry-block__link .line {
+    width: 692px;
+  }
+  .entry .entry-block__link .user-message p {
+    font-size: 18px;
+  }
+  .entry .entry-block__link .entry__link {
+    width: 260px;
+  }
+  .entry .entry-block__link .entry-block__link {
     margin: 0;
   }
+  .entry .entry-block__link .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .entry .entry-block__link .mgtext {
+    margin-right: 50px;
+  }
+  .entry .entry-block__link .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .entry .entry-block__link .call-block .entry {
+    margin: auto;
+  }
+  .entry .entry-block__link .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .entry .entry-block__link .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .entry .entry-block__link .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .entry .entry-block__link .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
+  }
 }
-.entry .entry__link-mg {
-  margin-top: 16px;
+@media (min-width: 1280px) {
+  .entry .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .entry .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .entry .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .entry .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .entry .entry__link {
+    width: 260px;
+  }
+  .entry .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .entry .statistic {
+    grid-row-gap: 25px;
+  }
+  .entry .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .entry .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .entry .block-last-message {
+    width: 692px;
+    margin: auto;
+    margin-bottom: 25px;
+  }
+  .entry .user-information__time-message {
+    width: 150px;
+  }
+  .entry .user-information__user-name {
+    flex-direction: row;
+  }
+  .entry .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .entry .last-message__title {
+    font-size: 27px;
+  }
+  .entry .user-information__time-message p {
+    font-size: 14px;
+  }
+  .entry .user-interaction {
+    max-width: 280px;
+  }
+  .entry .line {
+    width: 692px;
+  }
+  .entry .user-message p {
+    font-size: 18px;
+  }
+  .entry .entry__link {
+    width: 260px;
+  }
+  .entry .entry-block__link {
+    margin: 0;
+  }
+  .entry .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .entry .mgtext {
+    margin-right: 50px;
+  }
+  .entry .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .entry .call-block .entry {
+    margin: auto;
+  }
+  .entry .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .entry .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .entry .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .entry .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
+  }
 }
 
 .logo {
@@ -163,6 +532,7 @@
   .statistics .statistic .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .statistics .statistic .user-information__time-message {
     width: 150px;
@@ -187,6 +557,54 @@
   }
   .statistics .statistic .user-message p {
     font-size: 18px;
+  }
+  .statistics .statistic .entry__link {
+    width: 260px;
+  }
+  .statistics .statistic .entry-block__link {
+    margin: 0;
+  }
+  .statistics .statistic .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .statistics .statistic .mgtext {
+    margin-right: 50px;
+  }
+  .statistics .statistic .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .statistics .statistic .call-block .entry {
+    margin: auto;
+  }
+  .statistics .statistic .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .statistics .statistic .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .statistics .statistic .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .statistics .statistic .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 .statistics .statistic .statistic__description {
@@ -248,6 +666,7 @@
   .statistics .statistic .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .statistics .statistic .user-information__time-message {
     width: 150px;
@@ -272,6 +691,54 @@
   }
   .statistics .statistic .user-message p {
     font-size: 18px;
+  }
+  .statistics .statistic .entry__link {
+    width: 260px;
+  }
+  .statistics .statistic .entry-block__link {
+    margin: 0;
+  }
+  .statistics .statistic .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .statistics .statistic .mgtext {
+    margin-right: 50px;
+  }
+  .statistics .statistic .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .statistics .statistic .call-block .entry {
+    margin: auto;
+  }
+  .statistics .statistic .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .statistics .statistic .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .statistics .statistic .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .statistics .statistic .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 @media (min-width: 1280px) {
@@ -326,6 +793,7 @@
   .statistics .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .statistics .user-information__time-message {
     width: 150px;
@@ -351,9 +819,58 @@
   .statistics .user-message p {
     font-size: 18px;
   }
+  .statistics .entry__link {
+    width: 260px;
+  }
+  .statistics .entry-block__link {
+    margin: 0;
+  }
+  .statistics .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .statistics .mgtext {
+    margin-right: 50px;
+  }
+  .statistics .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .statistics .call-block .entry {
+    margin: auto;
+  }
+  .statistics .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .statistics .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .statistics .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .statistics .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
+  }
 }
 
 .block-last-message {
+  margin-bottom: 25px;
   display: flex;
   flex-direction: column;
   padding: 0 16px;
@@ -419,6 +936,7 @@
   .block-last-message .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .block-last-message .user-information__time-message {
     width: 150px;
@@ -443,6 +961,54 @@
   }
   .block-last-message .user-message p {
     font-size: 18px;
+  }
+  .block-last-message .entry__link {
+    width: 260px;
+  }
+  .block-last-message .entry-block__link {
+    margin: 0;
+  }
+  .block-last-message .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .block-last-message .mgtext {
+    margin-right: 50px;
+  }
+  .block-last-message .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .block-last-message .call-block .entry {
+    margin: auto;
+  }
+  .block-last-message .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .block-last-message .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .block-last-message .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .block-last-message .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 .block-last-message .line {
@@ -503,6 +1069,7 @@
   .block-last-message .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .block-last-message .user-information__time-message {
     width: 150px;
@@ -527,6 +1094,54 @@
   }
   .block-last-message .user-message p {
     font-size: 18px;
+  }
+  .block-last-message .entry__link {
+    width: 260px;
+  }
+  .block-last-message .entry-block__link {
+    margin: 0;
+  }
+  .block-last-message .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .block-last-message .mgtext {
+    margin-right: 50px;
+  }
+  .block-last-message .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .block-last-message .call-block .entry {
+    margin: auto;
+  }
+  .block-last-message .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .block-last-message .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .block-last-message .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .block-last-message .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 .block-last-message .post {
@@ -617,6 +1232,7 @@
   .block-last-message .post .user .user-information .user-information__user-name .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .block-last-message .post .user .user-information .user-information__user-name .user-information__time-message {
     width: 150px;
@@ -641,6 +1257,54 @@
   }
   .block-last-message .post .user .user-information .user-information__user-name .user-message p {
     font-size: 18px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .entry-block__link {
+    margin: 0;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .mgtext {
+    margin-right: 50px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .call-block .entry {
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .block-last-message .post .user .user-information .user-information__user-name .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 @media (min-width: 1280px) {
@@ -695,6 +1359,7 @@
   .block-last-message .post .user .user-information .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .block-last-message .post .user .user-information .user-information__time-message {
     width: 150px;
@@ -719,6 +1384,54 @@
   }
   .block-last-message .post .user .user-information .user-message p {
     font-size: 18px;
+  }
+  .block-last-message .post .user .user-information .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user .user-information .entry-block__link {
+    margin: 0;
+  }
+  .block-last-message .post .user .user-information .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .block-last-message .post .user .user-information .mgtext {
+    margin-right: 50px;
+  }
+  .block-last-message .post .user .user-information .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .block-last-message .post .user .user-information .call-block .entry {
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .block-last-message .post .user .user-information .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .block-last-message .post .user .user-information .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 .block-last-message .post .user .user-information .user-information__time-message {
@@ -782,6 +1495,7 @@
   .block-last-message .post .user .user-information .user-information__time-message .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .block-last-message .post .user .user-information .user-information__time-message .user-information__time-message {
     width: 150px;
@@ -806,6 +1520,54 @@
   }
   .block-last-message .post .user .user-information .user-information__time-message .user-message p {
     font-size: 18px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .entry-block__link {
+    margin: 0;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .mgtext {
+    margin-right: 50px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .call-block .entry {
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .block-last-message .post .user .user-information .user-information__time-message .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 @media (min-width: 1280px) {
@@ -860,6 +1622,7 @@
   .block-last-message .post .user .user-information .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .block-last-message .post .user .user-information .user-information__time-message {
     width: 150px;
@@ -884,6 +1647,54 @@
   }
   .block-last-message .post .user .user-information .user-message p {
     font-size: 18px;
+  }
+  .block-last-message .post .user .user-information .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user .user-information .entry-block__link {
+    margin: 0;
+  }
+  .block-last-message .post .user .user-information .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .block-last-message .post .user .user-information .mgtext {
+    margin-right: 50px;
+  }
+  .block-last-message .post .user .user-information .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .block-last-message .post .user .user-information .call-block .entry {
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .block-last-message .post .user .user-information .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .block-last-message .post .user .user-information .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .block-last-message .post .user .user-information .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 .block-last-message .post .user-message {
@@ -950,6 +1761,7 @@
   .block-last-message .post .user-message .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .block-last-message .post .user-message .user-information__time-message {
     width: 150px;
@@ -974,6 +1786,54 @@
   }
   .block-last-message .post .user-message .user-message p {
     font-size: 18px;
+  }
+  .block-last-message .post .user-message .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .user-message .entry-block__link {
+    margin: 0;
+  }
+  .block-last-message .post .user-message .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .block-last-message .post .user-message .mgtext {
+    margin-right: 50px;
+  }
+  .block-last-message .post .user-message .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .block-last-message .post .user-message .call-block .entry {
+    margin: auto;
+  }
+  .block-last-message .post .user-message .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .block-last-message .post .user-message .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .block-last-message .post .user-message .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .block-last-message .post .user-message .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 .block-last-message .post .user-message img {
@@ -1032,6 +1892,7 @@
   .block-last-message .post .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .block-last-message .post .user-information__time-message {
     width: 150px;
@@ -1056,6 +1917,54 @@
   }
   .block-last-message .post .user-message p {
     font-size: 18px;
+  }
+  .block-last-message .post .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .entry-block__link {
+    margin: 0;
+  }
+  .block-last-message .post .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .block-last-message .post .mgtext {
+    margin-right: 50px;
+  }
+  .block-last-message .post .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .block-last-message .post .call-block .entry {
+    margin: auto;
+  }
+  .block-last-message .post .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .block-last-message .post .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .block-last-message .post .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .block-last-message .post .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 .block-last-message .post .mg-rg {
@@ -1136,6 +2045,7 @@
   .block-last-message .post .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .block-last-message .post .user-information__time-message {
     width: 150px;
@@ -1160,6 +2070,196 @@
   }
   .block-last-message .post .user-message p {
     font-size: 18px;
+  }
+  .block-last-message .post .entry__link {
+    width: 260px;
+  }
+  .block-last-message .post .entry-block__link {
+    margin: 0;
+  }
+  .block-last-message .post .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .block-last-message .post .mgtext {
+    margin-right: 50px;
+  }
+  .block-last-message .post .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .block-last-message .post .call-block .entry {
+    margin: auto;
+  }
+  .block-last-message .post .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .block-last-message .post .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .block-last-message .post .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .block-last-message .post .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
+  }
+}
+
+.call-block {
+  margin: auto;
+}
+.call-block .entry .entry__title {
+  width: 360px;
+  margin: auto;
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+@media (min-width: 1280px) {
+  .call-block .entry .entry__title {
+    width: 460px;
+  }
+}
+@media (min-width: 1280px) {
+  .call-block .container2 {
+    width: 1280px;
+    display: flex;
+    flex-direction: row;
+    height: 640px;
+  }
+  .call-block .bg-friends {
+    margin: 0;
+    background-size: 195% 133%;
+    width: 640px;
+    height: auto;
+    background-position: -240px -160px;
+  }
+  .call-block .registration {
+    margin: 0px;
+    margin-left: 70px;
+    width: 640px;
+    align-self: flex-start;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .call-block .logo {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .call-block .entry__link {
+    width: 260px;
+  }
+  .call-block .statistics {
+    width: 960px;
+    height: 274px;
+    flex-direction: row;
+    grid-column-gap: 150px;
+    justify-content: center;
+    margin: auto;
+    border-radius: 10px;
+  }
+  .call-block .statistic {
+    grid-row-gap: 25px;
+  }
+  .call-block .statistic__count {
+    padding-top: 20px;
+    font-size: 60px;
+  }
+  .call-block .statistic__description {
+    font-size: 18px;
+    line-height: 20px;
+  }
+  .call-block .block-last-message {
+    width: 692px;
+    margin: auto;
+    margin-bottom: 25px;
+  }
+  .call-block .user-information__time-message {
+    width: 150px;
+  }
+  .call-block .user-information__user-name {
+    flex-direction: row;
+  }
+  .call-block .user-information__user-name span {
+    margin-left: 20px;
+  }
+  .call-block .last-message__title {
+    font-size: 27px;
+  }
+  .call-block .user-information__time-message p {
+    font-size: 14px;
+  }
+  .call-block .user-interaction {
+    max-width: 280px;
+  }
+  .call-block .line {
+    width: 692px;
+  }
+  .call-block .user-message p {
+    font-size: 18px;
+  }
+  .call-block .entry__link {
+    width: 260px;
+  }
+  .call-block .entry-block__link {
+    margin: 0;
+  }
+  .call-block .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .call-block .mgtext {
+    margin-right: 50px;
+  }
+  .call-block .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .call-block .call-block .entry {
+    margin: auto;
+  }
+  .call-block .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .call-block .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .call-block .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .call-block .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }
 
@@ -1215,6 +2315,7 @@
   .block-last-message {
     width: 692px;
     margin: auto;
+    margin-bottom: 25px;
   }
   .user-information__time-message {
     width: 150px;
@@ -1239,5 +2340,53 @@
   }
   .user-message p {
     font-size: 18px;
+  }
+  .entry__link {
+    width: 260px;
+  }
+  .entry-block__link {
+    margin: 0;
+  }
+  .entry__title {
+    width: 440px;
+    font-size: 42px;
+    text-align: left;
+    line-height: 60px;
+  }
+  .mgtext {
+    margin-right: 50px;
+  }
+  .call-block {
+    position: relative;
+    margin: auto;
+    width: 1280px;
+  }
+  .call-block .entry {
+    margin: auto;
+  }
+  .call-block .entry__link {
+    width: 100%;
+    margin: auto;
+  }
+  .call-block .entry-block__link {
+    flex-direction: row;
+    margin: auto;
+    grid-column-gap: 10px;
+  }
+  .call-block .entry__title {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    line-height: 40px;
+  }
+  .call-block::before {
+    content: "    ";
+    width: 1280px;
+    height: 250px;
+    display: block;
+    position: absolute;
+    bottom: 150px;
+    left: 0px;
+    background: linear-gradient(0deg, rgb(255, 255, 255) 20%, rgba(0, 0, 0, 0));
   }
 }/*# sourceMappingURL=style.css.map */
