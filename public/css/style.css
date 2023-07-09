@@ -217,6 +217,7 @@
   .entry .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .entry .exit {
@@ -427,6 +428,7 @@
   .entry .entry-block__link .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .entry .entry-block__link .exit {
@@ -612,6 +614,7 @@
   .entry .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .entry .exit {
@@ -835,6 +838,7 @@
   .statistics .statistic .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .statistics .statistic .exit {
@@ -1027,6 +1031,7 @@
   .statistics .statistic .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .statistics .statistic .exit {
@@ -1212,6 +1217,7 @@
   .statistics .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .statistics .exit {
@@ -1413,6 +1419,7 @@
   .block-last-message .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .exit {
@@ -1604,6 +1611,7 @@
   .block-last-message .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .exit {
@@ -1825,6 +1833,7 @@
   .block-last-message .post .user .user-information .user-information__user-name .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .post .user .user-information .user-information__user-name .exit {
@@ -2010,6 +2019,7 @@
   .block-last-message .post .user .user-information .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .post .user .user-information .exit {
@@ -2204,6 +2214,7 @@
   .block-last-message .post .user .user-information .user-information__time-message .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .post .user .user-information .user-information__time-message .exit {
@@ -2389,6 +2400,7 @@
   .block-last-message .post .user .user-information .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .post .user .user-information .exit {
@@ -2586,6 +2598,7 @@
   .block-last-message .post .user-message .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .post .user-message .exit {
@@ -2775,6 +2788,7 @@
   .block-last-message .post .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .post .exit {
@@ -2987,6 +3001,7 @@
   .block-last-message .post .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .post .exit {
@@ -3172,6 +3187,7 @@
   .block-last-message .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .block-last-message .exit {
@@ -3378,6 +3394,7 @@
   .call-block .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .call-block .exit {
@@ -3583,6 +3600,7 @@
   .bg-registration-window .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .bg-registration-window .exit {
@@ -3780,6 +3798,7 @@
   .bg-registration-window .registration-window .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .bg-registration-window .registration-window .exit {
@@ -3978,6 +3997,7 @@
   .bg-registration-window .registration-window .registration-window__title .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .bg-registration-window .registration-window .registration-window__title .exit {
@@ -4260,6 +4280,7 @@
   .block-registration {
     width: 362px;
     height: 440px;
+    border-radius: 10px 10px 10px 10px;
     top: 33%;
   }
   .exit {
