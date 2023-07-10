@@ -18,11 +18,15 @@
   display: flex;
   flex-direction: column;
   .entry__title {
-    font-weight: 900;
-    font-size: 32px;
-    line-height: 38px;
+    color: #000;
     text-align: center;
-    margin-bottom: 24px
+    text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    margin-bottom: 24px;
+    padding: 0px 16px;
   }
   .fz-title{
     font-size: 20px;
@@ -43,11 +47,12 @@
     border-radius: 10px;
     font-weight: 400;
     font-size: 18px;
-    color: #0057FF;
+    background: #0057FF;
+    color: #ffffff;
     transition: all 0.5s;    
     &:hover{
-    color: #FFFFFF;
-    background: #0057FF;
+    color: #0057FF;
+    background: #FFFFFF;
     transition: all 0.5s;    
     }
   }
@@ -107,11 +112,11 @@
     padding: 0 16px;
     align-items: flex-start;
   .last-message__title {
-    padding-top: 45px;
+    text-align: left;
+    padding-top: 42px;
     font-weight: 900;
     font-size: 20px;
     line-height: 29px;
-    margin: 0px 16px;
     margin-bottom: 24px;
   }
   @import "_adapt";
@@ -192,7 +197,8 @@
   .mg-rg{
     margin-right: 10px;
   }
-  .user-interaction{
+  .user-interaction {
+    margin-top: 5px;
     max-width: 205px;
     display: flex;
     justify-content: space-between;
@@ -217,23 +223,183 @@
   }
   @import "_adapt";
 }
+@import "_adapt";
 }
 .call-block {
   margin: auto;
+  margin-bottom: 36px;
   .entry{
     .entry__title {
-      width: 360px;
+      color: #000;
+      text-align: center;
+      font-size: 28px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: normal;
       margin: auto;
-      font-size: 32px;
-     margin-bottom: 20px
+      margin-bottom: 24px
     }
     @media (min-width: 1280px){
     .entry__title {
       width: 460px;
+      margin-bottom: 32px;
     }
   }
   }
   @import "_adapt";
 }
+.bg-registration-window {
+  position:fixed;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  top:0px;
+  left:0px;
+  width:100vw;
+  height:100vh;
+  background: #00000099;
+  .block-registration {
+    background: #FFFFFF;
+    width: 100%;
+    height: 476px;
+    position: fixed;
+    bottom:0px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  @import "_adapt";
+  .registration-window {
+    padding: 16px 16px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    .registration-window__handler {
+     width: 50px;
+     height: 4px;
+     border-radius: 2px;
+     background: #ABACB1;
+     margin: 0 auto 32px auto;
+     }
+     @import "_adapt";
+  .registration-window__title {
+    display: flex;
+    justify-content: space-between;
+    color: #1D1E22;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: 28px;
+    margin-bottom: 24px;
+    .exit {
+      display: none;
+    }
+    @import "_adapt";
+  }
 
+  .window-input {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 52px;
+    margin-bottom: 24px;
+    border-radius: 10px;
+    border: 1px solid #DFDFDF;
+    background: #FFF;
+    input {
+      outline: 0 !important;
+    }
+      .window-input__label{
+      color: #B1B1B1;
+      font-size: 9px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-left: 16px;
+      margin-top: 8px;
+      }
+      .window-input__input{
+      margin-top: 4px;
+      border: 0px;
+      font-size: 18px;
+      margin-left: 16px;
+      color: #555;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      }
+  }
+  .input-mail {
+    .window-input {
+    margin-bottom: 0px;
+    border-radius: 10px;
+    border: 1px solid #FF97C3;
+    background: #FFDEEC;  
+     }
+    .window-input__input {
+    margin-top: 0px; 
+    background: #FFDEEC;
+     }
+    .window-input__label { 
+    margin-top: 12px;
+    }
+  }
+  .input-password {
+    .window-input { 
+      .window-input__input {
+        margin-top: 16px; 
+        margin-bottom: 14px;
+        }
+    }
+  }
+  .input-confirm-password {
+    .window-input { 
+      .window-input__input {
+        margin-top: 16px; 
+        margin-bottom: 14px;
+        }
+    }
+  }
+  .validation {
+    color: #E40060;
+    font-size: 9px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin-left: 16px;
+    margin-top: 4px;
+    margin-bottom: 9px;
+  }
+  .login-vd {
+    display: none;
+  }
+  .password-vd {
+    display: none;
+  }
+  .confirm-password-vd {
+    display: none
+  }
+  .btn-registration-window {
+    margin: auto;
+    display: inline-block;
+    text-decoration: none;
+    width: 328px;
+    border: 1px solid #0057FF;
+    text-align: center;
+    padding: 15px 1px;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 18px;
+    background: #0057FF;
+    color: #ffffff;
+    transition: all 0.5s; 
+    &:hover{
+    color: #0057FF;
+    background: #FFFFFF;
+    transition: all 0.5s;    
+    }
+  }
+  }
+}
+
+.bg-registration-window { 
+    //display: none;
+}
 @import "_adapt";
