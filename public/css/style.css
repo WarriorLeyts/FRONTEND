@@ -4100,6 +4100,10 @@
   transition: all 0.5s;
 }
 
+.bg-registration-window {
+  display: none;
+}
+
 @media (min-width: 1280px) {
   header {
     background: #F4F5F6;
