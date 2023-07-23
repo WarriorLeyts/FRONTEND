@@ -314,7 +314,7 @@
       line-height: normal;
       margin-left: 16px;
       margin-top: 8px;
-      }
+      }    
       .window-input__input{
       margin-top: 4px;
       border: 0px;
@@ -323,7 +323,7 @@
       color: #555;
       font-style: normal;
       font-weight: 400;  
-      line-height: normal;
+      line-height: normal; 
       }
   }
   .input-mail {
@@ -393,13 +393,13 @@
     &:hover{
     color: #0057FF;
     background: #FFFFFF;
-    transition: all 0.5s;    
+    transition: all 0.5s;      
     }
   }
   }
 }
 
 .bg-registration-window { 
-    display: none;
+    display: none; 
 }
 @import "_adapt";
