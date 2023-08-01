@@ -49,7 +49,8 @@
     font-size: 18px;
     background: #0057FF;
     color: #ffffff;
-    transition: all 0.5s;    
+    transition: all 0.5s;
+    cursor: pointer;    
     &:hover{
     color: #0057FF;
     background: #FFFFFF;
@@ -277,6 +278,7 @@
      border-radius: 2px;
      background: #ABACB1;
      margin: 0 auto 32px auto;
+     cursor: pointer;
      }
      @import "_adapt";
   .registration-window__title {
@@ -290,6 +292,7 @@
     margin-bottom: 24px;
     .exit {
       display: none;
+      cursor: pointer;
     }
     @import "_adapt";
   }
@@ -314,7 +317,7 @@
       line-height: normal;
       margin-left: 16px;
       margin-top: 8px;
-      }    
+      }
       .window-input__input{
       margin-top: 4px;
       border: 0px;
@@ -322,8 +325,8 @@
       margin-left: 16px;
       color: #555;
       font-style: normal;
-      font-weight: 400;  
-      line-height: normal; 
+      font-weight: 400;
+      line-height: normal;
       }
   }
   .input-mail {
@@ -393,13 +396,146 @@
     &:hover{
     color: #0057FF;
     background: #FFFFFF;
-    transition: all 0.5s;      
-    } 
+    transition: all 0.5s;    
+    }
   }
   }
+}
+.bg-authorization-window {
+  position:fixed;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  top:0px;
+  left:0px;
+  width:100vw;
+  height:100vh;
+  background: #00000099;
+  .block-authorization {
+    background: #FFFFFF;
+    width: 100%;
+    height: 324px;
+    position: fixed;
+    bottom:0px;
+    border-radius: 10px 10px 0px 0px;
+  }
+  @import "_adapt";
+  .authorization-window {
+    padding: 16px 16px 16px 16px;
+    display: flex;
+    flex-direction: column;
+  .authorization-window__handler {
+    width: 50px;
+    height: 4px;
+    border-radius: 2px;
+    background: #ABACB1;
+    margin: 0 auto 32px auto;
+    cursor: pointer;
+    }
+    @import "_adapt";
+    .authorization-window__title {
+      display: flex;
+      justify-content: space-between;
+      color: #1D1E22;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 900;
+      line-height: 28px;
+      margin-bottom: 24px;
+      .exit {
+        display: none;
+        cursor: pointer;
+      }
+      @import "_adapt";
+    }
+    .window-input {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 52px;
+      margin-bottom: 24px;
+      border-radius: 10px;
+      border: 1px solid #DFDFDF;
+      background: #FFF;
+      input {
+        outline: 0 !important;
+      }
+        .window-input__label{
+        color: #B1B1B1;
+        font-size: 9px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        margin-left: 16px;
+        margin-top: 8px;
+        }
+        .window-input__input{
+        margin-top: 4px;
+        border: 0px;
+        font-size: 18px;
+        margin-left: 16px;
+        color: #555;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        }
+    }
+    .validation {
+      color: #E40060;
+      font-size: 9px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: normal;
+      margin-left: 16px;
+      margin-top: 4px;
+      margin-bottom: 9px;
+    }
+    .btn-authorization-window {
+      margin: auto;
+      display: inline-block;
+      text-decoration: none;
+      width: 328px;
+      border: 1px solid #0057FF;
+      text-align: center;
+      padding: 15px 1px;
+      border-radius: 10px;
+      font-weight: 400;
+      font-size: 18px;
+      background: #0057FF;
+      color: #ffffff;
+      transition: all 0.5s; 
+      &:hover{
+      color: #0057FF;
+      background: #FFFFFF;
+      transition: all 0.5s;    
+      }
+    }
+    .input-password {
+      .window-input {
+      margin-bottom: 0px;
+      border-radius: 10px;
+      border: 1px solid #FF97C3;
+      background: #FFDEEC;  
+       }
+      .window-input__input {
+      margin-top: 0px; 
+      background: #FFDEEC;
+       }
+      .window-input__label { 
+      margin-top: 12px;
+      }
+    }
+    .mail-vd {
+      display: none;
+    }
+  }
+  
+}
+.bg-registration-window { 
+  display: none;
+}
+.bg-authorization-window { 
+  display: none;
 }
 
-.bg-registration-window { 
-    display: none; 
-}
 @import "_adapt";
