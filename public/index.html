@@ -7,12 +7,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <title>Twiitter demo</title>
 </head>
 <body>
-    <header class="container1"> 
-      <div class="container2">
+    <header> 
+      <div class="container1">
       <div class="registration">
           <img class="logo" src="img/logo.svg">
           <div class="entry">
@@ -33,9 +36,11 @@
         </div>
       </div>
     </header>
-    <main class="container1"><div class="block-last-message">
-        <h2 class="last-message__title">Последние сообщения</h2>
-        <div class="posts">
+    <main>
+      <div class="container2">
+      <h2 class="last-message__title">Последние сообщения</h2>
+      <div class="block-main">
+        <div class="last-message">
         <div class="post">
             <a href="#"><img class="post__avatar" src="img/vins-avatar.png" alt=""></a>
             <div class="user">
@@ -193,7 +198,69 @@
             </div>
         </div>
       </div>
-    </div></main>
+      <div class="topics-blogs">
+        <div class="topics">
+          <h4 class="topics-blogs__title">Актуальные темы</h4>
+         <ul class="hashtags-items">
+          <li class="hashtags-item">
+            <p class="hashtag">#javascript</p>
+            <span class="hashtag-sub">2 941 сообщение</span>
+          </li>
+          <li class="hashtags-item">
+            <p class="hashtag">#python3</p>
+            <span class="hashtag-sub">29 718 сообщений</span>
+          </li>
+          <li class="hashtags-item">
+            <p class="hashtag">#ruby</p>
+            <span class="hashtag-sub">958 186 сообщений</span>
+          </li>
+          <li class="hashtags-item">
+            <p class="hashtag">#как_научиться_коду?</p>
+            <span class="hashtag-sub">4 185 сообщений</span>
+          </li>
+          <li class="hashtags-item">
+            <p class="hashtag">#помогите_с_кодом</p>
+            <span class="hashtag-sub">482 сообщения</span>
+          </li>
+         </ul>
+          </div>
+        <div class="blogs">
+          <h4 class="topics-blogs__title">Интересные блогеры</h4>
+          <ul class="blogs-items">
+          <li class="blogs-item">
+            <img src="img/habr-icon.png" alt="" class="blog-icon">
+            <div class="blog-info">
+              <p class="blog-name">Хабр Научпоп
+              </p>
+              <span class="blog-sub">@habr_popsci</span>
+              </div>
+            <a class="blogs__btn" href="#">Читать</a>
+          </li>
+          <li class="blogs-item">
+            <img src="img/match-icon.png" alt="" class="blog-icon">
+            <div class="blog-info">
+            <p class="blog-name">Матч ТВ
+            </p>
+            <span class="blog-sub">@MatchTV</span>
+            </div>
+            <a class="blogs__btn" href="#">Читать</a>
+          </li>
+          <li class="blogs-item">
+            <img src="img/popmeh-icon.png" alt="" class="blog-icon">
+            <div class="blog-info">
+              <p class="blog-name">Популярная механика
+              </p>
+              <span class="blog-sub">@PopMechanica</span>
+              </div>
+            <a class="blogs__btn" href="#">Читать</a>
+          </li>
+          </ul>
+          </div>  
+        </div>
+    </div>
+  </div>
+</div>
+  </main>
 <section class="call-block">  
     <div class="entry">
       <h1 class="entry__title"> Зарегистрируйтесь и узнайте обо всём первым</h1>
@@ -260,7 +327,7 @@
     </div>
     <p class="password-vd validation">пароль не верный</p>
   </div>
-  <p  class="btn-authorization-window">Войти</p>
+  <p class="btn-authorization-window">Войти</p>
   </form>
 </div>
 </div>
