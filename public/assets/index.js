@@ -2,6 +2,9 @@ import emailValidation from './email_validation.js';
 
 const EX1 = document.getElementById('ex1');
 const EX2 = document.getElementById('ex2');
+const USERSREGISTR = document.getElementById('usersRegistr');
+const WRITMESSAGES = document.getElementById('writMessages');
+const WRITTODAY = document.getElementById('writToday');
 const HANDEX1 = document.getElementById('handler-ex1');
 const HANDEX2 = document.getElementById('handler-ex2');
 const BTNREGISTR1 = document.getElementById('registration1');
@@ -127,3 +130,10 @@ BTNREGWIN.addEventListener('click', () => {
     console.log(INPREGPASS.querySelector('.window-input__input').value);
   }
 });
+fetch('./data.json')
+  .then((response) => response.json())
+  .then((data) => {
+    USERSREGISTR.innerHTML = data.static.usersRegistr;
+    WRITMESSAGES.innerHTML = data.static.writMessages;
+    WRITTODAY.innerHTML = data.static.writToday;
+  });
