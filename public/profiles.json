@@ -1,5 +1,5 @@
 {
-    "pictures": [
+    "users": [
         {
             "id": "1",
             "url": "img/vins-avatar.png"
@@ -11,10 +11,6 @@
         {
             "id": "3",
             "url": "img/alexsandr-avatar.png"
-        },
-        {
-            "id": "3",
-            "url": "img/tennis-img.jpg"
         },
         {
             "id": "4",
