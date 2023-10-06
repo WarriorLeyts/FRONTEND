@@ -130,10 +130,29 @@ BTNREGWIN.addEventListener('click', () => {
     console.log(INPREGPASS.querySelector('.window-input__input').value);
   }
 });
-fetch('./data.json')
-  .then((response) => response.json())
-  .then((data) => {
-    USERSREGISTR.innerHTML = data.static.usersRegistr;
-    WRITMESSAGES.innerHTML = data.static.writMessages;
-    WRITTODAY.innerHTML = data.static.writToday;
+(async () => {
+  const response1 = await fetch('./data.json');
+  const response2 = await fetch('./profiles.json');
+  const data = await response1.json();
+  const data2 = await response2.json();
+  USERSREGISTR.innerHTML = data.static.usersRegistr;
+  WRITMESSAGES.innerHTML = data.static.writMessages;
+  WRITTODAY.innerHTML = data.static.writToday;
+  const lastMessages = data.lastMessages.slice(0);
+  data.lastMessages.forEach((item, index) => {
+    data2.users.forEach((item1) => {
+      if (item.user_id === item1.id) {
+        lastMessages[index].urlPictures = item1.url;
+      }
+    });
   });
+  for (let i = 0; i < lastMessages.length; i += 1) {
+    document.getElementById(`post_${i + 1}`).querySelector('.user-information__user-name').innerHTML = `${lastMessages[i].name}<span>${lastMessages[i].mail}</span>`;
+    document.getElementById(`post_${i + 1}`).querySelector('.message').innerHTML = lastMessages[i].message;
+    document.getElementById(`post_${i + 1}`).querySelector('.post__avatar').src = lastMessages[i].urlPictures;
+    document.getElementById(`post_${i + 1}`).querySelector('.time').innerHTML = lastMessages[i].time;
+    document.getElementById(`post_${i + 1}`).querySelector('.repost').innerHTML = lastMessages[i].quantityReposts;
+    document.getElementById(`post_${i + 1}`).querySelector('.like').innerHTML = lastMessages[i].quantityLike;
+    document.getElementById(`post_${i + 1}`).querySelector('.Share').innerHTML = lastMessages[i].quantityShare;
+  }
+})();
