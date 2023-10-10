@@ -147,12 +147,18 @@ BTNREGWIN.addEventListener('click', () => {
     });
   });
   for (let i = 0; i < lastMessages.length; i += 1) {
-    document.getElementById(`post_${i + 1}`).querySelector('.user-information__user-name').innerHTML = `${lastMessages[i].name}<span>${lastMessages[i].mail}</span>`;
-    document.getElementById(`post_${i + 1}`).querySelector('.message').innerHTML = lastMessages[i].message;
-    document.getElementById(`post_${i + 1}`).querySelector('.post__avatar').src = lastMessages[i].urlPictures;
+    document.getElementById(`post_${i + 1}`).querySelector('.user-information__user-name').innerHTML = `${lastMessages[i].name}<span class="mail">${lastMessages[i].mail}</span>`;
+    document.getElementById(`post_${i + 1}`).querySelector('.user-message').innerHTML = `<p class="message">${lastMessages[i].message}</p>`;
+    document.getElementById(`post_${i + 1}`).querySelector('.avatar').innerHTML = `<img class="post__avatar" src="${lastMessages[i].urlPictures}"alt="">`;
     document.getElementById(`post_${i + 1}`).querySelector('.time').innerHTML = lastMessages[i].time;
+    document.getElementById(`post_${i + 1}`).querySelector('.time').style = 'display: block;';
     document.getElementById(`post_${i + 1}`).querySelector('.repost').innerHTML = lastMessages[i].quantityReposts;
     document.getElementById(`post_${i + 1}`).querySelector('.like').innerHTML = lastMessages[i].quantityLike;
     document.getElementById(`post_${i + 1}`).querySelector('.Share').innerHTML = lastMessages[i].quantityShare;
+    document.getElementById(`post_${i + 1}`).querySelector('.user-interaction').style = 'display: flex;';
+    if (typeof lastMessages[i].img_message !== 'undefined') {
+      document.getElementById(`post_${i + 1}`).querySelector('.user-message').innerHTML = `<p class="message">${lastMessages[i].message}</p>
+    <img class="message-img" src="${lastMessages[i].img_message}" alt="">`;
+    }
   }
 })();
