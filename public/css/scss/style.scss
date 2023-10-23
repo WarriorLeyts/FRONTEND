@@ -174,7 +174,6 @@
       font-size: 10px;
       text-align: right;
       color: #ABACB1;
-      display: none;
       }
       @import "_adapt";
     }
@@ -203,9 +202,9 @@
     margin-right: 10px;
   }
   .user-interaction {
+    display: flex;
     margin-top: 5px;
     max-width: 205px;
-    display: none;
     justify-content: space-between;
     .user-interaction__item {
     display: flex;
@@ -664,12 +663,12 @@
 }
 .no-message1 {
   height: 8px;
-  width: 320px;
+  width: 100% - 5%;
   background-color: RGB(227,235,238);
 }
 .no-message2 {
   height: 8px;
-  width: 300px;
+  width: 100% - 15%;
   background-color: RGB(227,235,238);
 }
 @import "_adapt";
