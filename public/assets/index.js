@@ -1,4 +1,5 @@
 import emailValidation from './email_validation.js';
+import getTimeString from './get_time_string.js';
 
 const EX1 = document.getElementById('ex1');
 const EX2 = document.getElementById('ex2');
@@ -146,44 +147,55 @@ BTNREGWIN.addEventListener('click', () => {
       }
     });
   });
-  for (let i = 0; i < lastMessages.length; i += 1) {
-    const messageImg = typeof lastMessages[i].img_message !== 'undefined'
-      ? `<img class="message-img" src="${lastMessages[i].img_message}" alt=""></img>` : '';
-    const HTML = `<a class="avatar" href="#"><img class="post__avatar" src="${lastMessages[i].urlPictures}"alt=""></a>
-    <div class="user">
-        <div class="user-information">
-            <a href="#" class="user-information__user-name" >
-            ${lastMessages[i].name}<span class="mail">${lastMessages[i].mail}</span>
-            </a> 
-            <div class="user-information__time-message">
-             <p>${lastMessages[i].time}</p>
+  function enterMessages() {
+    for (let i = 0; i < lastMessages.length; i += 1) {
+      let dateMessage = lastMessages[i].date.split(' ');
+      dateMessage = `${dateMessage[0].split('.').reverse().join('.')} ${dateMessage[1]}`;
+      dateMessage = new Date(dateMessage);
+      let timePassed = (new Date() - dateMessage) / 60000;
+      timePassed = getTimeString(timePassed);
+      const messageImg = typeof lastMessages[i].img_message !== 'undefined'
+        ? `<img class="message-img" src="${lastMessages[i].img_message}" alt=""></img>` : '';
+      const HTML = `<a class="avatar" href="#"><img class="post__avatar" src="${lastMessages[i].urlPictures}"alt=""></a>
+      <div class="user">
+          <div class="user-information">
+              <a href="#" class="user-information__user-name" >
+              ${lastMessages[i].name}<span class="mail">${lastMessages[i].mail}</span>
+              </a> 
+              <div class="user-information__time-message">
+              <p>${timePassed}</p>
+              </div>
+          </div>
+          <div class="user-message mg-rg">
+          <p>${lastMessages[i].message}</p>
+          ${messageImg}
+          </div>
+          <div class="user-interaction">
+           <div class="user-interaction__item">
+              <a href=""><svg  class="user-interaction__icon" width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path  d="M4.6875 0.8125L1.40625 4.5625M1.40625 4.5625L4.6875 8.3125M1.40625 4.5625H8.4375C12.1875 4.5625 14.0625 6.4375 14.0625 10.1875" stroke="#ABACB1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg></a>
+              <p>${lastMessages[i].quantityReposts}</p>
             </div>
-        </div>
-        <div class="user-message mg-rg">
-        <p>${lastMessages[i].message}</p>
-        ${messageImg}
-        </div>
-        <div class="user-interaction">
-          <div class="user-interaction__item">
-            <a href=""><svg  class="user-interaction__icon" width="15" height="11" viewBox="0 0 15 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path  d="M4.6875 0.8125L1.40625 4.5625M1.40625 4.5625L4.6875 8.3125M1.40625 4.5625H8.4375C12.1875 4.5625 14.0625 6.4375 14.0625 10.1875" stroke="#ABACB1" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg></a>
-            <p>${lastMessages[i].quantityReposts}</p>
-          </div>
-          <div class="user-interaction__item">
-            <a href=""><svg class="user-interaction__favs" width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path  d="M1.875 6.5C0.46875 4.625 0.9375 1.8125 3.28125 0.875C5.625 -0.0624999 7.03125 1.8125 7.5 2.75C7.96875 1.8125 9.84375 -0.0624999 12.1875 0.875C14.5312 1.8125 14.5312 4.625 13.125 6.5C11.7187 8.375 7.5 12.125 7.5 12.125C7.5 12.125 3.28125 8.375 1.875 6.5Z" stroke="#ABACB1" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg></a>
-            <p>${lastMessages[i].quantityLike}</p>
-          </div>
-          <div class="user-interaction__item">
-            <a href=""><svg class="user-interaction__icon" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path  d="M12.125 9.3125V13.0625H0.875V9.3125M6.5 0.875V10.25M6.5 0.875L2.75 4.625M6.5 0.875L10.25 4.625" stroke="#ABACB1" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-            </a>
-            <p>${lastMessages[i].quantityShare}</p>
-          </div>
-        </div>`;
-    document.getElementById(`post_${i + 1}`).innerHTML = HTML;
+            <div class="user-interaction__item">
+              <a href=""><svg class="user-interaction__favs" width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path  d="M1.875 6.5C0.46875 4.625 0.9375 1.8125 3.28125 0.875C5.625 -0.0624999 7.03125 1.8125 7.5 2.75C7.96875 1.8125 9.84375 -0.0624999 12.1875 0.875C14.5312 1.8125 14.5312 4.625 13.125 6.5C11.7187 8.375 7.5 12.125 7.5 12.125C7.5 12.125 3.28125 8.375 1.875 6.5Z" stroke="#ABACB1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg></a>
+              <p>${lastMessages[i].quantityLike}</p>
+            </div>
+            <div class="user-interaction__item">
+              <a href=""><svg class="user-interaction__icon" width="13" height="14" viewBox="0 0 13 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path  d="M12.125 9.3125V13.0625H0.875V9.3125M6.5 0.875V10.25M6.5 0.875L2.75 4.625M6.5 0.875L10.25 4.625" stroke="#ABACB1" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              </a>
+              <p>${lastMessages[i].quantityShare}</p>
+            </div>
+          </div>`;
+      document.getElementById(`post_${i + 1}`).innerHTML = HTML;
+    }
   }
+  enterMessages();
+  setInterval(() => {
+    enterMessages();
+  }, 60000);
 })();

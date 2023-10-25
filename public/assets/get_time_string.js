@@ -37,5 +37,5 @@ export default function getTimeString(minutes) {
     default:
       return 'введено не верное значение';
   }
-  return `${time} ${description} назад`; // возвращаем результат.
+  return `${Math.trunc(time)} ${description} назад`; // возвращаем результат.
 }
