@@ -77,16 +77,19 @@
   "blogs": [
     {
       "id": "5",
+      "user_id": "5",
       "name": "Хабр Научпоп",
       "mail": "@habr_popsci"
     },
     {
       "id": "6",
+      "user_id": "6",
       "name": "Матч ТВ",
       "mail": "@MatchTV"
     },
     {
       "id": "7",
+      "user_id": "7",
       "name": "Популярная механика",
       "mail": "@PopMechanica"
     }

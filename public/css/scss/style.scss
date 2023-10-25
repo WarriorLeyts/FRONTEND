@@ -286,6 +286,8 @@
     .blog-icon{
      width: 48px;
      height: 48px;
+     border-radius: 50px;
+     background-color: RGB(227,235,238);
     }
     .blog-info {
       display: flex;
@@ -313,22 +315,22 @@
       display: inline-block;
       text-decoration: none;
       width: 69px;
-      border: 1px solid #0057FF;
-      color: #0057FF;
       padding: 7px 0px;
       border-radius: 5px;
-      background: #FFF;
       text-align: center;
       font-family: 'Roboto', sans-serif;
       font-size: 10px;
       font-style: normal;
       font-weight: 500;
       line-height: 14px;
-      transition: all 0.5s;
       cursor: pointer; 
+      color: #0057FF; 
+      background: #FFF; 
+      border: 1px solid #0057FF;
+      transition: all 0.5s;
       &:hover{
       color: #FFFFFF;
-      background: #0057FF;;
+      background: #0057FF;
       transition: all 0.5s;    
       }
     }
@@ -670,5 +672,37 @@
   height: 8px;
   width: 100% - 15%;
   background-color: RGB(227,235,238);
+}
+.no-hash {
+  height: 10px;
+  width: 250px;
+  background-color: RGB(227,235,238);
+  margin-bottom: 5px;
+}
+.no-hash2 {
+  height: 8px;
+  width: 200px;
+  background-color: RGB(227,235,238);
+  margin-bottom: 15px;
+}
+.no-blog {
+  height: 10px;
+  width: 140px;
+  margin-right: 8px;
+  background-color: RGB(227,235,238);
+  margin-bottom: 4px;
+}
+.no-blog-sub {
+  height: 8px;
+  width: 110px;
+  margin-right: 4px;
+  background-color: RGB(227,235,238);
+}
+.no-blog-btn {
+  width: 69px;
+  color: RGB(227,235,238);
+  border-radius: 5px;
+  height: 25px;
+  background: RGB(227,235,238);
 }
 @import "_adapt";
