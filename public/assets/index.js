@@ -140,6 +140,7 @@ BTNREGWIN.addEventListener('click', () => {
   WRITMESSAGES.innerHTML = data.static.writMessages;
   WRITTODAY.innerHTML = data.static.writToday;
   const lastMessages = data.lastMessages.slice(0);
+  const blogs = data.blogs.slice(0);
   data.lastMessages.forEach((item, index) => {
     data2.users.forEach((item1) => {
       if (item.user_id === item1.id) {
@@ -147,6 +148,14 @@ BTNREGWIN.addEventListener('click', () => {
       }
     });
   });
+  blogs.forEach((item, index) => {
+    data2.users.forEach((item1) => {
+      if (item.user_id === item1.id) {
+        blogs[index].urlPictures = item1.url;
+      }
+    });
+  });
+  const topics = data.topics.slice(0);
   function enterMessages() {
     for (let i = 0; i < lastMessages.length; i += 1) {
       let dateMessage = lastMessages[i].date.split(' ');
@@ -192,6 +201,21 @@ BTNREGWIN.addEventListener('click', () => {
             </div>
           </div>`;
       document.getElementById(`post_${i + 1}`).innerHTML = HTML;
+    }
+    for (let i = 0; i < topics.length; i += 1) {
+      const HTMLHASH = `<p class="hashtag">${topics[i].hashName}</p>
+        <span class="hashtag-sub">${topics[i].numOfMessage}</span>`;
+      document.getElementById(`hash-li_${i + 1}`).innerHTML = HTMLHASH;
+    }
+    for (let i = 0; i < blogs.length; i += 1) {
+      const HTMLBLOGS = `<img src="${blogs[i].urlPictures}" alt="" class="blog-icon">
+        <div class="blog-info">
+          <p class="blog-name">${blogs[i].name}
+          </p>
+          <span class="blog-sub">${blogs[i].mail}</span>
+          </div>
+        <a class="blogs__btn" href="#">Читать</a>`;
+      document.getElementById(`blog_${i + 1}`).innerHTML = HTMLBLOGS;
     }
   }
   enterMessages();
