@@ -39,15 +39,15 @@ app.post('/posts.json', (req) => {
   client.query((queryCreatePost));
 });
 
-app.delete('/posts/1.json', (req, res) => {
-  res.send('DELETE Request Called');
-  const queryDeletePost = `DELETE FROM Posts WHERE post_id = ${req.body.post_id};`;
+app.delete('/posts/:id.json', (req) => {
+  const queryDeletePost = `DELETE FROM Posts WHERE post_id = ${req.params.id};`;
   client.query((queryDeletePost));
 });
-app.post('/posts/1.json', (req) => {
-  const arrKeys = Object.keys(req.body.edit);
-  const arrValues = Object.values(req.body.edit);
+
+app.post('/posts/:id.json', (req) => {
+  const arrKeys = Object.keys(req.body);
+  const arrValues = Object.values(req.body);
   const valuesEdit = arrKeys.map((item, index) => `${item} = '${arrValues[index]}'`).join(',');
-  const queryEditPost = `UPDATE Posts SET ${valuesEdit} WHERE post_id = ${req.body.post_id}`;
+  const queryEditPost = `UPDATE Posts SET ${valuesEdit} WHERE post_id = ${req.params.id}`;
   client.query((queryEditPost));
 });
