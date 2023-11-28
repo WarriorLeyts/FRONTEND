@@ -126,9 +126,33 @@ BTNREGWIN.addEventListener('click', () => {
   && INPREGMAIL.querySelector('.mail-vd').style.display === 'none'
   && INPREGPASS.querySelector('.password-vd').style.display === 'none'
   && INPREGPASSCONF.querySelector('.confirm-password-vd').style.display === 'none') {
-    console.log(INPREGLOGIN.querySelector('.window-input__input').value);
-    console.log(INPREGMAIL.querySelector('.window-input__input').value);
-    console.log(INPREGPASS.querySelector('.window-input__input').value);
+    const createUser = {
+      name: INPREGLOGIN.querySelector('.window-input__input').value,
+      email: INPREGMAIL.querySelector('.window-input__input').value,
+      password: INPREGPASS.querySelector('.window-input__input').value,
+    };
+    (async () => {
+      let response = await fetch('/createUser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(createUser),
+      });
+      if (response.status === 200) {
+        REGWINDOW.style.display = 'none';
+        REGAUTHOR.style.display = 'none';
+      }
+      if (response.status === 400) {
+        response = await response.json();
+        INPREGMAIL.querySelector('.mail-vd').innerHTML = response.message;
+        INPREGMAIL.querySelector('.mail-vd').style.display = 'block';
+        INPREGMAIL.querySelector('.window-input').style.marginBottom = '0px';
+        INPREGMAIL.querySelector('.window-input').style.border = '1px solid #FF97C3';
+        INPREGMAIL.querySelector('.window-input').style.background = '#FFDEEC';
+        INPREGMAIL.querySelector('.window-input__input').style.background = '#FFDEEC';
+      }
+    })();
   }
 });
 (async () => {

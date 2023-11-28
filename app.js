@@ -1,6 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import pkg from 'pg';
+import CryptoJS from 'crypto-js';
 
 const app = express();
 const port = 3000;
@@ -50,4 +51,19 @@ app.post('/posts/:id.json', (req) => {
   const valuesEdit = arrKeys.map((item, index) => `${item} = '${arrValues[index]}'`).join(',');
   const queryEditPost = `UPDATE Posts SET ${valuesEdit} WHERE post_id = ${req.params.id}`;
   client.query((queryEditPost));
+});
+
+app.post('/createUser', (req, res) => {
+  (async () => {
+    const findEmail = await client.query(`SELECT * FROM Users WHERE user_email='${req.body.email}'`);
+    if (Object.keys(findEmail.rows).length === 0) {
+      const plaintext = 'This password must be secret';
+      const cipherPassword = CryptoJS.AES.encrypt(plaintext, req.body.password).toString();
+      const createUser = `INSERT INTO Users (user_name, user_email, password) 
+      VALUES ('${req.body.name}','${req.body.email}','${cipherPassword}')`;
+      client.query((createUser));
+      return res.status(200).send();
+    }
+    return res.status(400).send({ message: 'Пользователь с таким email уже существует.' });
+  })();
 });
