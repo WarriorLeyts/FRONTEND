@@ -53,17 +53,15 @@ app.post('/posts/:id.json', (req) => {
   client.query((queryEditPost));
 });
 
-app.post('/createUser', (req, res) => {
-  (async () => {
-    const findEmail = await client.query(`SELECT * FROM Users WHERE user_email='${req.body.email}'`);
-    if (Object.keys(findEmail.rows).length === 0) {
-      const plaintext = 'This password must be secret';
-      const cipherPassword = CryptoJS.AES.encrypt(plaintext, req.body.password).toString();
-      const createUser = `INSERT INTO Users (user_name, user_email, password) 
-      VALUES ('${req.body.name}','${req.body.email}','${cipherPassword}')`;
-      client.query((createUser));
-      return res.status(200).send();
-    }
-    return res.status(400).send({ message: 'Пользователь с таким email уже существует.' });
-  })();
+app.post('/createUser', async (req, res) => {
+  const findEmail = await client.query(`SELECT * FROM Users WHERE user_email='${req.body.email}'`);
+  if (Object.keys(findEmail.rows).length === 0) {
+    const plaintext = 'This password must be secret';
+    const cipherPassword = CryptoJS.AES.encrypt(plaintext, req.body.password).toString();
+    const createUser = `INSERT INTO Users (user_name, user_email, password) 
+    VALUES ('${req.body.name}','${req.body.email}','${cipherPassword}')`;
+    client.query((createUser));
+    return res.status(200).send();
+  }
+  return res.status(400).send({ message: 'Пользователь с таким email уже существует.' });
 });
