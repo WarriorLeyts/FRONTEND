@@ -1,7 +1,7 @@
 import express from 'express';
 import fs from 'fs';
 import pkg from 'pg';
-import CryptoJS from 'crypto-js';
+import bcrypt from 'bcryptjs';
 
 const app = express();
 const port = 3000;
@@ -56,12 +56,20 @@ app.post('/posts/:id.json', (req) => {
 app.post('/createUser', async (req, res) => {
   const findEmail = await client.query(`SELECT * FROM Users WHERE user_email='${req.body.email}'`);
   if (Object.keys(findEmail.rows).length === 0) {
-    const plaintext = 'This password must be secret';
-    const cipherPassword = CryptoJS.AES.encrypt(plaintext, req.body.password).toString();
+    const cipherPassword = await bcrypt.hash(req.body.password, 8);
     const createUser = `INSERT INTO Users (user_name, user_email, password) 
     VALUES ('${req.body.name}','${req.body.email}','${cipherPassword}')`;
     client.query((createUser));
     return res.status(200).send();
   }
   return res.status(400).send({ message: 'Пользователь с таким email уже существует.' });
+});
+app.post('/login', async (req, res) => {
+  const findUser = await client.query(`SELECT * FROM Users WHERE user_email='${req.body.email}'`);
+  const userPassword = typeof (findUser.rows[0]?.password) !== 'undefined' ? findUser.rows[0].password : '';
+  const isMatch = await bcrypt.compare(req.body.password, userPassword);
+  if (isMatch) {
+    return res.status(200).send();
+  }
+  return res.status(400).send({ message: 'Проверьте введенный email и пароль' });
 });
