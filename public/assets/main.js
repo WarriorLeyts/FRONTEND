@@ -155,6 +155,69 @@ BTNREGWIN.addEventListener('click', () => {
     })();
   }
 });
+REGAUTHOR.querySelector('.btn-authorization-window').addEventListener('click', () => {
+  if (REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').value === '') {
+    REGAUTHOR.querySelector('.mail-vd').innerHTML = 'Введите адрес электронной почты';
+    REGAUTHOR.querySelector('.mail-vd').style.display = 'block';
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.marginBottom = '0px';
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.border = '1px solid #FF97C3';
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.background = '#FFDEEC';
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').style.background = '#FFDEEC';
+  } else {
+    REGAUTHOR.querySelector('.mail-vd').style.display = 'none';
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.marginBottom = '24px';
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.border = '1px solid #DFDFDF';
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.background = '#FFF';
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').style.background = '#FFF';
+  }
+
+  if (REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').value === '') {
+    REGAUTHOR.querySelector('.password-vd').innerHTML = 'Введите пароль';
+    REGAUTHOR.querySelector('.password-vd').style.display = 'block';
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.marginBottom = '0px';
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.border = '1px solid #FF97C3';
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.background = '#FFDEEC';
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').style.background = '#FFDEEC';
+  } else {
+    REGAUTHOR.querySelector('.password-vd').style.display = 'none';
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.marginBottom = '24px';
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.border = '1px solid #DFDFDF';
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.background = '#FFF';
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').style.background = '#FFF';
+  }
+  if (REGAUTHOR.querySelector('.mail-vd').style.display === 'none'
+    && REGAUTHOR.querySelector('.password-vd').style.display === 'none') {
+    const authorUser = {
+      email: REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').value,
+      password: REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').value,
+    };
+    (async () => {
+      let response = await fetch('/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+        },
+        body: JSON.stringify(authorUser),
+      });
+      if (response.status === 200) {
+        REGWINDOW.style.display = 'none';
+        REGAUTHOR.style.display = 'none';
+      }
+      if (response.status === 400) {
+        response = await response.json();
+        REGAUTHOR.querySelector('.password-vd').innerHTML = response.message;
+        REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.border = '1px solid #FF97C3';
+        REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.background = '#FFDEEC';
+        REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').style.background = '#FFDEEC';
+        REGAUTHOR.querySelector('.password-vd').style.display = 'block';
+        REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.marginBottom = '0px';
+        REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.border = '1px solid #FF97C3';
+        REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.background = '#FFDEEC';
+        REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').style.background = '#FFDEEC';
+      }
+    })();
+  }
+});
 (async () => {
   const response1 = await fetch('./data.json');
   const response2 = await fetch('./profiles.json');

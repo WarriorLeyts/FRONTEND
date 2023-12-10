@@ -626,20 +626,22 @@
     }
     .input-password {
       .window-input {
-      margin-bottom: 0px;
       border-radius: 10px;
-      border: 1px solid #FF97C3;
-      background: #FFDEEC;  
+      border: 1px solid #DFDFDF;
+      background: #FFF;
        }
       .window-input__input {
       margin-top: 0px; 
-      background: #FFDEEC;
+      background: #FFF;
        }
       .window-input__label { 
       margin-top: 12px;
       }
     }
     .mail-vd {
+      display: none;
+    }
+    .password-vd {
       display: none;
     }
   }
