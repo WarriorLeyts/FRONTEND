@@ -187,10 +187,18 @@ REGAUTHOR.querySelector('.btn-authorization-window').addEventListener('click', (
   }
   if (REGAUTHOR.querySelector('.mail-vd').style.display === 'none'
     && REGAUTHOR.querySelector('.password-vd').style.display === 'none') {
+    const email = REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').value;
+    const password = REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').value;
+    const token = crypto.randomUUID();
+    const dateToken = new Date();
     const authorUser = {
-      email: REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').value,
-      password: REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').value,
+      email,
+      password,
+      token,
+      dateToken,
     };
+    document.cookie = `${encodeURIComponent('email')}=${encodeURIComponent(authorUser.email)}`;
+    document.cookie = `${encodeURIComponent('token')}=${encodeURIComponent(authorUser.token)}`;
     (async () => {
       let response = await fetch('/login', {
         method: 'POST',

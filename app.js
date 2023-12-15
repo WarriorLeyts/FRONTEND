@@ -69,6 +69,9 @@ app.post('/login', async (req, res) => {
   const userPassword = typeof (findUser.rows[0]?.password) !== 'undefined' ? findUser.rows[0].password : '';
   const isMatch = await bcrypt.compare(req.body.password, userPassword);
   if (isMatch) {
+    const createToken = `INSERT INTO Sessions (user_id, date_token, token) 
+    VALUES (${+findUser.rows[0].user_id},'${req.body.dateToken}','${req.body.token}')`;
+    client.query(createToken);
     return res.status(200).send();
   }
   return res.status(400).send({ message: 'Проверьте введенный email и пароль' });
