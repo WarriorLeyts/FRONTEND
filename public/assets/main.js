@@ -1,7 +1,6 @@
 import emailValidation from './email_validation.js';
 import getTimeString from './get_time_string.js';
 
-const EX1 = document.getElementById('ex1');
 const EX2 = document.getElementById('ex2');
 const USERSREGISTR = document.getElementById('usersRegistr');
 const WRITMESSAGES = document.getElementById('writMessages');
@@ -33,10 +32,11 @@ BTNREGISTR2.addEventListener('click', () => {
 BTNAUTHOR2.addEventListener('click', () => {
   REGAUTHOR.style.display = 'flex';
 });
-EX1.addEventListener('click', () => {
+document.getElementById('ex1').addEventListener('click', () => {
   REGWINDOW.style.display = 'none';
   REGAUTHOR.style.display = 'none';
 });
+
 EX2.addEventListener('click', () => {
   REGAUTHOR.style.display = 'none';
 });
@@ -57,7 +57,7 @@ HANDEX2.addEventListener('touchend', () => {
   BLAUTHORWINDOW.style.transform = 'none';
   HANDEX2.style.opacity = 1;
   REGAUTHOR.style.display = 'none';
-});
+}); // РЕФАРКТОРИТЬ ВСЕ ЧТО ВНИЗУ плюс  создать для валидации отдельную функцию
 BTNREGWIN.addEventListener('click', () => {
   if (INPREGLOGIN.querySelector('.window-input__input').value === '') {
     INPREGLOGIN.querySelector('.login-vd').innerHTML = 'Укажите имя';
@@ -121,7 +121,7 @@ BTNREGWIN.addEventListener('click', () => {
     INPREGPASSCONF.querySelector('.window-input').style.border = '1px solid #DFDFDF';
     INPREGPASSCONF.querySelector('.window-input').style.background = '#FFF';
     INPREGPASSCONF.querySelector('.window-input__input').style.background = '#FFF';
-  }
+  } // до сюда
   if (INPREGLOGIN.querySelector('.login-vd').style.display === 'none'
   && INPREGMAIL.querySelector('.mail-vd').style.display === 'none'
   && INPREGPASS.querySelector('.password-vd').style.display === 'none'
@@ -131,7 +131,7 @@ BTNREGWIN.addEventListener('click', () => {
       email: INPREGMAIL.querySelector('.window-input__input').value,
       password: INPREGPASS.querySelector('.window-input__input').value,
     };
-    (async () => {
+    (async () => { // убрать
       let response = await fetch('/createUser', {
         method: 'POST',
         headers: {
@@ -142,13 +142,14 @@ BTNREGWIN.addEventListener('click', () => {
       if (response.status === 200) {
         REGWINDOW.style.display = 'none';
         REGAUTHOR.style.display = 'none';
+        window.location.href = '#';
       }
       if (response.status === 400) {
         response = await response.json();
         INPREGMAIL.querySelector('.mail-vd').innerHTML = response.message;
         INPREGMAIL.querySelector('.mail-vd').style.display = 'block';
         INPREGMAIL.querySelector('.window-input').style.marginBottom = '0px';
-        INPREGMAIL.querySelector('.window-input').style.border = '1px solid #FF97C3';
+        INPREGMAIL.querySelector('.window-input').style.border = '1px solid #FF97C3'; // создать классы
         INPREGMAIL.querySelector('.window-input').style.background = '#FFDEEC';
         INPREGMAIL.querySelector('.window-input__input').style.background = '#FFDEEC';
       }
@@ -197,9 +198,9 @@ REGAUTHOR.querySelector('.btn-authorization-window').addEventListener('click', (
       token,
       dateToken,
     };
-    document.cookie = `${encodeURIComponent('email')}=${encodeURIComponent(authorUser.email)}`;
+    document.cookie = `${encodeURIComponent('email')}=${encodeURIComponent(authorUser.email)}`; // убрать куки
     document.cookie = `${encodeURIComponent('token')}=${encodeURIComponent(authorUser.token)}`;
-    (async () => {
+    (async () => { // убрать
       let response = await fetch('/login', {
         method: 'POST',
         headers: {
@@ -210,6 +211,7 @@ REGAUTHOR.querySelector('.btn-authorization-window').addEventListener('click', (
       if (response.status === 200) {
         REGWINDOW.style.display = 'none';
         REGAUTHOR.style.display = 'none';
+        window.location.href = '#';
       }
       if (response.status === 400) {
         response = await response.json();
