@@ -3,9 +3,20 @@ import fs from 'fs';
 import pkg from 'pg';
 import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
+import crypto from 'crypto';
 
 const app = express();
 const port = 3000;
+const { Client } = pkg;
+const client = new Client({
+  user: 'muhammad',
+  host: 'dpg-cmsb3nv109ks73dtl540-a.oregon-postgres.render.com',
+  database: 'demos_mlp8',
+  password: 'yFWdwtqvj5FZceULr7Q8JaCDeALwd2Pa',
+  port: 5432,
+  ssl: true,
+});
+client.connect();
 
 const html = fs.readFileSync('public/main.html', 'utf8');
 
@@ -25,70 +36,83 @@ app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
 
-const { Client } = pkg; // должны быть в самом вверху
-const client = new Client({
-  user: 'muhammad',
-  host: 'dpg-cl0dlc237rbc739gj0q0-a.oregon-postgres.render.com',
-  database: 'demos',
-  password: 'XTF7IRWVdMfChArk3mQpUEFvEcE9WZ1N',
-  port: 5432,
-  ssl: true,
-});
-const queryGetPosts = `SELECT * 
+app.get('/posts.json', async (req, res) => {
+  const queryGetPosts = `SELECT * 
   FROM Posts, Users
   WHERE Posts.user_id=Users.user_id`;
-client.connect(); // вверху
-const posts = JSON.stringify((await client.query(queryGetPosts)).rows); // должно быть в энд поинте
-app.get('/posts.json', (req, res) => res.send(posts));
+  const posts = JSON.stringify((await client.query(queryGetPosts)).rows);
+  res.send(posts);
+  return res.status(200).send();
+});
 
-app.post('/posts.json', (req) => {
-  const queryCreatePost = `INSERT INTO Posts (user_id, date, message, img_message) 
-  VALUES (${+req.body.user_id},'${req.body.date}','${req.body.message}','${req.body.img_message}')`; // дата должна создаваться postgres или тут
+app.post('/posts.json', (req, res) => {
+  const queryCreatePost = `INSERT INTO Posts (user_id, message, message_img) 
+  VALUES (${+req.body.user_id},'${req.body.message}','${req.body.message_img}')`;
   client.query((queryCreatePost));
+  return res.status(200).send();
 });
 
-app.delete('/posts/:id.json', (req) => {
-  const queryDeletePost = `DELETE FROM Posts WHERE post_id = ${req.params.id};`; // вернуть статус во всех эндпоинтах
+app.delete('/posts/:id.json', (req, res) => {
+  const queryDeletePost = `DELETE FROM Posts WHERE post_id = ${req.params.id};`;
   client.query((queryDeletePost));
+  return res.status(200).send();
 });
 
-app.post('/posts/:id.json', (req) => { // mass assigment
-  const arrKeys = Object.keys(req.body);
-  const arrValues = Object.values(req.body);
-  const valuesEdit = arrKeys.map((item, index) => `${item} = '${arrValues[index]}'`).join(','); // оставить возможность редактиповать текст сообщ.
-  const queryEditPost = `UPDATE Posts SET ${valuesEdit} WHERE post_id = ${req.params.id}`;
+app.post('/posts/:id.json', (req, res) => {
+  const queryEditPost = `UPDATE Posts SET message = '${req.body.message}' WHERE post_id = ${req.params.id}`;
   client.query((queryEditPost));
+  return res.status(200).send();
 });
 
-app.post('/createUser', async (req, res) => { // записать куки
-  const findEmail = await client.query(`SELECT * FROM Users WHERE user_email='${req.body.email}'`); // проверить есть ли массив
-  if (Object.keys(findEmail.rows).length === 0) { // сделать условие с отрицанием
-    const cipherPassword = await bcrypt.hash(req.body.password, 8);
-    const createUser = `INSERT INTO Users (user_name, user_email, password) 
-    VALUES ('${req.body.name}','${req.body.email}','${cipherPassword}')`;
-    client.query((createUser));
-    return res.status(200).send();
+app.post('/createUser', async (req, res) => {
+  const token = crypto.randomUUID();
+  const findEmail = await client.query(`SELECT * FROM Users WHERE email='${req.body.email}'`);
+  if (Object.keys(findEmail.rows).length !== 0) {
+    return res.status(400).send({ message: 'Пользователь с таким email уже существует.' });
   }
-  return res.status(400).send({ message: 'Пользователь с таким email уже существует.' }); // начальная строка
+  const cipherPassword = await bcrypt.hash(req.body.password, 8);
+  const createUser = `INSERT INTO Users (name, email, password) 
+  VALUES ('${req.body.name}','${req.body.email}','${cipherPassword}') returning id`;
+  const newUser = (await client.query((createUser))).rows[0];
+  const createToken = `INSERT INTO Sessions (id_user, token) 
+  VALUES (${newUser.id},'${token}')`;
+  client.query(createToken);
+  res.cookie('email', req.body.email, {
+    expires: new Date(Date.now() + 999999),
+  });
+  res.cookie('token', token, {
+    expires: new Date(Date.now() + 999999),
+  });
+  return res.status(200).send();
 });
-app.post('/login', async (req, res) => { // записать куки
-  const findUser = await client.query(`SELECT * FROM Users WHERE user_email='${req.body.email}'`);
+app.post('/login', async (req, res) => {
+  const token = crypto.randomUUID();
+  const findUser = await client.query(`SELECT * FROM Users WHERE email='${req.body.email}'`);
   const userPassword = typeof (findUser.rows[0]?.password) !== 'undefined' ? findUser.rows[0].password : '';
   const isMatch = await bcrypt.compare(req.body.password, userPassword);
-  if (isMatch) { // сделать условие с отрицанием
-    const createToken = `INSERT INTO Sessions (user_id, date_token, token) 
-    VALUES (${+findUser.rows[0].user_id},'${req.body.dateToken}','${req.body.token}')`;
-    client.query(createToken);
-    return res.status(200).send();
+  if (!isMatch) {
+    return res.status(400).send({ message: 'Проверьте введенный email и пароль' });
   }
-  return res.status(400).send({ message: 'Проверьте введенный email и пароль' });
+  const createToken = `INSERT INTO Sessions (id_user, token) 
+  VALUES (${+findUser.rows[0].id},'${token}')`;
+  client.query(createToken);
+  res.cookie('email', req.body.email, {
+    expires: new Date(Date.now() + 999999),
+  });
+  res.cookie('token', req.body.token, {
+    expires: new Date(Date.now() + 999999),
+  });
+  return res.status(200).send();
 });
 app.get('/feed', (req, res) => {
-  if (req.cookies.email) {
-    res.type('html').send('<h1>Страница feed</h1>');
-  } else {
+  if (!req.cookies.email) {
     setTimeout(() => {
       res.type('html').send('<script> alert("пользователь не авторизован") </script>');
+      return res.status(400).send();
     }, '1000');
+    res.type('html').send('<h1>Страница feed</h1>');
+    return res.status(200).send();
   }
+  res.type('html').send('<h1>Страница feed</h1>');
+  return res.status(200).send();
 });

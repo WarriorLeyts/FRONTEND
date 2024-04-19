@@ -57,175 +57,133 @@ HANDEX2.addEventListener('touchend', () => {
   BLAUTHORWINDOW.style.transform = 'none';
   HANDEX2.style.opacity = 1;
   REGAUTHOR.style.display = 'none';
-}); // РЕФАРКТОРИТЬ ВСЕ ЧТО ВНИЗУ плюс  создать для валидации отдельную функцию
-BTNREGWIN.addEventListener('click', () => {
+});
+BTNREGWIN.addEventListener('click', async () => {
   if (INPREGLOGIN.querySelector('.window-input__input').value === '') {
     INPREGLOGIN.querySelector('.login-vd').innerHTML = 'Укажите имя';
-    INPREGLOGIN.querySelector('.login-vd').style.display = 'block';
-    INPREGLOGIN.querySelector('.window-input').style.marginBottom = '0px';
-    INPREGLOGIN.querySelector('.window-input').style.border = '1px solid #FF97C3';
-    INPREGLOGIN.querySelector('.window-input').style.background = '#FFDEEC';
-    INPREGLOGIN.querySelector('.window-input__input').style.background = '#FFDEEC';
+    INPREGLOGIN.querySelector('.login-vd').classList.add('valErrorStyle');
+    INPREGLOGIN.querySelector('.window-input').classList.add('inpErrorStyle');
+    INPREGLOGIN.querySelector('.window-input__input').classList.add('inpErrorStyle');
   } else {
-    INPREGLOGIN.querySelector('.login-vd').style.display = 'none';
-    INPREGLOGIN.querySelector('.window-input').style.marginBottom = '24px';
-    INPREGLOGIN.querySelector('.window-input').style.border = '1px solid #DFDFDF';
-    INPREGLOGIN.querySelector('.window-input').style.background = '#FFF';
-    INPREGLOGIN.querySelector('.window-input__input').style.background = '#FFF';
+    INPREGLOGIN.querySelector('.window-input').classList.remove('valErrorStyle');
+    INPREGLOGIN.querySelector('.window-input').classList.remove('inpErrorStyle');
+    INPREGLOGIN.querySelector('.window-input__input').classList.remove('inpErrorStyle');
   }
   if (INPREGMAIL.querySelector('.window-input__input').value === '') {
     INPREGMAIL.querySelector('.mail-vd').innerHTML = 'Укажите адрес почты';
-    INPREGMAIL.querySelector('.mail-vd').style.display = 'block';
-    INPREGMAIL.querySelector('.window-input').style.marginBottom = '0px';
-    INPREGMAIL.querySelector('.window-input').style.border = '1px solid #FF97C3';
-    INPREGMAIL.querySelector('.window-input').style.background = '#FFDEEC';
-    INPREGMAIL.querySelector('.window-input__input').style.background = '#FFDEEC';
+    INPREGMAIL.querySelector('.mail-vd').classList.add('valErrorStyle');
+    INPREGMAIL.querySelector('.window-input').classList.add('inpErrorStyle');
+    INPREGMAIL.querySelector('.window-input__input').classList.add('inp2ErrorStyle');
   } else if (!emailValidation(INPREGMAIL.querySelector('.window-input__input').value)) {
     INPREGMAIL.querySelector('.mail-vd').innerHTML = 'Адрес не валиден';
-    INPREGMAIL.querySelector('.mail-vd').style.display = 'block';
-    INPREGMAIL.querySelector('.window-input').style.marginBottom = '0px';
-    INPREGMAIL.querySelector('.window-input').style.border = '1px solid #FF97C3';
-    INPREGMAIL.querySelector('.window-input').style.background = '#FFDEEC';
-    INPREGMAIL.querySelector('.window-input__input').style.background = '#FFDEEC';
+    INPREGMAIL.querySelector('.mail-vd').classList.add('valErrorStyle');
+    INPREGMAIL.querySelector('.window-input').classList.add('inpErrorStyle');
+    INPREGMAIL.querySelector('.window-input__input').classList.add('inp2ErrorStyle');
   } else {
-    INPREGMAIL.querySelector('.mail-vd').style.display = 'none';
-    INPREGMAIL.querySelector('.window-input').style.marginBottom = '24px';
-    INPREGMAIL.querySelector('.window-input').style.border = '1px solid #DFDFDF';
-    INPREGMAIL.querySelector('.window-input').style.background = '#FFF';
-    INPREGMAIL.querySelector('.window-input__input').style.background = '#FFF';
+    INPREGMAIL.querySelector('.mail-vd').classList.remove('valErrorStyle');
+    INPREGMAIL.querySelector('.window-input').classList.remove('inpErrorStyle');
+    INPREGMAIL.querySelector('.window-input__input').classList.remove('inp2ErrorStyle');
   }
   if (INPREGPASS.querySelector('.window-input__input').value === '') {
-    INPREGPASS.querySelector('.password-vd').innerHTML = 'Укажите пароль';
-    INPREGPASS.querySelector('.password-vd').style.display = 'block';
-    INPREGPASS.querySelector('.window-input').style.marginBottom = '0px';
-    INPREGPASS.querySelector('.window-input').style.border = '1px solid #FF97C3';
-    INPREGPASS.querySelector('.window-input').style.background = '#FFDEEC';
-    INPREGPASS.querySelector('.window-input__input').style.background = '#FFDEEC';
+    INPREGPASS.querySelector('.password-vd').classList.add('valErrorStyle');
+    INPREGPASS.querySelector('.window-input').classList.add('inpErrorStyle');
+    INPREGPASS.querySelector('.window-input__input').classList.add('inp2ErrorStyle');
   } else {
-    INPREGPASS.querySelector('.password-vd').style.display = 'none';
-    INPREGPASS.querySelector('.window-input').style.marginBottom = '24px';
-    INPREGPASS.querySelector('.window-input').style.border = '1px solid #DFDFDF';
-    INPREGPASS.querySelector('.window-input').style.background = '#FFF';
-    INPREGPASS.querySelector('.window-input__input').style.background = '#FFF';
+    INPREGPASS.querySelector('.password-vd').classList.remove('valErrorStyle');
+    INPREGPASS.querySelector('.window-input').classList.remove('inpErrorStyle');
+    INPREGPASS.querySelector('.window-input__input').classList.remove('inp2ErrorStyle');
   }
+
   if (INPREGPASS.querySelector('.window-input__input').value !== INPREGPASSCONF.querySelector('.window-input__input').value) {
-    INPREGPASSCONF.querySelector('.confirm-password-vd').innerHTML = 'пароли не совпадают';
-    INPREGPASSCONF.querySelector('.confirm-password-vd').style.display = 'block';
-    INPREGPASSCONF.querySelector('.window-input').style.marginBottom = '0px';
-    INPREGPASSCONF.querySelector('.window-input').style.border = '1px solid #FF97C3';
-    INPREGPASSCONF.querySelector('.window-input').style.background = '#FFDEEC';
-    INPREGPASSCONF.querySelector('.window-input__input').style.background = '#FFDEEC';
+    INPREGPASSCONF.querySelector('.confirm-password-vd').classList.add('valErrorStyle');
+    INPREGPASSCONF.querySelector('.window-input').classList.add('inpErrorStyle');
+    INPREGPASSCONF.querySelector('.window-input__input').classList.add('inp2ErrorStyle');
   } else {
-    INPREGPASSCONF.querySelector('.confirm-password-vd').style.display = 'none';
-    INPREGPASSCONF.querySelector('.window-input').style.marginBottom = '24px';
-    INPREGPASSCONF.querySelector('.window-input').style.border = '1px solid #DFDFDF';
-    INPREGPASSCONF.querySelector('.window-input').style.background = '#FFF';
-    INPREGPASSCONF.querySelector('.window-input__input').style.background = '#FFF';
-  } // до сюда
-  if (INPREGLOGIN.querySelector('.login-vd').style.display === 'none'
-  && INPREGMAIL.querySelector('.mail-vd').style.display === 'none'
-  && INPREGPASS.querySelector('.password-vd').style.display === 'none'
-  && INPREGPASSCONF.querySelector('.confirm-password-vd').style.display === 'none') {
+    INPREGPASSCONF.querySelector('.confirm-password-vd').classList.remove('valErrorStyle');
+    INPREGPASSCONF.querySelector('.window-input').classList.remove('inpErrorStyle');
+    INPREGPASSCONF.querySelector('.window-input__input').classList.remove('inp2ErrorStyle');
+  }
+  if (INPREGLOGIN.querySelector('.login-vd').style.display !== 'block'
+  && INPREGMAIL.querySelector('.mail-vd').style.display !== 'block'
+  && INPREGPASS.querySelector('.password-vd').style.display !== 'block'
+  && INPREGPASSCONF.querySelector('.confirm-password-vd').style.display !== 'block') {
     const createUser = {
       name: INPREGLOGIN.querySelector('.window-input__input').value,
       email: INPREGMAIL.querySelector('.window-input__input').value,
       password: INPREGPASS.querySelector('.window-input__input').value,
     };
-    (async () => { // убрать
-      let response = await fetch('/createUser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify(createUser),
-      });
-      if (response.status === 200) {
-        REGWINDOW.style.display = 'none';
-        REGAUTHOR.style.display = 'none';
-        window.location.href = '#';
-      }
-      if (response.status === 400) {
-        response = await response.json();
-        INPREGMAIL.querySelector('.mail-vd').innerHTML = response.message;
-        INPREGMAIL.querySelector('.mail-vd').style.display = 'block';
-        INPREGMAIL.querySelector('.window-input').style.marginBottom = '0px';
-        INPREGMAIL.querySelector('.window-input').style.border = '1px solid #FF97C3'; // создать классы
-        INPREGMAIL.querySelector('.window-input').style.background = '#FFDEEC';
-        INPREGMAIL.querySelector('.window-input__input').style.background = '#FFDEEC';
-      }
-    })();
+    let response = await fetch('/createUser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(createUser),
+    });
+    if (response.status === 200) {
+      REGWINDOW.style.display = 'none';
+      REGAUTHOR.style.display = 'none';
+      window.location.href = '#';
+    }
+    if (response.status === 400) {
+      response = await response.json();
+      INPREGMAIL.querySelector('.mail-vd').innerHTML = response.message;
+      INPREGMAIL.querySelector('.mail-vd').classList.add('valErrorStyle');
+      INPREGMAIL.querySelector('.window-input').classList.add('inpErrorStyle');
+      INPREGMAIL.querySelector('.window-input__input').classList.add('inp2ErrorStyle');
+    }
   }
 });
-REGAUTHOR.querySelector('.btn-authorization-window').addEventListener('click', () => {
+REGAUTHOR.querySelector('.btn-authorization-window').addEventListener('click', async () => {
   if (REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').value === '') {
     REGAUTHOR.querySelector('.mail-vd').innerHTML = 'Введите адрес электронной почты';
-    REGAUTHOR.querySelector('.mail-vd').style.display = 'block';
-    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.marginBottom = '0px';
-    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.border = '1px solid #FF97C3';
-    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.background = '#FFDEEC';
-    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').style.background = '#FFDEEC';
+    REGAUTHOR.querySelector('.mail-vd').classList.add('valErrorStyle');
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').classList.add('inpErrorStyle');
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').classList.add('inp2ErrorStyle');
   } else {
-    REGAUTHOR.querySelector('.mail-vd').style.display = 'none';
-    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.marginBottom = '24px';
-    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.border = '1px solid #DFDFDF';
-    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.background = '#FFF';
-    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').style.background = '#FFF';
+    REGAUTHOR.querySelector('.mail-vd').classList.remove('valErrorStyle');
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').classList.remove('inpErrorStyle');
+    REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').classList.remove('inp2ErrorStyle');
   }
 
   if (REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').value === '') {
     REGAUTHOR.querySelector('.password-vd').innerHTML = 'Введите пароль';
-    REGAUTHOR.querySelector('.password-vd').style.display = 'block';
-    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.marginBottom = '0px';
-    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.border = '1px solid #FF97C3';
-    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.background = '#FFDEEC';
-    REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').style.background = '#FFDEEC';
+    REGAUTHOR.querySelector('.password-vd').classList.add('valErrorStyle');
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').classList.add('inpErrorStyle');
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').classList.add('inp2ErrorStyle');
   } else {
-    REGAUTHOR.querySelector('.password-vd').style.display = 'none';
-    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.marginBottom = '24px';
-    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.border = '1px solid #DFDFDF';
-    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.background = '#FFF';
-    REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').style.background = '#FFF';
+    REGAUTHOR.querySelector('.password-vd').classList.remove('valErrorStyle');
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input').classList.remove('inpErrorStyle');
+    REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').classList.remove('inp2ErrorStyle');
   }
-  if (REGAUTHOR.querySelector('.mail-vd').style.display === 'none'
-    && REGAUTHOR.querySelector('.password-vd').style.display === 'none') {
+  if (REGAUTHOR.querySelector('.mail-vd').style.display !== 'block'
+    && REGAUTHOR.querySelector('.password-vd').style.display !== 'block') {
     const email = REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').value;
     const password = REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').value;
-    const token = crypto.randomUUID();
-    const dateToken = new Date();
     const authorUser = {
       email,
       password,
-      token,
-      dateToken,
     };
-    document.cookie = `${encodeURIComponent('email')}=${encodeURIComponent(authorUser.email)}`; // убрать куки
-    document.cookie = `${encodeURIComponent('token')}=${encodeURIComponent(authorUser.token)}`;
-    (async () => { // убрать
-      let response = await fetch('/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json;charset=utf-8',
-        },
-        body: JSON.stringify(authorUser),
-      });
-      if (response.status === 200) {
-        REGWINDOW.style.display = 'none';
-        REGAUTHOR.style.display = 'none';
-        window.location.href = '#';
-      }
-      if (response.status === 400) {
-        response = await response.json();
-        REGAUTHOR.querySelector('.password-vd').innerHTML = response.message;
-        REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.border = '1px solid #FF97C3';
-        REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').style.background = '#FFDEEC';
-        REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').style.background = '#FFDEEC';
-        REGAUTHOR.querySelector('.password-vd').style.display = 'block';
-        REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.marginBottom = '0px';
-        REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.border = '1px solid #FF97C3';
-        REGAUTHOR.querySelector('.input-password').querySelector('.window-input').style.background = '#FFDEEC';
-        REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').style.background = '#FFDEEC';
-      }
-    })();
+    let response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify(authorUser),
+    });
+    if (response.status === 200) {
+      REGWINDOW.style.display = 'none';
+      REGAUTHOR.style.display = 'none';
+      window.location.href = '#';
+    }
+    if (response.status === 400) {
+      response = await response.json();
+      REGAUTHOR.querySelector('.password-vd').innerHTML = response.message;
+      REGAUTHOR.querySelector('.input-mail').querySelector('.window-input').classList.add('inpErrorStyle');
+      REGAUTHOR.querySelector('.input-mail').querySelector('.window-input__input').classList.add('inp2ErrorStyle');
+      REGAUTHOR.querySelector('.password-vd').classList.add('valErrorStyle');
+      REGAUTHOR.querySelector('.input-password').querySelector('.window-input').classList.add('inpErrorStyle');
+      REGAUTHOR.querySelector('.input-password').querySelector('.window-input__input').classList.add('inp2ErrorStyle');
+    }
   }
 });
 (async () => {
