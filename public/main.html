@@ -189,28 +189,34 @@
     <div class="window-input">
       <label class="window-input__label">Выберите никнейм</label>
       <input type="text" class="window-input__input" value="@burtovoy">
-    </div>
+    </div> <div class="error-block">
     <p class="login-vd validation">Укажите имя</p>
+  </div>
      </div> 
      <div id='input-reg-mail' class="input-mail">
     <div class="window-input">
       <label class="window-input__label">Электронная почта</label>
       <input type="text" class="window-input__input" value="alexandr@burtovoy">
-    </div>
+    </div><div class="error-block">
     <p class="mail-vd validation">Адрес не валиден</p>
+  </div>
   </div>
   <div id='input-reg-pass' class="input-password">
     <div class="window-input">
       <input  type="password" class="window-input__input" placeholder="Пароль">
     </div>
+    <div class="error-block">
     <p class="password-vd validation">Неверный пароль</p>
+  </div>
   </div>
   <div id='input-reg-pass-conf' class="input-confirm-password">
     <div class="window-input">
       <input type="password" class="window-input__input" placeholder="Подтверждение пароля">
     </div>
+   <div class="error-block">
     <p class="confirm-password-vd validation">Пароли не совпадают</p>
   </div>
+</div>
   <p id="btn-registration-window"class="btn-registration-window">Зарегистрироваться</p>
   </form>
 </div>
@@ -227,14 +233,17 @@
       <label class="window-input__label">Адрес электронной почты</label>
       <input type="text" class="window-input__input" value="@donaldj@trump.ru">
     </div>
+    </div> <div class="error-block">
     <p class="mail-vd validation">Адрес не валиден</p>
-     </div> 
+  </div>
      <div class="input-password">
     <div class="window-input">
       <label class="window-input__label">Пароль</label>
       <input type="password" class="window-input__input" value="alexandr@burtovoy">
     </div>
+    <div class="error-block">
     <p class="password-vd validation">пароль не верный</p>
+  </div>
   </div>
   <p class="btn-authorization-window">Войти</p>
   </form>
