@@ -10,9 +10,9 @@ const port = 3000;
 const { Client } = pkg;
 const client = new Client({
   user: 'muhammad',
-  host: 'dpg-cmsb3nv109ks73dtl540-a.oregon-postgres.render.com',
-  database: 'demos_mlp8',
-  password: 'yFWdwtqvj5FZceULr7Q8JaCDeALwd2Pa',
+  host: 'dpg-cot0kiud3nmc73dpcld0-a.oregon-postgres.render.com',
+  database: 'demos_sikv',
+  password: 'JGeRkjAGSgM1WA72OUa7a4LNuByTEviZ',
   port: 5432,
   ssl: true,
 });
@@ -46,20 +46,20 @@ app.get('/posts.json', async (req, res) => {
 });
 
 app.post('/posts.json', (req, res) => {
-  const queryCreatePost = `INSERT INTO Posts (user_id, message, message_img) 
+  const queryCreatePost = `INSERT INTO Posts (id_user, message, message_img) 
   VALUES (${+req.body.user_id},'${req.body.message}','${req.body.message_img}')`;
   client.query((queryCreatePost));
   return res.status(200).send();
 });
 
 app.delete('/posts/:id.json', (req, res) => {
-  const queryDeletePost = `DELETE FROM Posts WHERE post_id = ${req.params.id};`;
+  const queryDeletePost = `DELETE FROM Posts WHERE id = ${req.params.id};`;
   client.query((queryDeletePost));
   return res.status(200).send();
 });
 
 app.post('/posts/:id.json', (req, res) => {
-  const queryEditPost = `UPDATE Posts SET message = '${req.body.message}' WHERE post_id = ${req.params.id}`;
+  const queryEditPost = `UPDATE Posts SET message = '${req.body.message}' WHERE id = ${req.params.id}`;
   client.query((queryEditPost));
   return res.status(200).send();
 });
