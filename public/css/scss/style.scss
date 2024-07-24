@@ -402,10 +402,6 @@
     font-weight: 900;
     line-height: 28px;
     margin-bottom: 24px;
-    .exit {
-      display: none;
-      cursor: pointer;
-    }
     @import "_adapt";
   }
 
@@ -477,16 +473,16 @@
     margin-left: 16px;
   }
   .login-vd {
-    display: none;
+    display: flex;
   }
   .password-vd {
-    display: none;
+    display: flex;
   }
   .confirm-password-vd {
-    display: none
+    display: flex
   }
   .mail-vd {
-    display: none
+    display: flex
   }
   .btn-registration-window {
     margin: auto;

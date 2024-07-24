@@ -1,0 +1,18 @@
+.lastMessages__title {
+    margin-left: 16px;
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 29px;
+    margin-bottom: 24px;
+}
+@media (min-width: 1280px) {
+  .lastMessages__title {
+    color: #000;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    margin-left: 0px;
+    margin-bottom: 24px;
+  }
+} 

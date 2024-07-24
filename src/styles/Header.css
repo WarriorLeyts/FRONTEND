@@ -1,0 +1,32 @@
+header {
+    margin: auto;
+   }
+.img-friends {
+    margin-top: 24px;
+    min-height: 160px;
+    background-image: url("../img/bg_friends.jpeg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 432px auto;
+ }
+ @media (min-width: 1280px) { 
+    header {
+        width: 1280px;
+        display: flex;
+        flex-direction: row;
+        height: 640px;
+        background: #FFF;
+        position: relative;
+    }
+    .bgHeader {
+        background: #F4F5F6;
+    }
+    .img-friends {
+        margin: 0;
+        background-size: 195% 133%;
+        width: 640px;
+        height: auto;
+        background-position: -240px -160px;
+    }
+}
+  
