@@ -187,10 +187,8 @@ REGAUTHOR.querySelector('.btn-authorization-window').addEventListener('click', a
   }
 });
 (async () => {
-  const response1 = await fetch('./data.json');
-  const response2 = await fetch('./profiles.json');
-  const data = await response1.json();
-  const data2 = await response2.json();
+  const data = await fetch('./data.json').then((response) => response.json());
+  const data2 = await fetch('./profiles.json').then((response) => response.json());
   USERSREGISTR.innerHTML = data.static.usersRegistr;
   WRITMESSAGES.innerHTML = data.static.writMessages;
   WRITTODAY.innerHTML = data.static.writToday;
@@ -278,3 +276,5 @@ REGAUTHOR.querySelector('.btn-authorization-window').addEventListener('click', a
     enterMessages();
   }, 60000);
 })();
+
+console.log((async () => { await fetch('/posts.json'); })());

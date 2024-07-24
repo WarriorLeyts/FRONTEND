@@ -14,4 +14,14 @@ export default defineConfig({
     },
   },
   plugins: [react()],
+  server: {
+    proxy: {
+      '/posts.json': 'http://localhost:3000',
+      '/blogs.json': 'http://localhost:3000',
+      '/topics.json': 'http://localhost:3000',
+      '/createUser': 'http://localhost:3000',
+      '/login': 'http://localhost:3000',
+      '/feed': 'http://localhost:3000',
+    },
+  },
 });

@@ -1,0 +1,14 @@
+main {
+    margin: auto;
+    display: flex;
+    margin-top: 42px;
+    padding: 0 16px;
+    margin-bottom: 25px;
+}
+@media (min-width: 1280px) {
+    main { 
+        margin-top: 274px;
+        width: 960px;
+        padding: 0px;
+    }
+}

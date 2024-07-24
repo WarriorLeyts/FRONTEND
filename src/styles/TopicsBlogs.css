@@ -1,0 +1,10 @@
+.topics-blogs {
+    display: none;
+    margin-top: 75px;
+    margin-left: 15px;
+}
+@media (min-width: 1280px) {
+    .topics-blogs {
+        display: block;
+    }
+}

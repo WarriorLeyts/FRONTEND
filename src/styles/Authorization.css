@@ -1,0 +1,80 @@
+.authorization {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+.logo {
+    width: 36px;
+    height: 38px;
+    margin-top: 24px;
+    margin-bottom: 24px; 
+}
+
+.authorization__title {
+    color: #000;
+    text-align: center;
+    text-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 900;
+    line-height: normal;
+    margin-bottom: 24px;
+    padding: 0px 16px;
+  }
+.authorization-block {
+    display: flex;
+    flex-direction: column;
+    grid-row-gap: 16px;
+    margin: auto;
+}
+.authorization__btn {
+    display: inline-block;
+    text-decoration: none;
+    width: 328px;
+    border: 1px solid #0057FF;
+    text-align: center;
+    padding: 15px 1px;
+    border-radius: 10px;
+    font-weight: 400;
+    font-size: 18px;
+    background: #0057FF;
+    color: #ffffff;
+    transition: all 0.5s;
+    cursor: pointer;    
+}
+.authorization__btn:hover{
+    color: #0057FF;
+    background: #FFFFFF;
+    transition: all 0.5s;    
+}
+@media (min-width: 1280px) { 
+    .authorization {
+        margin: 0px;
+        margin-left: 70px;
+        width: 640px; 
+        align-self: flex-start;
+        align-items: flex-start;
+       }
+    .logo{
+        margin-top: 42px;
+        margin-bottom: 0px;
+    }
+    .authorization__btn{
+        width: 260px;
+        margin: auto;
+    }
+    .authorization__title {
+        width: 410px;
+        font-weight: 900;
+        font-size: 40px;
+        text-align: left;
+        padding: 0;
+        margin: 32px 0;
+    }
+    .authorization-block {
+        margin: 0;
+    }
+    .mgtext{
+        margin-right: 50px;
+    }
+}
