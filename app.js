@@ -24,13 +24,13 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
   if (req.cookies.email) {
     res.type('html').send('<script>window.location.href = "/feed";</script>');
   } else {
     res.type('html').send(html);
   }
-});
+});*/
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
