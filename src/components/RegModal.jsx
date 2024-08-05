@@ -79,7 +79,9 @@ const RegModal = () => {
           } else if (responce.status === 200) {
             window.location.href = '/feed';
           }
-        })
+        }).catch(error => {
+          console.log(error);
+        });
       }
     }
     return (

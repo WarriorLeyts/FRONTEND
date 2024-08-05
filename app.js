@@ -1,5 +1,4 @@
 import express from 'express';
-import fs from 'fs';
 import pkg from 'pg';
 import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
@@ -17,25 +16,14 @@ const client = new Client({
   ssl: true,
 });
 client.connect();
-
-const html = fs.readFileSync('public/index_old.html', 'utf8');
-
 app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.get('/', (req, res) => {
-  if (req.cookies.email) {
-    res.type('html').send('<script>window.location.href = "/feed";</script>');
-  } else {
-    res.type('html').send(html);
-  }
-});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
-
 app.get('/posts.json', async (req, res) => {
   const queryGetPosts = `SELECT * 
   FROM Posts, Users
