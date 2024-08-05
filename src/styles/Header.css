@@ -4,7 +4,7 @@ header {
 .img-friends {
     margin-top: 24px;
     min-height: 160px;
-    background-image: url("../img/bg_friends.jpeg");
+    background-image: url("../../public/img/bg_friends.jpeg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 432px auto;
