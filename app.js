@@ -9,9 +9,9 @@ const port = 3000;
 const { Client } = pkg;
 const client = new Client({
   user: 'muhammad',
-  host: 'dpg-cot0kiud3nmc73dpcld0-a.oregon-postgres.render.com',
-  database: 'demos_sikv',
-  password: 'JGeRkjAGSgM1WA72OUa7a4LNuByTEviZ',
+  host: 'dpg-cqpkf6ij1k6c73ds2eb0-a.oregon-postgres.render.com',
+  database: 'demos_t6ex',
+  password: 'c4HH2PlMVpWowYA0yN1PKghzewj8oHNg',
   port: 5432,
   ssl: true,
 });
@@ -144,8 +144,8 @@ app.get('/feed', async (req, res) => {
   FROM Sessions
   WHERE token='${req.cookies.token}'`;
   const getDateToken = (await client.query(queryGetToken)).rows;
-  if ((new Date() - new Date(getDateToken[0]?.date)) / 60000 > 10_082) {
+  if (!req.cookies.token || ((new Date() - new Date(getDateToken[0]?.date)) / 60000 > 10_082)) {
     return res.type('html').send('<script> alert("пользователь не авторизован") </script>');
   }
-  return res.type('html').send('<h1>Страница feed</h1>');
+  return res.redirect('/feed');
 });
