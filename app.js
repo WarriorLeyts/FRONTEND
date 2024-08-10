@@ -3,6 +3,7 @@ import pkg from 'pg';
 import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
 import crypto from 'crypto';
+import fs from 'fs';
 
 const app = express();
 const port = 3000;
@@ -17,6 +18,7 @@ const client = new Client({
 });
 client.connect();
 app.use(express.static('public'));
+const html = fs.readFileSync('public/index.html', 'utf8');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
@@ -24,6 +26,7 @@ app.use(cookieParser());
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });
+
 app.get('/posts.json', async (req, res) => {
   const queryGetPosts = `SELECT * 
   FROM Posts, Users
@@ -147,5 +150,5 @@ app.get('/feed', async (req, res) => {
   if (!req.cookies.token || ((new Date() - new Date(getDateToken[0]?.date)) / 60000 > 10_082)) {
     return res.type('html').send('<script> alert("пользователь не авторизован") </script>');
   }
-  return res.redirect('/feed');
+  return res.type('html').send(html);
 });
