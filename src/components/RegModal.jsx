@@ -57,7 +57,6 @@ const RegModal = () => {
             ...prevFormData,
             [name]: value
         }))
-        console.log(formData)
       handleError(name, value)
     }
 
