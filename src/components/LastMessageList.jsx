@@ -35,7 +35,7 @@ const LastMessageList = () => {
         </>)   
   })}
 
-</div>; 
+</div>;
   const body2 = <div className="LastMessageList">
   { resPosts.map((item, index) => {
       return (
@@ -92,6 +92,7 @@ const LastMessageList = () => {
 
 </div>;  
   body = Object.keys(resPosts).length ? body2 : body;
+  
 return (
   <>
   {body}

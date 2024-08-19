@@ -30,7 +30,7 @@ app.listen(port, () => {
 app.get('/posts.json', async (req, res) => {
   const queryGetPosts = `SELECT * 
   FROM Posts, Users
-  WHERE Posts.id_user=Users.id`;
+  WHERE Posts.id_user=Users.id ORDER BY Posts.id DESC LIMIT 4`;
   const posts = JSON.stringify((await client.query(queryGetPosts)).rows);
   res.status(200).send(posts);
 });
@@ -83,11 +83,19 @@ app.get('/topics.json', async (req, res) => {
   return res.status(200).send(topics);
 });
 
-app.post('/posts.json', (req, res) => {
-  const queryCreatePost = `INSERT INTO Posts (id_user, message, message_img) 
-  VALUES (${+req.body.user_id},'${req.body.message}','${req.body.message_img}')`;
-  client.query((queryCreatePost));
-  return res.status(200).send();
+app.post('/posts.json', async (req, res) => {
+  const queryGetToken = `SELECT *   
+  FROM Sessions
+  WHERE token='${req.cookies.token}'`;
+  try {
+    const getTokens = (await client.query(queryGetToken)).rows;
+    const queryCreatePost = `INSERT INTO Posts (id_user, message) 
+    VALUES (${getTokens[0]?.id_user},'${req.body.message}')`;
+    client.query((queryCreatePost));
+    return res.status(200).send({ message: 'Ваш пост сохранен' });
+  } catch (error) {
+    return res.status(400).send({ error: error.message });
+  }
 });
 
 app.delete('/posts/:id.json', (req, res) => {
