@@ -93,8 +93,8 @@ app.post('/posts.json', async (req, res) => {
     VALUES (${getTokens[0]?.id_user},'${req.body.message}')`;
     client.query((queryCreatePost));
     return res.status(200).send({ message: 'Ваш пост сохранен' });
-  } catch (error) {
-    return res.status(400).send({ error: error.message });
+  } catch (err) {
+    return res.status(400).send({ error: err.message });
   }
 });
 

@@ -5,6 +5,7 @@ import getPostSize from '@/post_size';
 const NewTweet = () => {
     const [tweet, setTweet] = useState('');
     const [postSize, setPostSize] = useState(123);
+    
     const handleSavePost = () => {
         if (!tweet) {
             alert('Не возможно сохранить пустой пост')
@@ -22,7 +23,7 @@ const NewTweet = () => {
                 setTweet('')
                 setPostSize(0)
             } else {
-                alert(`Не получилось сохранить пост: ${response.data.error}`)
+                alert(`Не получилось сохранить пост: ${response.data.err}`)
             }
         })
     }
