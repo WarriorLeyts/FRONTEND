@@ -84,9 +84,10 @@ app.get('/topics.json', async (req, res) => {
 });
 
 app.post('/posts.json', async (req, res) => {
+  const { token } = req.cookies;
   const queryGetToken = `SELECT *   
   FROM Sessions
-  WHERE token='${req.cookies.token}'`;
+  WHERE token='${token}'`;
   try {
     const getTokens = (await client.query(queryGetToken)).rows;
     const queryCreatePost = `INSERT INTO Posts (id_user, message) 
@@ -156,7 +157,7 @@ app.get('/feed', async (req, res) => {
   WHERE token='${req.cookies.token}'`;
   const getDateToken = (await client.query(queryGetToken)).rows;
   if (!req.cookies.token || ((new Date() - new Date(getDateToken[0]?.date)) / 60000 > 10_082)) {
-    return res.type('html').send('<script> alert("пользователь не авторизован") </script>');
+    return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
   }
-  return res.type('html').send(html);
+  return res.status(200).type('html').send(html);
 });

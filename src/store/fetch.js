@@ -2,7 +2,7 @@ import { create } from 'zustand';
 
 const fetchStore = (set) => (
   {
-    posts: [],
+    posts: [1, 2, 3, 4],
     setPosts: async () => {
       const responseData = await fetch('/posts.json').then((responce) => responce.json());
       set(() => ({ posts: responseData }));
