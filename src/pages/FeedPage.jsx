@@ -1,11 +1,13 @@
-import LastMessagesList from '../components/LastMessageList';
+import PostsFeed from '../components/PostsFeed';
 import Topics from '../components/Topics.jsx';
 import Blogs from '../components/Blogs.jsx';
 import styles from '../styles/FeedPage.module.css';
 import Navbar from '@/components/Navbar.jsx';
 import NewTweet from '@/components/NewTweet.jsx';
 import CardUser from '@/components/CardUser.jsx';
+import { useState } from 'react';
 function FeedPage() {
+  const [active, setActive] = useState(false)
     return (
       <>
         <header className={styles.header}>
@@ -17,8 +19,8 @@ function FeedPage() {
         </header>
         <main className={styles.main}>
           <div className={styles.main1}>
-            <NewTweet/>
-            <LastMessagesList/>
+            <NewTweet active={active} setActive={setActive}/>
+            <PostsFeed/>
           </div>
           <div className={styles.main2}>
             <CardUser/>
@@ -27,7 +29,7 @@ function FeedPage() {
           </div>  
           </div>
         </main>
-        <div className={styles.newMessage}><img src="img/pero.svg"/></div>
+        <div className={styles.newMessage} onClick={()=> setActive(true)} ><img src="img/pero.svg"/></div>
         <footer className={styles.footer}>
          <Navbar/> <img className={styles.avatar}src='img/alexsandr-avatar.png'/>
         </footer>

@@ -1,10 +1,10 @@
 import '@/styles/Main.css';
-import LastMessages from '@/components/LastMessages.jsx';
+import PostsFeed from '@/components/PostsFeed';
 import TopicsBlogs from '@/components/TopicsBlogs.jsx';
 const Main = () => {
     return (
         <main>
-            <LastMessages/>
+            <PostsFeed/>
             <TopicsBlogs/>
         </main>
     )
