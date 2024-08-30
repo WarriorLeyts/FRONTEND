@@ -8,10 +8,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
     text-decoration: none;
     border-bottom: 3px solid white;
-    padding-left: 16px;
 }
 .avatar {
     width: 26px;
@@ -24,7 +22,6 @@
     display: none;
 }
 .navbar_link_act {
-    width: 90px;
     width: 90px;
     height: 46px;
     display: flex;
@@ -61,6 +58,7 @@ li {
       width: 130px;
       height: 64px;
       justify-content: flex-start;
+      padding-left: 16px;
     }
     .navbar_link_act {
       gap: 10px;
