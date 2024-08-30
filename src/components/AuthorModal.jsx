@@ -3,8 +3,10 @@ import  usemodalActive from '@/store/modal.js';
 import React, { useEffect, useState } from "react";
 import useFetchStore from '@/store/fetch.js';
 import emailValidation from '@/email_validation.js';
+import { useNavigate } from 'react-router-dom';
 
 const AuthorModal = () => {
+  const navigate = useNavigate()
     const active = usemodalActive ((state) => state.authorModalActive);
     const setActive = usemodalActive ((state) => state.setAuthorModalActive);
     const [formData, setFormData] = useState({
@@ -78,7 +80,7 @@ const AuthorModal = () => {
           }))
           setPasswordDirty(true)
           } else if (responce.status === 200) {
-            window.location.href = '/feed';
+            navigate('/feed');
           }
         }).catch(error => {
           console.log(error);

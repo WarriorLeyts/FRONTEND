@@ -110,6 +110,9 @@
   background-color: RGB(227,235,238);
   margin-bottom: 5px;
 }
+.no-line {
+  display: none;
+}
 .line{
   border-top: 1px solid #E9E9E9;
   height: 1px;
