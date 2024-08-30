@@ -70,14 +70,19 @@
     transition: all 0.5s;
     cursor: pointer;
 }
-.delPhoto {
+.addedPhoto {
+    position: fixed;
     width: 61px;
     height: 52px;
     border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.5s;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    bottom: 70px;
+    right: 19px;
 }
 .exit {
     position: absolute;
@@ -182,5 +187,8 @@
     }
     .btnTweet {
         width: 220px;
+    }
+    .addedPhoto {
+        position: static;
     }
 }

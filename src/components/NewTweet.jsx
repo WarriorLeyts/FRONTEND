@@ -26,7 +26,7 @@ const NewTweet = ({ active, setActive }) => {
           headers: {
             'Content-Type': 'application/json;charset=utf-8',
           },
-          body: JSON.stringify({ message: tweet, message_img: imgUrl }),
+          body: JSON.stringify({ message: tweet, messageImg: imgUrl }),
         }).then(async response => {
             if (!response.ok) {
                 throw  alert(new Error('Сервер вернул ошибку'));
@@ -54,16 +54,14 @@ const NewTweet = ({ active, setActive }) => {
             <div className={styles.footerTweet}>
                 {active ? progressBar : <div style={{display: "flex", gap: "5px"}}>
                     <AddPhoto imgUrl={imgUrl} setImgUrl={setImgUrl}/> 
-                    {imgUrl && <div style={{position: "relative"}}> 
-                        <img src={imgUrl} className={styles.delPhoto} onClick={() => setImgUrl('')}/> 
-                        <img className={styles.exit} src='img/exit.svg' 
+                    {imgUrl && <div className={styles.addedPhoto} style={{backgroundImage: `url(${imgUrl})`}}> 
+                        <img className={styles.exit} src='img/exit.svg'
                         onClick={() => setImgUrl('')}/>
                         </div>}
                     </div> } 
                 <div className={styles.blockSend}>
                 {active ? <div style={{display: "flex", gap: "5px"}}>
-                    {imgUrl && <div style={{position: "relative"}}> 
-                        <img src={imgUrl} className={styles.delPhoto}/> 
+                    {imgUrl && <div className={styles.addedPhoto} style={{backgroundImage: `url(${imgUrl})`}}> 
                         <img className={styles.exit} src='img/exit.svg'
                         onClick={() => setImgUrl('')}/>
                         </div>}
