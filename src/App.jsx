@@ -11,12 +11,6 @@ import ProfileSettingsPage from './pages/ProfileSettingsPage.jsx';
 import PasswordSettingsPage from './pages/PasswordSettingsPage.jsx';
 import EmailSettingsPage from './pages/EmailSettingsPage.jsx';
 import Home from '@/pages/Home.jsx';
-function getCookie(name) {
-  const value = `; ${document.cookie}`;
-  const parts = value.split(`; ${name}=`);
-  if (parts.length === 2) return parts.pop().split(';').shift();
-}
-console.log(getCookie('token'))
 
 const App  = () => {
   return (
