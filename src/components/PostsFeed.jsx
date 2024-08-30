@@ -9,7 +9,8 @@ const PostsFeed = () => {
     const posts = useFetchStore ((state) => state.posts);
     const setPosts = useFetchStore ((state) => state.setPosts);
     useEffect(() => {
-      setPosts();
+        setPosts()
+        setInterval(() => setPosts(), 60000);
     }, []);
     const getPosts = () => {
         if (posts.join() === '1,2,3,4') {
