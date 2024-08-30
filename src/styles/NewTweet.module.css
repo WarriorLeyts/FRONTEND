@@ -76,8 +76,13 @@
     height: 52px;
     border-radius: 10px;
     display: flex;
+<<<<<<< HEAD
     justify-content: center;
     align-items: center;
+=======
+    justify-content: flex-end;
+    align-items: flex-start;
+>>>>>>> task-16
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -85,9 +90,12 @@
     right: 19px;
 }
 .exit {
+<<<<<<< HEAD
     position: absolute;
     right: -1px;
     top: -2px;
+=======
+>>>>>>> task-16
     background: white; 
     border-radius: 20px;
     cursor: pointer;
