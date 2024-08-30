@@ -62,6 +62,41 @@
 .addPhoto {
     width: 61px;
     height: 52px;
+    border-radius: 10px;
+    border: 2px solid #0057FF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+    cursor: pointer;
+}
+.delPhoto {
+    width: 61px;
+    height: 52px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s;
+}
+.exit {
+    position: absolute;
+    right: -1px;
+    top: -2px;
+    background: white; 
+    border-radius: 20px;
+    cursor: pointer;
+}
+.addPhoto:hover{
+    background: #0057FF;
+    transition: all 0.5s;    
+}
+.addPhotoCamera{
+    transition: all 0.5s;    
+}
+.addPhoto:hover .addPhotoCamera{
+    fill: #FFFFFF;
+    transition: all 0.5s;    
 }
 .btnTweet {
     width: 183px;

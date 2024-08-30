@@ -85,13 +85,14 @@ app.get('/topics.json', async (req, res) => {
 
 app.post('/posts.json', async (req, res) => {
   const { token } = req.cookies;
+  const { message, messageImg } = req.body;
   const queryGetToken = `SELECT *   
   FROM Sessions
   WHERE token='${token}'`;
   try {
     const getTokens = (await client.query(queryGetToken)).rows;
-    const queryCreatePost = `INSERT INTO Posts (id_user, message) 
-    VALUES (${getTokens[0]?.id_user},'${req.body.message}')`;
+    const queryCreatePost = `INSERT INTO Posts (id_user, message, message_img) 
+    VALUES (${getTokens[0]?.id_user},'${message}','${messageImg}')`;
     client.query((queryCreatePost));
     return res.status(200).send({ message: 'Ваш пост сохранен' });
   } catch (err) {
