@@ -8,7 +8,7 @@ function ProfileSettingsPage() {
     return (
       <>
         <Navbar location={location.pathname}/>
-        <main>
+        <main className={styles.mainSetting}>
         <div className={styles.blockSetting}>
           <h2 className={styles.title}>Редактировать профиль</h2>
           <div className={styles.profileSetting}>

@@ -1,7 +1,7 @@
 body {
     background: rgba(244, 245, 246, 1);
 }
-main {
+.mainSetting {
     display: flex;
     justify-content: center;
     align-items: center;
