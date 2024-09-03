@@ -19,9 +19,13 @@ const NavbarList = ({ location }) => {
                     </Link>
                 </li>
                 <li>
-                    <Link to="/settings/profile" className={location === '/settings/profile' ? styles.navbar_link_act : styles.navbar_link}>
+                    <Link to="/settings/profile" className={location === '/settings/profile'
+                            || location === '/settings/email'
+                            || location === '/settings/password' ? styles.navbar_link_act : styles.navbar_link}>
                       <img  src="../img/adjust.svg"/> 
-                      <p className={location === '/settings/profile' ? styles.subLinkAct : styles.subLink}>Настройки</p>
+                      <p className={location === '/settings/profile' ||
+                            location === '/settings/email' ||
+                            location === '/settings/password' ? styles.subLinkAct : styles.subLink}>Настройки</p>
                     </Link>
                 </li>
             </ul>

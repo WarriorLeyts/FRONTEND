@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useLocation } from "react-router-dom";
 function ProfilePage() {
-  const location = useLocation();
+  const location = useLocation(); 
     return (
       <div>
         <Navbar location={location.pathname}/>

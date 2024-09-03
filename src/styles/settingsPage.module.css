@@ -1,0 +1,22 @@
+body {
+    background: rgba(244, 245, 246, 1);
+}
+.mainSetting {
+    margin: auto;
+    margin-top: 96px;
+    display: flex;
+    width: 960px;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+.settings {
+    display: flex;
+    gap: 16px;
+}
+.title {
+    font-family: "Roboto";
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 42.19px;
+    margin-bottom: 20px;
+}
