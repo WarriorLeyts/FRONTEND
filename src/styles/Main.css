@@ -1,4 +1,4 @@
-main {
+.mainHome {
     margin: auto;
     display: flex;
     margin-top: 42px;
@@ -6,7 +6,7 @@ main {
     margin-bottom: 25px;
 }
 @media (min-width: 1280px) {
-    main { 
+    .mainHome { 
         margin-top: 274px;
         width: 960px;
         padding: 0px;

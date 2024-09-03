@@ -2,7 +2,7 @@ import '@/styles/Blogs.css';
 import useFetchStore from '@/store/fetch.js';
 import { useEffect } from "react";
 const Blogs = () => {
-    const arrBlogs = [1, 2, 3, 4]
+    const arrBlogs = [1, 2, 3]
     const resBlogs = useFetchStore ((state) => state.blogs);
     const setBlogs = useFetchStore ((state) => state.setBlogs);
     useEffect(() => {
