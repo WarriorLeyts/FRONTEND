@@ -1,19 +1,20 @@
 import '@/styles/LastMessages.css';
 import '@/styles/LastMessageList.css';
-import useFetchStore from '@/store/fetch.js';
 import { useEffect } from "react";
-import getTimeString from '@/get_time_string.js';
 import Post from './Post';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPosts } from '../store/postsSlice';
 
 const PostsFeed = () => {
-    const posts = useFetchStore ((state) => state.posts);
-    const setPosts = useFetchStore ((state) => state.setPosts);
+    const dispatch = useDispatch();
+    const posts = useSelector((state) => state.posts.posts);
+    const loading = useSelector((state) => state.posts.loading);
+    const error = useSelector((state) => state.posts.error);
     useEffect(() => {
-        setPosts()
-        setInterval(() => setPosts(), 60000);
-    }, []);
+        dispatch(fetchPosts());
+    }, [dispatch]);
     const getPosts = () => {
-        if (posts.join() === '1,2,3,4') {
+        if (loading || error) {
             return posts.map((post, index) => {
                    return (<>
                   <div className="post" key={index + 'i'}>

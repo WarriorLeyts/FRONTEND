@@ -1,15 +1,15 @@
 import React, { useState} from 'react';
 import styles from '../styles/NewTweet.module.css';
 import getPostSize from '@/post_size';
-import useFetchStore from '@/store/fetch';
 import AddPhoto from './AddPhoto';
-import aaa from '../../public/img/exit.svg'
+import { useDispatch } from 'react-redux';
+import { fetchPosts } from '../store/postsSlice';
+
 const NewTweet = ({ active, setActive }) => {
-    
+    const dispath = useDispatch();
     const [tweet, setTweet] = useState('');
     const [postSize, setPostSize] = useState(123);
     const [imgUrl, setImgUrl] = useState('');
-    const setPosts = useFetchStore ((state) => state.setPosts);
 
     const progressBar = <svg className={styles.progressbar} width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text text-anchor="middle" dominant-baseline="middle" x="25" y="26" font-family="Roboto" font-size="16" fill="#0057FF" fontWeight="900">{postSize}</text>
@@ -34,9 +34,9 @@ const NewTweet = ({ active, setActive }) => {
             const message = await response.json();
             if (response.status === 200) {
                 alert(message.message);
-                setTweet('')
-                setPostSize(0)
-                setPosts();
+                setTweet('');
+                setPostSize(0);
+                dispath(fetchPosts());
                 setActive();
             } else {
                 alert(`Не получилось сохранить пост: ${response.data.err}`)
