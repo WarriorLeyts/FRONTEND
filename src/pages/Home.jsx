@@ -5,28 +5,23 @@ import Main from '../components/Main.jsx'
 import AuthorizationFooter from '../components/AuthorizationFooter'
 import RegModal from '../components/RegModal.jsx'
 import AuthorModal from '../components/AuthorModal.jsx'
-import { useNavigate } from 'react-router-dom'
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { isLogged } from '@/store/userSlice'
 
 const Home  = () => {
-  const navigate = useNavigate()
-  const getHome = async () => {
-    const responseData = await fetch('/feed');
-    if (responseData.status === 200) {
-      console.log(responseData)
-      return navigate('/feed')
-    }
-    console.log(responseData)
-    return 
-  };
-  getHome()
+  const dispath = useDispatch()
+  const [active, setActive] = useState(false);
+  dispath(isLogged());
+  
   return (
     <>
-      <Header />
+      <Header setActive={setActive}/>
       <Statistics />
       <Main />
-      <AuthorizationFooter/>
-      <RegModal/>
-      <AuthorModal/>
+      <AuthorizationFooter setActive={setActive}/>
+      <RegModal active={active} setActive={setActive}/>
+      <AuthorModal active={active} setActive={setActive}/>
     </>
   )
 }

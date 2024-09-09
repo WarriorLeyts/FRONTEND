@@ -1,17 +1,21 @@
 import '@/styles/Blogs.css';
-import useFetchStore from '@/store/fetch.js';
 import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchBlogs } from '../store/blogsSlice';
+
 const Blogs = () => {
-    const arrBlogs = [1, 2, 3, 4]
-    const resBlogs = useFetchStore ((state) => state.blogs);
-    const setBlogs = useFetchStore ((state) => state.setBlogs);
+  const dispatch = useDispatch();
+  const blogs = useSelector((state) => state.blogs.blogs);
+  const loading = useSelector((state) => state.blogs.loading);
+  const error = useSelector((state) => state.blogs.error);
+
     useEffect(() => {
-      setBlogs();
+      dispatch(fetchBlogs())
     }, []);
-    let body = <div className="blogs">
-    <h4 className="blogs__title">Интересные блогеры</h4>
-    <ul className="blogs-items">
-        {arrBlogs.map((item) => {
+
+    const getBlogs = () => {
+      if (loading || error) {
+        return blogs.map((item) => {
           return (
             <li className="blogs-item" id={`blog_${item}`}>
               <div className="blog-icon"> </div>
@@ -22,31 +26,30 @@ const Blogs = () => {
               <div className="no-blog-btn" href="#"></div>
             </li>
           )
-        })}
-    </ul>
-</div>
-const body2 = <div className="blogs">
-<h4 className="blogs__title">Интересные блогеры</h4>
-<ul className="blogs-items">
-    {resBlogs.map((item, index) => {
-      return (
-        <li className="blogs-item" id={`blog_${index}`}>
-          <img src= {`${item.urlPictures}`} alt="" className="blog-icon"/>
-        <div className="blog-info">
-          <p className="blog-name">{item.name}
-          </p>
-          <span className="blog-sub">{item.mail}</span>
-          </div>
-        <a className="blogs__btn" href="#">Читать</a>
-        </li>
-      )
-    })}
-</ul>
-</div>
-  body = Object.keys(resBlogs).length ? body2 : body;
+        })
+      } 
+      return blogs.map((item, index) => {
+        return (
+          <li className="blogs-item" id={`blog_${index}`}>
+            <img src= {`${item.urlPictures}`} alt="" className="blog-icon"/>
+          <div className="blog-info">
+            <p className="blog-name">{item.name}
+            </p>
+            <span className="blog-sub">{item.mail}</span>
+            </div>
+          <a className="blogs__btn" href="#">Читать</a>
+          </li>
+        )
+      })
+    }
     return (
       <>
-    {body}
+    <div className="blogs">
+    <h4 className="blogs__title">Интересные блогеры</h4>
+    <ul className="blogs-items">
+      {getBlogs()}
+    </ul>
+    </div>
     </>        
     )
 }

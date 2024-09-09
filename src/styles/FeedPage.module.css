@@ -11,12 +11,13 @@
     align-items: center;
     box-shadow: 0px 0px 5px 0px #00000040;
 }
-.main {
+.mainFeed {
     margin-top: 62px;
     padding: 0, 16px, 0 16px;
     margin-bottom: 46px;
     display: flex;
     flex-direction: row;
+    justify-content: center;
     gap: 16px;
 }
 .footer {
@@ -95,7 +96,7 @@
     .logo {
         margin-right: 270px;
     }
-    .main {
+    .mainFeed {
         margin-top: 96px;
     }
     .main2 {

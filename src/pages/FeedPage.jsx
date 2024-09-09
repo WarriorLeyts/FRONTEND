@@ -15,7 +15,7 @@ function FeedPage() {
     return (
       <>
       <Navbar location={location.pathname}/>
-        <main className={styles.main}>
+        <main className={styles.mainFeed}>
           <div className={styles.main1}>
             <NewTweet active={active} setActive={setActive}/>
             <PostsFeed/>

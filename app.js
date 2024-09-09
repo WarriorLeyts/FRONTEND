@@ -10,9 +10,9 @@ const port = 3000;
 const { Client } = pkg;
 const client = new Client({
   user: 'muhammad',
-  host: 'dpg-cqpkf6ij1k6c73ds2eb0-a.oregon-postgres.render.com',
-  database: 'demos_t6ex',
-  password: 'c4HH2PlMVpWowYA0yN1PKghzewj8oHNg',
+  host: 'dpg-crduvr0gph6c73ekh7kg-a.oregon-postgres.render.com',
+  database: 'demos_zbpd',
+  password: 'su4hNG0OoPIjDFsPBw7TexlUigrwXie5',
   port: 5432,
   ssl: true,
 });
@@ -29,8 +29,10 @@ app.listen(port, () => {
 
 app.get('/posts.json', async (req, res) => {
   const queryGetPosts = `SELECT * 
-  FROM Posts, Users
-  WHERE Posts.id_user=Users.id ORDER BY Posts.id DESC LIMIT 4`;
+FROM Posts
+JOIN Users ON Posts.id_user = Users.id
+ORDER BY Posts.id DESC
+LIMIT 4;`;
   const posts = JSON.stringify((await client.query(queryGetPosts)).rows);
   res.status(200).send(posts);
 });
@@ -114,44 +116,63 @@ app.post('/posts/:id.json', (req, res) => {
 
 app.post('/createUser', async (req, res) => {
   const token = crypto.randomUUID();
-  const findEmail = await client.query(`SELECT * FROM Users WHERE email='${req.body.email}'`);
-  if (Object.keys(findEmail.rows).length !== 0) {
-    return res.status(400).send({ message: 'Пользователь с таким email уже существует.' });
-  }
-  const cipherPassword = await bcrypt.hash(req.body.password, 8);
-  const createUser = `INSERT INTO Users (name, email, password) 
-  VALUES ('${req.body.name}','${req.body.email}','${cipherPassword}') returning id`;
-  const newUser = (await client.query((createUser))).rows[0];
-  const createToken = `INSERT INTO Sessions (id_user, token) 
+  const { email, password } = req.body;
+  const nickname = `user-${crypto.randomUUID().slice(0, 4)}`;
+  try {
+    const candidate = await client.query(`SELECT * FROM Users WHERE email='${req.body.email}'`);
+    if (candidate.rows[0]) {
+      throw new Error('Пользователь с таким email уже существует.');
+    }
+    const cipherPassword = await bcrypt.hash(password, 8);
+    const createUser = `INSERT INTO Users (nickname, email, password) 
+  VALUES ('${nickname}','${email}','${cipherPassword}') returning id`;
+
+    const newUser = (await client.query((createUser))).rows[0];
+
+    const createToken = `INSERT INTO Sessions (id_user, token) 
   VALUES (${newUser.id},'${token}') returning token`;
-  const getToken = (await client.query(createToken)).rows[0].token;
-  res.cookie('email', req.body.email, {
-    expires: new Date(Date.now() + 999999),
-  });
-  res.cookie('token', getToken, {
-    expires: new Date(Date.now() + 999999),
-  });
-  return res.status(200).send();
+
+    const getToken = (await client.query(createToken)).rows[0].token;
+
+    res.cookie('email', req.body.email, {
+      expires: new Date(Date.now() + 999999),
+    });
+    res.cookie('token', getToken, {
+      expires: new Date(Date.now() + 999999),
+    });
+    return res.status(201).send(newUser);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
 });
 app.post('/login', async (req, res) => {
   const token = crypto.randomUUID();
-  const findUser = await client.query(`SELECT * FROM Users WHERE email='${req.body.email}'`);
-  const userPassword = typeof (findUser.rows[0]?.password) !== 'undefined' ? findUser.rows[0].password : '';
-  const isMatch = await bcrypt.compare(req.body.password, userPassword);
-  if (!isMatch) {
-    return res.status(400).send({ message: 'Проверьте введенный email и пароль' });
+  const { email, password } = req.body;
+  try {
+    const candidate = await client.query(`SELECT * FROM Users WHERE email='${email}'`);
+    const userPassword = candidate.rows.length !== 0 ? candidate.rows[0].password : '';
+    const isMatch = await bcrypt.compare(password, userPassword);
+    if (!isMatch) {
+      throw new Error('Пользователь с указанными данными не найден.');
+    }
+    const createToken = `INSERT INTO Sessions (id_user, token) 
+  VALUES (${+candidate.rows[0].id},'${token}')`;
+
+    await client.query(createToken);
+
+    res.cookie('email', email, {
+      expires: new Date(Date.now() + (10082 * 60000)),
+    });
+    res.cookie('token', token, {
+      expires: new Date(Date.now() + (10082 * 60000)),
+    });
+
+    return res.status(200).json({});
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
   }
-  const createToken = `INSERT INTO Sessions (id_user, token) 
-  VALUES (${+findUser.rows[0].id},'${token}') returning token`;
-  const getToken = (await client.query(createToken)).rows[0].token;
-  res.cookie('email', req.body.email, {
-    expires: new Date(Date.now() + (10082 * 60000)),
-  });
-  res.cookie('token', getToken, {
-    expires: new Date(Date.now() + (10082 * 60000)),
-  });
-  return res.status(200).send();
 });
+
 app.get('/feed', async (req, res) => {
   const queryGetToken = `SELECT *   
   FROM Sessions
