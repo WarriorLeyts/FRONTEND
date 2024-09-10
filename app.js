@@ -86,19 +86,25 @@ app.get('/topics.json', async (req, res) => {
 });
 
 app.post('/posts.json', async (req, res) => {
-  const { token } = req.cookies;
+  const { email } = req.cookies;
   const { message, messageImg } = req.body;
   const queryGetToken = `SELECT *   
-  FROM Sessions
-  WHERE token='${token}'`;
+  FROM Users
+  WHERE email='${email}'`;
   try {
-    const getTokens = (await client.query(queryGetToken)).rows;
+    const getUser = (await client.query(queryGetToken)).rows[0];
+    if (!getUser) {
+      throw new Error('Пользователь не авторизован');
+    }
     const queryCreatePost = `INSERT INTO Posts (id_user, message, message_img) 
-    VALUES (${getTokens[0]?.id_user},'${message}','${messageImg}')`;
-    client.query((queryCreatePost));
-    return res.status(200).send({ message: 'Ваш пост сохранен' });
-  } catch (err) {
-    return res.status(400).send({ error: err.message });
+    VALUES (${getUser.id},'${message}','${messageImg}')`;
+    const newPost = (await client.query(queryCreatePost));
+    if (!newPost) {
+      throw new Error('Не удалось создать пост.');
+    }
+    return res.status(200).json({ message: 'Ваш пост создан' });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
   }
 });
 
@@ -174,9 +180,10 @@ app.post('/login', async (req, res) => {
 });
 
 app.get('/feed', async (req, res) => {
+  const { token } = req.cookies;
   const queryGetToken = `SELECT *   
   FROM Sessions
-  WHERE token='${req.cookies.token}'`;
+  WHERE token='${token}'`;
   const getDateToken = (await client.query(queryGetToken)).rows;
   if (!req.cookies.token || ((new Date() - new Date(getDateToken[0]?.date)) / 60000 > 10_082)) {
     return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
