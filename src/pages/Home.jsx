@@ -5,15 +5,23 @@ import Main from '../components/Main.jsx'
 import AuthorizationFooter from '../components/AuthorizationFooter'
 import RegModal from '../components/RegModal.jsx'
 import AuthorModal from '../components/AuthorModal.jsx'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { isLogged } from '@/store/userSlice'
+import { useNavigate } from 'react-router-dom'
 
 const Home  = () => {
-  const dispath = useDispatch()
+  const dispath = useDispatch();
+  const navigate = useNavigate();
   const [active, setActive] = useState(false);
+  const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
+
+  useEffect(() => {
+    if(isLoggedIn){
+      navigate('/feed')
+    }
+  }, [isLoggedIn])
   dispath(isLogged());
-  
   return (
     <>
       <Header setActive={setActive}/>
