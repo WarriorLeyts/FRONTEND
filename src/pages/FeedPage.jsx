@@ -3,7 +3,7 @@ import Topics from '../components/Topics.jsx';
 import Blogs from '../components/Blogs.jsx';
 import styles from '../styles/FeedPage.module.css';
 import Navbar from '@/components/Navbar.jsx';
-import NewTweet from '@/components/NewTweet.jsx';
+import PostWriter from '@/components/PostWriter.jsx';
 import CardUser from '@/components/CardUser.jsx';
 import { useState } from 'react';
 import Footer from '@/components/Footer';
@@ -17,7 +17,7 @@ function FeedPage() {
       <Navbar location={location.pathname}/>
         <main className={styles.mainFeed}>
           <div className={styles.main1}>
-            <NewTweet active={active} setActive={setActive}/>
+            <PostWriter active={active} setActive={setActive}/>
             <PostsFeed/>
           </div>
           <div className={styles.main2}>

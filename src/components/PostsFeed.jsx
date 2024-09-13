@@ -10,12 +10,15 @@ const PostsFeed = () => {
     const posts = useSelector((state) => state.posts.posts);
     const loading = useSelector((state) => state.posts.loading);
     const error = useSelector((state) => state.posts.error);
+    const message = useSelector((state) => state.posts.message);
+    
     useEffect(() => {
         dispatch(fetchPosts());
-    }, [dispatch]);
+    }, [message]);
+    
     const getPosts = () => {
         if (loading || error) {
-            return posts.map((post, index) => {
+            return posts?.map((post, index) => {
                    return (<>
                   <div className="post" key={index + 'i'}>
                       <a className="avatar" href="#"><div className="post__avatar"  alt=""></div></a>
@@ -36,7 +39,7 @@ const PostsFeed = () => {
                    )  
             })}
 
-        return posts.map((post, index) => 
+        return posts?.map((post, index) => 
          <Post key={post.id} post={post} index={index}/>
         )
     }

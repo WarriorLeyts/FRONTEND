@@ -1,15 +1,18 @@
-import React, { useState} from 'react';
-import styles from '../styles/NewTweet.module.css';
+import React, { useState, useEffect} from 'react';
+import styles from '../styles/postWriter.module.css';
 import getPostSize from '@/post_size';
 import AddPhoto from './AddPhoto';
-import { useDispatch } from 'react-redux';
-import { fetchPosts } from '../store/postsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchPosts, newPost, clearDate } from '../store/postsSlice';
 
-const NewTweet = ({ active, setActive }) => {
+const PostWriter = ({ active, setActive }) => {
     const dispath = useDispatch();
+
     const [tweet, setTweet] = useState('');
     const [postSize, setPostSize] = useState(123);
     const [imgUrl, setImgUrl] = useState('');
+
+    const { newPostLoading, message, error } = useSelector((state) => state.posts)
 
     const progressBar = <svg className={styles.progressbar} width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
     <text text-anchor="middle" dominant-baseline="middle" x="25" y="26" font-family="Roboto" font-size="16" fill="#0057FF" fontWeight="900">{postSize}</text>
@@ -17,32 +20,27 @@ const NewTweet = ({ active, setActive }) => {
     <circle className={styles.progressbar__thumb}  cx="26" cy="26" opacity={postSize ? 1 : 0} strokeDasharray={`${postSize/4} ${500}`}></circle>
     </svg>
 
+    useEffect(() => {
+        if (error) {
+            alert(error);
+        }
+    }, [error]);
+    useEffect(() => {
+       if (message) {
+            alert(message);
+            setTweet('');
+            setPostSize(0);
+            dispath(clearDate());
+            setActive(false);
+        }
+    }, [message]);
+
     const handleSavePost = () => {
-        if (!tweet) {
-            alert('Не возможно сохранить пустой пост')
-        } else {
-        const response = fetch('/posts.json', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json;charset=utf-8',
-          },
-          body: JSON.stringify({ message: tweet, messageImg: imgUrl }),
-        }).then(async response => {
-            if (!response.ok) {
-                throw  alert(new Error('Сервер вернул ошибку'));
-            }
-            const message = await response.json();
-            if (response.status === 200) {
-                alert(message.message);
-                setTweet('');
-                setPostSize(0);
-                dispath(fetchPosts());
-                setActive();
-            } else {
-                alert(`Не получилось сохранить пост: ${response.data.err}`)
-            }
-        })
-    }
+        if (!tweet && !imgUrl) {
+          return alert('Не возможно сохранить пустой пост');
+        }
+        const post = {message: tweet , messageImg: imgUrl}
+        dispath(newPost(post));
     }
     return (
     <div className={active ? styles.newTweet_active : styles.newTweet } >
@@ -68,11 +66,12 @@ const NewTweet = ({ active, setActive }) => {
                         <AddPhoto imgUrl={imgUrl} setImgUrl={setImgUrl}/> 
                     </div>
                      :  progressBar}
-                  <button className={styles.btnTweet} onClick={() => handleSavePost()}>Отправить</button>
+                  { newPostLoading ? <div className="loader"></div>
+                    : <button className={styles.btnTweet} onClick={() => handleSavePost()}>Отправить</button>}
                 </div>
             </div>
         </div>
     </div>
     );
 };
-export default NewTweet;
+export default PostWriter;

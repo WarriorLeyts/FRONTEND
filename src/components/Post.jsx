@@ -10,7 +10,7 @@ const Post = ({ post, index }) => {
           <div className="user">
             <div className="user-information">
               <a href="#" className="user-information__user-name" >
-              {post.name}<span className="mail">{post.email}</span>
+              {post.name}<span className="mail">{post.nickname}</span>
               </a> 
               <div className="user-information__time-message">
               <p>{getTimeString(post.date, new Date())}</p>

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react'
 import { Widget } from '@uploadcare/react-widget';
-import styles from '../styles/NewTweet.module.css';
+import styles from '../styles/postWriter.module.css';
 
 export default function AddPhoto({ imgUrl, setImgUrl}) {
     const widgetRef = useRef(null);
