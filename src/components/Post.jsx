@@ -6,7 +6,7 @@ const Post = ({ post, index }) => {
   return (
        <>
         <div className="post">
-          <a className="avatar" href="#"><img className="post__avatar" src={`${post.avatar}`} alt=""/></a>
+        <div className="post__avatar" style={{backgroundImage: `url(${post.avatar})`}}></div>
           <div className="user">
             <div className="user-information">
               <a href="#" className="user-information__user-name" >

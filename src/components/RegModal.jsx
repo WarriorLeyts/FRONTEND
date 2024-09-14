@@ -55,7 +55,6 @@ const RegModal = ({ active, setActive}) => {
     }
 
     useEffect(() => {
-      console.log(error)
       if (error) {
         setEmailDirty(true);
       }

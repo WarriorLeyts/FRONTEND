@@ -15,9 +15,9 @@ const Topics = () => {
    
    const getTopics = () => {
     if (loading || error) {
-      return topics.map((item) => {
+      return topics.map((item, index) => {
         return (
-          <li className="hashtags-item" id={`hash-li_${item}`}>
+          <li className="hashtags-item" key={`topic_${index}`}>
           <div className="no-hash"></div>
           <div className="no-hash2"></div>
         </li>
@@ -27,7 +27,7 @@ const Topics = () => {
     return (
       topics.map((item, index) => {
         return (
-          <li className="hashtags-item" id={`hash-li_${index}`}>
+          <li className="hashtags-item" key={`topic_${index}`}>
          <p className="hashtag">{item.hashName}</p>
          <span className="hashtag-sub">{item.numOfMessage}</span>
         </li>
