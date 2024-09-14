@@ -188,7 +188,7 @@ app.get('/feed', async (req, res) => {
     if (!token) {
       return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
     }
-  const getDateToken = (await client.query(queryGetToken)).rows[0];
+    const getDateToken = (await client.query(queryGetToken)).rows[0];
     if (!getDateToken) {
       return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
     }
