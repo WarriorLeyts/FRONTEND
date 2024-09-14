@@ -185,9 +185,14 @@ app.get('/feed', async (req, res) => {
   FROM Sessions
   WHERE token='${token}'`;
   try {
-    const getDateToken = (await client.query(queryGetToken)).rows[0];
-    if (!token
-    || ((new Date() - new Date(getDateToken?.created_at)) / 60000 > 10_082)) {
+    if (!token) {
+      return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
+    }
+  const getDateToken = (await client.query(queryGetToken)).rows[0];
+    if (!getDateToken) {
+      return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
+    }
+    if (((new Date() - new Date(getDateToken?.created_at)) / 60000 > 10_082)) {
       return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
     }
     return res.status(200).type('html').send(html);
