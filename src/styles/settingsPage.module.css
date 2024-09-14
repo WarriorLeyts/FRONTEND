@@ -3,20 +3,48 @@ body {
 }
 .mainSetting {
     margin: auto;
-    margin-top: 96px;
+    margin-top: 60px;
     display: flex;
-    width: 960px;
+    max-width: 960px; 
     justify-content: center;
     margin-bottom: 30px;
 }
+.blockSetting {
+    max-width: 960px;
+    width: 100%;
+    margin-top: 115px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
 .settings {
     display: flex;
+    flex-direction: column-reverse;
     gap: 16px;
+    align-items: center;
+    width: 100%;
 }
 .title {
     font-family: "Roboto";
-    font-size: 36px;
+    font-size: 25px;
     font-weight: 800;
     line-height: 42.19px;
     margin-bottom: 20px;
+    text-align: center;
+}
+@media (min-width: 1280px) {
+    .settings {
+    flex-direction: row;
+    align-items: flex-start;
+    }
+    .mainSetting {
+    margin-top: 96px;   
+    }
+    .title {
+    font-size: 36px;
+}
+    .blockSetting {
+    align-items: flex-start;
+    margin: 0;
+    }
 }

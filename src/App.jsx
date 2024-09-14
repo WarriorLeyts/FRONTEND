@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import FeedPage from './pages/FeedPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
@@ -11,6 +11,7 @@ import ProfileSettingsPage from './pages/ProfileSettingsPage.jsx';
 import PasswordSettingsPage from './pages/PasswordSettingsPage.jsx';
 import EmailSettingsPage from './pages/EmailSettingsPage.jsx';
 import Home from '@/pages/Home.jsx';
+
 
 const App  = () => {
   return (

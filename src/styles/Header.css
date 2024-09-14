@@ -1,5 +1,6 @@
 header {
     margin: auto;
+    z-index: 1;
    }
 .img-friends {
     margin-top: 24px;
