@@ -34,20 +34,24 @@ export const loginUser = createAsyncThunk('user/login', async (credentials) => {
   return response.json();
 });
 
-export const isLogged = createAsyncThunk('user/isLogged', async () => {
+export const getFeedPage = createAsyncThunk('user/getFeedPage', async () => {
   const response = await fetch('/feed');
+
+  if (response.status === 400) {
+    throw new Error((await response.json()).error);
+  }
   if (!response.ok) {
     throw new Error(`Ошибка при загрузке данных: ${response.status}`);
   }
-  return response;
 });
 const userSlice = createSlice({
   name: 'user',
   initialState: {
     userInfo: null,
-    isLoggedIn: false,
+    isAuth: false,
     loading: false,
     error: null,
+    errorAuth: null,
   },
   reducers: {
     logout: (state) => ({
@@ -66,12 +70,13 @@ const userSlice = createSlice({
         ...state,
         loading: true,
         userInfo: action.payload,
-        isLoggedIn: true,
+        isAuth: true,
         error: null,
       }))
       .addCase(registerUser.rejected, (state, action) => ({
         ...state,
         loading: false,
+        isAuth: false,
         error: action.error.message,
       }))
 
@@ -83,21 +88,23 @@ const userSlice = createSlice({
         ...state,
         loading: false,
         userInfo: action.payload,
-        isLoggedIn: true,
         error: null,
+        isAuth: true,
       }))
       .addCase(loginUser.rejected, (state, action) => ({
         ...state,
         loading: false,
+        isAuth: false,
         error: action.error.message,
       }))
-      .addCase(isLogged.fulfilled, (state) => ({
+      .addCase(getFeedPage.fulfilled, (state) => ({
         ...state,
-        isLoggedIn: true,
+        isAuth: true,
       }))
-      .addCase(isLogged.rejected, (state) => ({
+      .addCase(getFeedPage.rejected, (state, action) => ({
         ...state,
-        isLoggedIn: false,
+        isAuth: false,
+        errorAuth: action.error.message,
       }));
   },
 });

@@ -7,7 +7,18 @@
 .post__avatar{
     width: 52px;
     height: 52px;
-    border-radius: 50px;
+    background: #00000066;
+    background-image: url('../img/avatar-new.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    box-shadow: 0px 10px 15px 0px #0000000D;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
     background-color: RGB(227,235,238);
 }
 .user {

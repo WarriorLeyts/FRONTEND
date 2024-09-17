@@ -3,7 +3,7 @@ import '@/styles/LastMessageList.css';
 import { useEffect } from "react";
 import Post from './Post';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts } from '../store/postsSlice';
+import { fetchPosts, clearDate } from '../store/postsSlice';
 
 const PostsFeed = () => {
     const dispatch = useDispatch();
@@ -20,8 +20,8 @@ const PostsFeed = () => {
         if (loading || error) {
             return posts?.map((post, index) => {
                    return (<>
-                  <div className="post" key={index + 'i'}>
-                      <a className="avatar" href="#"><div className="post__avatar"  alt=""></div></a>
+                  <div className="post" key={`post_${index}`}>
+                      <a className="avatar" href="#"><div className="post__avatar"  alt="" style={{backgroundImage: "none"}}></div></a>
                       <div className="user">
                           <div className="user-information">
                               <a href="#" className="user-information__user-name" ><div className="no-name"></div>         
@@ -40,7 +40,7 @@ const PostsFeed = () => {
             })}
 
         return posts?.map((post, index) => 
-         <Post key={post.id} post={post} index={index}/>
+         <Post key={`post_${index}`} post={post} index={index}/>
         )
     }
     return (

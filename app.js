@@ -146,7 +146,7 @@ app.post('/createUser', async (req, res) => {
     res.cookie('token', getToken, {
       expires: new Date(Date.now() + 999999),
     });
-    return res.status(201).send(newUser);
+    return res.status(201).send();
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
@@ -184,9 +184,100 @@ app.get('/feed', async (req, res) => {
   const queryGetToken = `SELECT *   
   FROM Sessions
   WHERE token='${token}'`;
-  const getDateToken = (await client.query(queryGetToken)).rows;
-  if (!req.cookies.token || ((new Date() - new Date(getDateToken[0]?.date)) / 60000 > 10_082)) {
-    return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
+  try {
+    if (!token) {
+      return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
+    }
+    const getDateToken = (await client.query(queryGetToken)).rows[0];
+    if (!getDateToken) {
+      return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
+    }
+    if (((new Date() - new Date(getDateToken?.created_at)) / 60000 > 10_082)) {
+      return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
+    }
+    return res.status(200).type('html').send(html);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
   }
-  return res.status(200).type('html').send(html);
+});
+
+app.get('/api/settings/profile', async (req, res) => {
+  const { token } = req.cookies;
+  const getTokenAndUser = `SELECT * 
+  FROM Sessions
+  JOIN Users ON Sessions.id_user = Users.id
+  WHERE token='${token}'`;
+  try {
+    if (!token) {
+      throw new Error('пользователь не авторизован');
+    }
+    const tokenAndUser = (await client.query(getTokenAndUser)).rows[0];
+    if (!tokenAndUser) {
+      throw new Error('пользователь не авторизован');
+    }
+    if (((new Date() - new Date(tokenAndUser.created_at)) / 60000 > 10_082)) {
+      throw new Error('пользователь не авторизован');
+    }
+    const user = {
+      name: tokenAndUser.name,
+      nickname: tokenAndUser.nickname,
+      aboutme: tokenAndUser.aboutme,
+      location: tokenAndUser.location,
+      website: tokenAndUser.website,
+      dateOfBirth: tokenAndUser.date_of_birth,
+      showBirthDate: tokenAndUser.show_birth_date,
+      avatar: tokenAndUser.avatar,
+    };
+    return res.status(200).json({ user });
+  } catch (error) {
+    return res.status(401).json({ error: error.message });
+  }
+});
+app.post('/api/settings/profile', async (req, res) => {
+  const {
+    name, nickname, aboutme, location, website, dateOfBirth, showBirthDate, avatar,
+  } = req.body;
+  const isNicknameUnique = `SELECT *   
+  FROM Users
+  WHERE nickname='${nickname}'`;
+  const { token } = req.cookies;
+
+  const getTokenAndUser = `SELECT * 
+  FROM Sessions
+  JOIN Users ON Sessions.id_user = Users.id
+  WHERE token='${token}'`;
+
+  const updates = [];
+
+  if (name) updates.push(`name = '${name}'`);
+  if (nickname) updates.push(`nickname = '${nickname}'`);
+  if (aboutme) updates.push(`aboutme = '${aboutme}'`);
+  if (location) updates.push(`location = '${location}'`);
+  if (website) updates.push(`website = '${website}'`);
+  if (dateOfBirth) updates.push(`date_of_birth = '${dateOfBirth}'`);
+  if (showBirthDate) updates.push(`show_birth_date = '${showBirthDate}'`);
+  if (avatar) updates.push(`avatar = '${avatar}'`);
+  try {
+    const tokenAndUser = (await client.query(getTokenAndUser)).rows[0];
+
+    if (!token || !tokenAndUser
+      || ((new Date() - new Date(tokenAndUser.created_at)) / 60000 > 10_082)) {
+      throw new Error('пользователь не авторизован');
+    }
+    const updateUserQuery = `
+    UPDATE Users 
+    SET 
+    ${updates.join(', ')} 
+    WHERE id = '${tokenAndUser.id}'`;
+
+    const nicknameUniqueResult = (await client.query(isNicknameUnique)).rows[0];
+    if (nicknameUniqueResult) {
+      throw new Error('К сожалению, этот никнейм занят');
+    }
+    await client.query(updateUserQuery);
+
+    return res.status(200).json({ message: 'Данные пользователя обновлены.' });
+  } catch (error) {
+    return res.status(401).json({ error: error.message });
+  }
 });

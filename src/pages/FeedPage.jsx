@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Footer from '@/components/Footer';
 import { useLocation } from 'react-router-dom';
 
+
 function FeedPage() {
   const location = useLocation();
   const [active, setActive] = useState(false)

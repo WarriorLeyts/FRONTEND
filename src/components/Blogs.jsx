@@ -15,9 +15,9 @@ const Blogs = () => {
 
     const getBlogs = () => {
       if (loading || error) {
-        return blogs.map((item) => {
+        return blogs.map((item, index) => {
           return (
-            <li className="blogs-item" id={`blog_${item}`}>
+            <li className="blogs-item" key={`blog_${index}`}>
               <div className="blog-icon"> </div>
               <div className="blog-info">
                 <div className="no-blog"></div>
@@ -30,7 +30,7 @@ const Blogs = () => {
       } 
       return blogs.map((item, index) => {
         return (
-          <li className="blogs-item" id={`blog_${index}`}>
+          <li className="blogs-item" key={`blog_${index}`}>
             <img src= {`${item.urlPictures}`} alt="" className="blog-icon"/>
           <div className="blog-info">
             <p className="blog-name">{item.name}

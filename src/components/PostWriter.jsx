@@ -30,7 +30,6 @@ const PostWriter = ({ active, setActive }) => {
             alert(message);
             setTweet('');
             setPostSize(0);
-            dispath(clearDate());
             setActive(false);
         }
     }, [message]);
