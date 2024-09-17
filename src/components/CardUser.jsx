@@ -4,7 +4,7 @@ const CardUser = () => {
     return (
         <div className={styles.cardUser}>
             <div className={styles.userInfoBlock}>
-                <img className={styles.avatar} src="img/alexsandr-avatar.png"/>
+            <div className={styles.avatar}></div>
                 <div className={styles.userInfo}>
                   <p className={styles.name}>Александр</p>
                   <span className={styles.email}>@burtovoy</span>

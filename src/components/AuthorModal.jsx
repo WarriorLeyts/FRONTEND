@@ -57,7 +57,7 @@ const AuthorModal = ({ active, setActive}) => {
         const {name, value} = event.target
         setFormData(prevFormData => ({
             ...prevFormData,
-            [name]: value
+            [name]: value.toLowerCase(),
         }))
       handleError(name, value)
       }
