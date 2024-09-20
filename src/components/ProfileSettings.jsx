@@ -99,7 +99,7 @@ export default function ProfileSettings() {
         </div>
         <div className="block-input">
           <label className='input-label'>Никнейм</label>
-          <input type="text" name="nickname" className='input' value={formData.nickname || ''} onChange={(event) => handleChange(event)}/>
+          <input type="text" name="nickname" className={error ? 'input inpError' : 'input'} value={formData.nickname || ''} onChange={(event) => handleChange(event)}/>
         <p className='text-valid err-valid'>{error}</p>
         </div>
         </div>

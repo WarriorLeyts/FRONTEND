@@ -49,7 +49,7 @@ const RegModal = ({ active, setActive}) => {
         const {name, value} = event.target
         setFormData(prevFormData => ({
             ...prevFormData,
-            [name]: value.toLowerCase(),
+            [name]: name === 'email' ? value.toLowerCase() : value,
         }))
       handleError(name, value)
     }
