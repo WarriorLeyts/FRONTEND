@@ -3,9 +3,11 @@ import '@/styles/LastMessageList.css';
 import { useEffect } from "react";
 import Post from './Post';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts, clearDate } from '../store/postsSlice';
+import { fetchPosts } from '../store/postsSlice';
+import { useLocation } from 'react-router-dom';
 
 const PostsFeed = () => {
+    const location = useLocation();
     const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts.posts);
     const loading = useSelector((state) => state.posts.loading);
@@ -45,7 +47,7 @@ const PostsFeed = () => {
     }
     return (
         <div className='lastMessages'>
-            <h2 className="lastMessages__title">Последние сообщения</h2>
+           {location.pathname === '/' && <h2 className="lastMessages__title">Последние сообщения</h2>}
             <div className="LastMessageList"> 
             {getPosts()}
             </div>
