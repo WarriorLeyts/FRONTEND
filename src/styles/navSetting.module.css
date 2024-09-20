@@ -15,9 +15,9 @@
     font-size: 18px;
     font-weight: 700;
     line-height: 32px;
-    text-align: left;
     margin-top: 5px;
     margin-bottom: 5px;
+    text-align: center;
 }
 .navSetting__items {
     display: flex;
@@ -47,7 +47,8 @@
         flex-direction: column;
     }
     .navSetting__title {
-        font-size: 18px;
+        font-size: 20px;
+        text-align: left;
     }
     .navSettingItem {
     width: 312px;
