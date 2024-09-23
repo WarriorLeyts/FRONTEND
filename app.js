@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import cookieParser from 'cookie-parser';
 import crypto from 'crypto';
 import fs from 'fs';
+import emailValidation from './src/email_validation.js';
 
 const app = express();
 const port = 3000;
@@ -124,9 +125,9 @@ app.post('/posts/:id.json', (req, res) => {
 app.post('/createUser', async (req, res) => {
   const token = crypto.randomUUID();
   const { email, password } = req.body;
-  const nickname = `user-${crypto.randomUUID().slice(0, 4)}`;
+  const nickname = `user-${crypto.randomUUID().slice(0, 6)}`;
   try {
-    const candidate = await client.query(`SELECT * FROM Users WHERE email='${req.body.email}'`);
+    const candidate = await client.query(`SELECT * FROM Users WHERE email='${email}'`);
     if (candidate.rows[0]) {
       throw new Error('Пользователь с таким email уже существует.');
     }
@@ -341,5 +342,44 @@ app.post('/api/settings/password', async (req, res) => {
     return res.status(200).json({ message: 'Новый пароль создан' });
   } catch (error) {
     return res.status(401).json({ error: error.message });
+  }
+});
+app.post('/api/settings/email', async (req, res) => {
+  const { token } = req.cookies;
+  const { email, password } = req.body;
+  const queryIsAuth = `SELECT * 
+  FROM Sessions
+  JOIN Users ON Sessions.id_user = Users.id
+  WHERE token='${token}'`;
+
+  try {
+    const isAuth = (await client.query(queryIsAuth)).rows[0];
+    if (!token || !isAuth
+      || ((new Date() - new Date(isAuth.created_at)) / 60000 > minutsOfWeek)) {
+      return res.status(401).json({ errorAuth: 'пользователь не авторизован' });
+    }
+    const isMatch = await bcrypt.compare(password || '', isAuth.password);
+    if (!isMatch) {
+      return res.status(400).json({ errorPass: 'Не правильный пароль' });
+    }
+    if (!emailValidation(email)) {
+      return res.status(400).json({ errorEmail: 'Ваш эмайл не валиден' });
+    }
+    if (email === isAuth.email) {
+      return res.status(400).json({ errorEmail: 'Ваш эмайл совпадает с текущим эмайлом' });
+    }
+    const queryIsEmailTaken = `SELECT * FROM Users WHERE email='${email}'`;
+    const isEmailTaken = (await client.query(queryIsEmailTaken)).rows[0];
+    if (isEmailTaken) {
+      return res.status(400).json({ errorEmail: 'Этот эмайл занят другим пользователем' });
+    }
+    const queryUpdateEmail = `UPDATE Users
+    SET 
+    email = '${email}'
+    WHERE id = '${isAuth.id}'`;
+    await client.query(queryUpdateEmail);
+    return res.status(200).json({ message: 'Ваш новый эмайл сохранен.' });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
   }
 });
