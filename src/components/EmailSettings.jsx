@@ -61,12 +61,12 @@ export default function EmailSettings() {
     <div className={styles.blockSettings}>
         <div className="block-input">
           <label className='input-label'>Новая электронная почта</label>
-          <input type="text" name="email" className={errors.errorEmail ? `${styles.input} input inpError`: `${styles.input} input `} value={formData.email} onChange={(event) => handleClick(event)}/>
+          <input type="email" name="email" className={errors.errorEmail ? `${styles.input} input inpError`: `${styles.input} input `} value={formData.email} onChange={(event) => handleClick(event)}/>
           <p className='text-valid err-valid' style={{marginBottom: "0px"}}>{errors.errorEmail}</p>
         </div>
         <div className="block-input">
           <label className='input-label'>Пароль для подтвреждения</label>
-          <input type="text" name="password" className={errors.errorPass ? `${styles.input} input inpError`: `${styles.input} input `} value={formData.password} onChange={(event) => handleClick(event)}/>
+          <input type="password" name="password" className={errors.errorPass ? `${styles.input} input inpError`: `${styles.input} input `} value={formData.password} onChange={(event) => handleClick(event)}/>
           <p className='text-valid err-valid' style={{marginBottom: "0px"}}>{errors.errorPass}</p>
         </div>
     </div>
