@@ -8,15 +8,14 @@ const CardUser = () => {
   const { userInfo } = useSelector((state) => state.profile);
   useEffect(() => {
     dispatch(fetchUserInfo())
-    console.log(userInfo)
   }, [])
     return (
         <div className={styles.cardUser}>
             <div className={styles.userInfoBlock}>
             <div className={styles.avatar} style={{backgroundImage: `url(${userInfo?.avatar || ''})`}}></div>
                 <div className={styles.userInfo}>
-                  <p className={styles.name}>{userInfo.name}</p>
-                  <span className={styles.nickname}>{userInfo.nickname}</span>
+                  <p className={styles.name}>{userInfo?.name}</p>
+                  <span className={styles.nickname}>{userInfo?.nickname}</span>
                 </div>
             </div>    
                 <div className={styles.statistics}>
