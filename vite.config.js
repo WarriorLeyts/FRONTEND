@@ -23,6 +23,7 @@ export default defineConfig({
       '/login': 'http://localhost:3000',
       '/feed': 'http://localhost:3000',
       '/api/settings/profile': 'http://localhost:3000',
+      '/api/settings/password': 'http://localhost:3000',
     },
   },
 });

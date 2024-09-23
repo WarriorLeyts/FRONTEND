@@ -16,6 +16,7 @@ const client = new Client({
   port: 5432,
   ssl: true,
 });
+const minutsOfWeek = 10_082;
 client.connect();
 app.use(express.static('public'));
 const html = fs.readFileSync('public/index.html', 'utf8');
@@ -146,7 +147,7 @@ app.post('/createUser', async (req, res) => {
     res.cookie('token', getToken, {
       expires: new Date(Date.now() + 999999),
     });
-    return res.status(201).send();
+    return res.status(201).json({});
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
@@ -167,10 +168,10 @@ app.post('/login', async (req, res) => {
     await client.query(createToken);
 
     res.cookie('email', email, {
-      expires: new Date(Date.now() + (10082 * 60000)),
+      expires: new Date(Date.now() + (minutsOfWeek * 60000)),
     });
     res.cookie('token', token, {
-      expires: new Date(Date.now() + (10082 * 60000)),
+      expires: new Date(Date.now() + (minutsOfWeek * 60000)),
     });
 
     return res.status(200).json({});
@@ -192,7 +193,7 @@ app.get('/feed', async (req, res) => {
     if (!getDateToken) {
       return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
     }
-    if (((new Date() - new Date(getDateToken?.created_at)) / 60000 > 10_082)) {
+    if (((new Date() - new Date(getDateToken?.created_at)) / 60000 > minutsOfWeek)) {
       return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
     }
     return res.status(200).type('html').send(html);
@@ -215,7 +216,7 @@ app.get('/api/settings/profile', async (req, res) => {
     if (!tokenAndUser) {
       throw new Error('пользователь не авторизован');
     }
-    if (((new Date() - new Date(tokenAndUser.created_at)) / 60000 > 10_082)) {
+    if (((new Date() - new Date(tokenAndUser.created_at)) / 60000 > minutsOfWeek)) {
       throw new Error('пользователь не авторизован');
     }
     const user = {
@@ -261,7 +262,7 @@ app.post('/api/settings/profile', async (req, res) => {
     const tokenAndUser = (await client.query(getTokenAndUser)).rows[0];
 
     if (!token || !tokenAndUser
-      || ((new Date() - new Date(tokenAndUser.created_at)) / 60000 > 10_082)) {
+      || ((new Date() - new Date(tokenAndUser.created_at)) / 60000 > minutsOfWeek)) {
       throw new Error('пользователь не авторизован');
     }
     const updateUserQuery = `
@@ -277,6 +278,67 @@ app.post('/api/settings/profile', async (req, res) => {
     await client.query(updateUserQuery);
 
     return res.status(200).json({ message: 'Данные пользователя обновлены.' });
+  } catch (error) {
+    return res.status(401).json({ error: error.message });
+  }
+});
+app.post('/api/settings/password', async (req, res) => {
+  const { token } = req.cookies;
+  const { oldPassword, newPassword, confirmPassword } = req.body;
+  const minLength = 8;
+  const queryIsAuth = `SELECT * 
+  FROM Sessions
+  JOIN Users ON Sessions.id_user = Users.id
+  WHERE token='${token}'`;
+
+  try {
+    const isAuth = (await client.query(queryIsAuth)).rows[0];
+    if (!token || !isAuth
+      || ((new Date() - new Date(isAuth.created_at)) / 60000 > minutsOfWeek)) {
+      throw new Error('пользователь не авторизован');
+    }
+    const userPassword = isAuth ? isAuth.password : '';
+    const isMatch = await bcrypt.compare(oldPassword, userPassword);
+
+    if (!isMatch) {
+      return res.status(401).json({ errOldPass: 'пароль не верный' });
+    }
+    if (newPassword.length < minLength) {
+      return res.status(400).json({ errNewPass: 'Пароль должен содержать не менее 8 символов' });
+    }
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ errConfirm: 'Пароли не совпадают' });
+    }
+
+    const queryOldPasswords = `SELECT * 
+    FROM Password_history
+    WHERE id_user='${isAuth.id}'`;
+    const arrOldPasswords = (await client.query(queryOldPasswords)).rows;
+
+    arrOldPasswords.push({ password: isAuth.password });
+
+    const promises = arrOldPasswords.map((item) => bcrypt.compare(newPassword, item.password));
+    const results = await Promise.all(promises);
+    const matchesOldPassword = results.includes(true);
+    if (matchesOldPassword) {
+      return res.status(400).json({ errNewPass: 'Новый пароль совпадает c предыдущим паролем' });
+    }
+    if (((new Date() - new Date(isAuth.last_password_update)) / 60000) < 1440) {
+      return res.status(400).json({ errNewPass: 'Нельзя сменить пароль не чаще одного раза в сутки' });
+    }
+    const cipherPassword = await bcrypt.hash(newPassword, 8);
+
+    const createNewPassword = `UPDATE Users
+    SET 
+    password = '${cipherPassword}',
+    last_password_update = NOW()
+    WHERE id = '${isAuth.id}'`;
+    const saveOldPassword = `INSERT INTO Password_history (id_user, password) 
+    VALUES ('${isAuth.id_user}', '${isAuth.password}')`;
+
+    await client.query(createNewPassword);
+    await client.query(saveOldPassword);
+    return res.status(200).json({ message: 'Новый пароль создан' });
   } catch (error) {
     return res.status(401).json({ error: error.message });
   }
