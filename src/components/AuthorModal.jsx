@@ -4,12 +4,22 @@ import emailValidation from '@/email_validation.js';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '@/store/userSlice'
+import { useSwipeable } from 'react-swipeable';
 
 const AuthorModal = ({ active, setActive}) => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
 
     const {isLoggedIn, loading, error} = useSelector((state) => state.user);
+
+    const handlers = useSwipeable({
+      onSwipedDown: (eventData) => {
+        console.log("Свайп вниз!", eventData);
+        setActive(false)
+      },
+      preventDefaultTouchmoveEvent: true,
+      trackMouse: true,
+    });
 
     const [formData, setFormData] = useState({
         email: "", 
@@ -73,7 +83,7 @@ const AuthorModal = ({ active, setActive}) => {
     }
     return (
         <div className={active === 'auth' ? 'authorModal active' : 'authorModal'}>
-            <div className={active === 'auth' ? 'authorModal__content active' : 'authorModal__content'} onClick={e => e.stopPropagation()}>
+            <div {...handlers} className={active === 'auth' ? 'authorModal__content active' : 'authorModal__content'} onClick={e => e.stopPropagation()}>
                 <div className="handler" onClick={() => setActive(false)}></div>
                 <div className='exit' onClick={() => setActive(false)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
