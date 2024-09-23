@@ -40,11 +40,29 @@ export const updatePassword = createAsyncThunk('settings/updatePassword', async 
     throw new Error(JSON.stringify(errorData));
   }
   if (!response.ok) {
-    throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+    throw new Error(`error: "Ошибка при загрузке данных: ${response.status}"`);
   }
   return response.json();
 });
 
+export const updateEmail = createAsyncThunk('settings/updateEmail', async (updateDate) => {
+  const response = await fetch('/api/settings/email', {
+    method: 'POST',
+    body: JSON.stringify(updateDate),
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if ((response.status === 400) || (response.status === 401)) {
+    const errorData = await response.json();
+    throw new Error(JSON.stringify(errorData));
+  }
+  if (!response.ok) {
+    throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+  }
+  return response.json();
+});
 const profileSlice = createSlice({
   name: 'profile',
   initialState: {
@@ -102,6 +120,24 @@ const profileSlice = createSlice({
         ...state,
         loading: false,
         errorsServer: {
+          ...JSON.parse(action.error.message),
+        },
+      }))
+      .addCase(updateEmail.pending, (state) => ({
+        ...state,
+        loading: true,
+      }))
+      .addCase(updateEmail.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        message: action.payload.message,
+        errorsServer: null,
+      }))
+      .addCase(updateEmail.rejected, (state, action) => ({
+        ...state,
+        loading: false,
+        errorsServer: {
+          error: action.error.message,
           ...JSON.parse(action.error.message),
         },
       }));

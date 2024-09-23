@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '@/store/userSlice'
 import { useNavigate } from 'react-router-dom';
+import { useSwipeable } from 'react-swipeable';
 
 const RegModal = ({ active, setActive}) => {
     const navigate = useNavigate();
@@ -11,6 +12,14 @@ const RegModal = ({ active, setActive}) => {
 
     const {isLoggedIn, loading, error } = useSelector((state) => state.user);
 
+    const handlers = useSwipeable({
+      onSwipedDown: (eventData) => {
+        console.log("Свайп вниз!", eventData);
+        setActive(false)
+      },
+      preventDefaultTouchmoveEvent: true,
+      trackMouse: true,
+    });
     const [formData, setFormData] = useState({
         email: "", 
         password: "", 
@@ -82,7 +91,7 @@ const RegModal = ({ active, setActive}) => {
     }
     return (
         <div className={active === 'reg' ? 'regModal active' : 'regModal'}>
-            <div className={active === 'reg' ? 'regModal__content active' : 'regModal__content'} onClick={e => e.stopPropagation()}>
+            <div {...handlers} className={active === 'reg' ? 'regModal__content active' : 'regModal__content'} onClick={e => e.stopPropagation()}>
                 <div className="handler" onClick={() => setActive(false)}></div>
                 <div className='exit' onClick={() => setActive(false)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21" fill="none">
