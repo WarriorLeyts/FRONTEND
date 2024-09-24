@@ -1,0 +1,173 @@
+.userHeader {
+    width: 100%;
+    max-width: 632px;
+    height: 548px;
+    background-image: url("../img/bg-user-header.jpg");
+    background-repeat: no-repeat;
+    background-size: 100% 180px;
+    display: flex;
+    align-items: flex-end;
+}
+.userInfo {
+    background: #fff !important;
+    box-shadow: 0px 5px 30px 0px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    height: 317;
+    padding: 16px;
+    padding-top: 40px;
+    position: relative;
+}
+.avatar {
+    width: 98.32px;
+    height: 98.32px;
+    background: #00000066;
+    background-image: url('../img/avatar-new.png');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    box-shadow: 0px 10px 15px 0px #0000000D;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: RGB(227,235,238);
+    cursor: pointer;
+    position: absolute;
+    top: -65px;
+    border: 4px solid #fff  !important;
+}
+.name {
+    font-family: "Roboto";
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 24px;
+    margin-bottom: 10px;      
+}
+.nickname {
+    display: block;
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    color: rgba(171, 172, 177, 1);  
+}
+.aboutme {
+    margin-top: 15px;
+    font-family: "Roboto";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 16.41px;
+    margin-bottom: 20px;  
+}
+.descriptions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.descriptions li a {
+    text-decoration: none;
+    color: rgba(171, 172, 177, 1);
+}
+.descriptions li {
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto';
+    gap: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 16px;
+    color: rgba(171, 172, 177, 1);
+}
+.btn {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 14px !important;
+    color: rgba(0, 87, 255, 1) !important;
+    background: rgba(255, 255, 255, 1) !important;
+    border-radius: 5px !important;
+    margin-bottom: 10px !important;
+}
+.btn:hover {
+    background: rgba(0, 87, 255, 1) !important;
+    color: rgba(255, 255, 255, 1) !important;
+}
+.statistics {
+    display: flex;
+    gap: 50px;
+    margin-bottom: 20px;
+}
+.statistics li p {
+    font-family: 'Roboto';
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 28px;
+}
+.statistics li {
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+}
+.statistics li span {
+    font-family: 'Roboto';
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 12px;
+    color: rgba(171, 172, 177, 1);
+}
+@media (min-width: 1280px) {
+    .userHeader {
+        width: 632px;
+        height: 387px;
+        border-radius: 10px;
+        background-size: 632px, 363.74px;
+        background-position: 0 -40px;
+    }
+    .footer {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        gap: 80px;
+    }
+    .userInfo {
+        width: 100%;
+        height: 225px;
+        padding-top: 100px;
+        border-bottom-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+    .avatar { 
+        width: 134px;
+        height: 134px;
+    }
+    .descriptions {
+        display: flex;
+        flex-direction: row;
+        gap: 50px;
+        margin-bottom: 20px;
+    }
+    .btn {
+        width: 120px !important;
+        height: 42px !important;
+        display: flex;
+        align-items: center;
+        margin: 0 !important;
+        padding: 0 !important;        
+    }
+    .statistics {
+        gap: 30px
+    }
+    .name {
+        display: inline;
+        margin-right: 10px;
+    }
+    .nickname {
+        display: inline;
+    }
+    .aboutme {
+        margin-top: 20px;
+    }
+}

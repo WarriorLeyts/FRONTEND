@@ -1,23 +1,14 @@
 import '@/styles/LastMessages.css';
 import '@/styles/LastMessageList.css';
-import { useEffect } from "react";
 import Post from './Post';
-import { useSelector, useDispatch } from 'react-redux';
-import { fetchPosts } from '../store/postsSlice';
+import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
 const PostsFeed = () => {
     const location = useLocation();
-    const dispatch = useDispatch();
     const posts = useSelector((state) => state.posts.posts);
     const loading = useSelector((state) => state.posts.loading);
     const error = useSelector((state) => state.posts.error);
-    const message = useSelector((state) => state.posts.message);
-    
-    useEffect(() => {
-        dispatch(fetchPosts());
-    }, [message]);
-    
     const getPosts = () => {
         if (loading || error) {
             return posts?.map((post, index) => {
