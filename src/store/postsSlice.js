@@ -23,6 +23,13 @@ export const newPost = createAsyncThunk('posts/newPost', async (post) => {
   }
   return response.json();
 });
+export const fetchPostsUser = createAsyncThunk('posts/fetchPostsUser', async (id) => {
+  const response = await fetch(`/posts/user/${id}.json`);
+  if (!response.ok) {
+    throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+  }
+  return response.json();
+});
 const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -35,7 +42,7 @@ const postsSlice = createSlice({
   reducers: {
     clearDate: (state) => ({
       ...state,
-      posts: null,
+      posts: [1, 2, 3, 4],
       error: null,
       message: null,
     }),
@@ -68,6 +75,20 @@ const postsSlice = createSlice({
       .addCase(newPost.rejected, (state, action) => ({
         ...state,
         newPostLoading: false,
+        error: action.error.message,
+      }))
+      .addCase(fetchPostsUser.pending, (state) => ({
+        ...state,
+        loading: true,
+      }))
+      .addCase(fetchPostsUser.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        posts: action.payload.posts,
+      }))
+      .addCase(fetchPostsUser.rejected, (state, action) => ({
+        ...state,
+        loading: false,
         error: action.error.message,
       }));
   },

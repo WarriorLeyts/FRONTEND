@@ -1,21 +1,26 @@
 import styles from '../styles/cardUser.module.css';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserInfo, clearDateProfile } from '@/store/profileSlice.js';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const CardUser = () => {
-  const dispatch = useDispatch();
   const { userInfo } = useSelector((state) => state.profile);
+  const [userDate, setUserDate] = useState({
+    avatar: '',
+    name: '',
+    nickname: '',
+  })
   useEffect(() => {
-    dispatch(fetchUserInfo())
-  }, [])
+    setUserDate({
+      ...userInfo
+    })
+  }, [userInfo])
     return (
         <div className={styles.cardUser}>
             <div className={styles.userInfoBlock}>
-            <div className={styles.avatar} style={{backgroundImage: `url(${userInfo?.avatar || ''})`}}></div>
+            <div className={styles.avatar} style={{backgroundImage: `url(${userDate.avatar || ''})`}}></div>
                 <div className={styles.userInfo}>
-                  <p className={styles.name}>{userInfo?.name}</p>
-                  <span className={styles.nickname}>{userInfo?.nickname}</span>
+                  <p className={styles.name}>{userDate.name}</p>
+                  <span className={styles.nickname}>{userDate.nickname}</span>
                 </div>
             </div>    
                 <div className={styles.statistics}>

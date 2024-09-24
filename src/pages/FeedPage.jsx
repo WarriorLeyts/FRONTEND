@@ -5,14 +5,23 @@ import styles from '../styles/FeedPage.module.css';
 import Navbar from '@/components/Navbar.jsx';
 import PostWriter from '@/components/PostWriter.jsx';
 import CardUser from '@/components/CardUser.jsx';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Footer from '@/components/Footer';
 import { useLocation } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchPosts, clearDate } from '../store/postsSlice';
 
 function FeedPage() {
+  const dispatch = useDispatch();
   const location = useLocation();
   const [active, setActive] = useState(false)
+  let message = useSelector((state) => state.posts.message);
+
+  useEffect(() => {
+      dispatch(fetchPosts());
+      dispatch(clearDate())
+  }, [message]);
+
     return (
       <>
       <Navbar location={location.pathname}/>

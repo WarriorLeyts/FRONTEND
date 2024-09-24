@@ -1,0 +1,46 @@
+.mainProfile {
+    margin-top: 62px;
+    padding: 0, 16px, 0 16px;
+    margin-bottom: 46px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+}
+.main1 {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+.main2 {
+    display: none;
+    gap: 16px;
+    flex-direction: column;
+}
+.newMessage {
+    position: fixed;
+    bottom: 70px;
+    right: 20px;
+    width: 64px;
+    height: 64px;
+    border-radius: 33px 33px 33px 33px;
+    background: #0057FF;
+    box-shadow: 0px 10px 10px 0px #0000001A;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+@media (min-width: 1280px) {
+    .newMessage {
+        display: none;
+    }
+    .mainProfile {
+        margin-top: 96px;
+    }
+    .main2 {
+        display: flex;
+    }
+    .postWriter {
+        display: none;
+    }
+}
