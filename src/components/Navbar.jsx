@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import NavbarList from './NavbarList'
 import styles from '../styles/FeedPage.module.css';
+import { useDispatch } from 'react-redux';
+import { fetchUserInfo } from '@/store/profileSlice.js';
 
 export default function ({ location }) {
   let location1 = location;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUserInfo())
+  }, [])
   return (
     <header className={styles.header}>
     <div className={styles.navbar}><NavbarList location={location1}/></div>

@@ -221,6 +221,7 @@ app.get('/api/settings/profile', async (req, res) => {
       throw new Error('пользователь не авторизован');
     }
     const user = {
+      id: tokenAndUser.id,
       name: tokenAndUser.name,
       nickname: tokenAndUser.nickname,
       aboutme: tokenAndUser.aboutme,
@@ -382,4 +383,14 @@ app.post('/api/settings/email', async (req, res) => {
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
+});
+app.get('/posts/user/:id.json', async (req, res) => {
+  const { id } = req.params;
+  const queryGetPosts = `SELECT * 
+  FROM Posts
+  JOIN Users ON Posts.id_user = Users.id
+  WHERE id_user = '${id}'
+  ORDER BY Posts.id DESC`;
+  const posts = (await client.query(queryGetPosts)).rows;
+  res.status(200).json({ posts });
 });

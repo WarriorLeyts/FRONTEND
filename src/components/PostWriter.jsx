@@ -42,6 +42,8 @@ const PostWriter = ({ active, setActive }) => {
         dispath(newPost(post));
     }
     return (
+        <>
+    <div className={active ? `${styles.bgPostWriter} ${styles.bgPostWriterAct}` : styles.bgPostWriter}></div>
     <div className={active ? styles.newTweet_active : styles.newTweet } >
         {active ? '': <input className={styles.newTweetInp} type="text"  value={tweet} placeholder='Что нового, Александр?' onChange={(e) => {setTweet(e.target.value); setPostSize(getPostSize(e.target.value))}}/>}
         <div className={styles.sendTweet}>
@@ -70,7 +72,9 @@ const PostWriter = ({ active, setActive }) => {
                 </div>
             </div>
         </div>
+
     </div>
+    </>
     );
 };
 export default PostWriter;

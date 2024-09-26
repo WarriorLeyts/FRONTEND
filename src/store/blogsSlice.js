@@ -11,7 +11,7 @@ export const fetchBlogs = createAsyncThunk('blogs/fetchBlogs', async () => {
 const blogsSlice = createSlice({
   name: 'blogs',
   initialState: {
-    blogs: [1, 2, 3, 4],
+    blogs: [1, 2, 3],
     loading: false,
     error: null,
   },
