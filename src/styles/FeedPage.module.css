@@ -52,11 +52,36 @@
 .avatar {
     width: 26px;
     height: 26px;
+    background: #00000066;
+    background-image: url('../img/avatar-new.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    box-shadow: 0px 10px 15px 0px #0000000D;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: RGB(227,235,238);
+    cursor: pointer;
 }
 .avatarDecst {
     width: 48px;
     height: 48px;
     display: none;
+    background: #00000066;
+    background-image: url('../img/avatar-new.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-blend-mode: multiply;
+    box-shadow: 0px 10px 15px 0px #0000000D;
+    border-radius: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: RGB(227,235,238);
+    cursor: pointer;
 }
 .main1 {
     display: flex;
@@ -90,7 +115,7 @@
         display: none;
     }
     .avatarDecst {
-        display: block;
+        display: flex;
         margin-right: 16px;
     }
     .logo {
