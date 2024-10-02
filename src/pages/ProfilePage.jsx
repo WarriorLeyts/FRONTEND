@@ -13,20 +13,23 @@ import PostWriter from "@/components/PostWriter";
 
 function ProfilePage() {
   const dispatch = useDispatch();
-  const userInfo = useSelector(state => state.profile.userInfo)
   const location = useLocation(); 
-  const [active, setActive] = useState(false)
+  const [active, setActive] = useState(false);
+  const { userInfo } = useSelector((state) => state.profile);
+
   useEffect(() => {
+    if (userInfo?.id) {
     dispatch(clearDate())
     dispatch(fetchPostsUser(userInfo?.id))
-  }, [])
+    }
+  }, [userInfo?.id])
     return (
       <div>
         <Navbar location={location.pathname}/>
         <main className={styles.mainProfile}>
           <div className={styles.main1}>
-            <UserHeader/>
-            <PostsFeed/>
+            <UserHeader profileData={userInfo}/>
+            <PostsFeed profile={'profile'}/>
           </div>
           <div className={styles.main2}>
           <div><Topics/>

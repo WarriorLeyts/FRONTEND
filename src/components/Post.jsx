@@ -1,17 +1,18 @@
 import '@/styles/LastMessages.css';
 import '@/styles/LastMessageList.css';
 import getTimeString from '@/get_time_string.js';
+import { Link } from 'react-router-dom';
 
 const Post = ({ post, index }) => {
   return (
        <>
         <div className="post">
-        <div className="post__avatar" style={{backgroundImage: `url(${post.avatar})`}}></div>
+        <Link to={`/profile/${post.id}`}><div className="post__avatar" style={{backgroundImage: `url(${post.avatar})`}}></div></Link>
           <div className="user">
             <div className="user-information">
-              <a href="#" className="user-information__user-name" >
+              <Link to={`/profile/${post.id}`} className="user-information__user-name" >
               {post.name}<span className="mail">{post.nickname}</span>
-              </a> 
+              </Link>
               <div className="user-information__time-message">
               <p>{getTimeString(post.date, new Date())}</p>
               </div>

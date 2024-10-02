@@ -394,3 +394,30 @@ app.get('/posts/user/:id.json', async (req, res) => {
   const posts = (await client.query(queryGetPosts)).rows;
   res.status(200).json({ posts });
 });
+app.get('/api/profile/:id', async (req, res) => {
+  const { id } = req.params;
+  const queryGetPosts = `SELECT nickname, avatar, name, aboutme, location, date_of_birth, show_birth_date, website
+  FROM Users
+  WHERE id = '${id}'`;
+  const user = (await client.query(queryGetPosts)).rows[0];
+  if (user.show_birth_date !== 'showAll') {
+    delete user.date_of_birth;
+    return res.status(200).json({ user });
+  }
+  return res.status(200).json({ user: { ...user, dateOfBirth: user.date_of_birth } });
+});
+app.get('/profile/:id', async (req, res) => {
+  const { id } = req.params;
+  const queryGetPosts = `SELECT nickname, avatar, name, aboutme, location, date_of_birth, show_birth_date, website
+  FROM Users
+  WHERE id = '${id}'`;
+  try {
+    const user = (await client.query(queryGetPosts)).rows[0];
+    if (!user) {
+      return res.status(401).send('<script> alert("пользователь не найден") </script>');
+    }
+    return res.status(200).type('html').send(html);
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+});
