@@ -4,7 +4,7 @@ import Post from './Post';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-const PostsFeed = () => {
+const PostsFeed = ({ profile }) => {
     const location = useLocation();
     const posts = useSelector((state) => state.posts.posts);
     const loading = useSelector((state) => state.posts.loading);
@@ -13,7 +13,7 @@ const PostsFeed = () => {
         if (loading || error) {
             return posts?.map((post, index) => {
                    return (<>
-                  <div className="post" key={`post_${index}`}>
+                  <div className="post" key={`${profile}post_${index}`}>
                       <a className="avatar" href="#"><div className="post__avatar"  alt="" style={{backgroundImage: "none"}}></div></a>
                       <div className="user">
                           <div className="user-information">
@@ -33,7 +33,7 @@ const PostsFeed = () => {
             })}
 
         return posts?.map((post, index) => 
-         <Post key={`post_${index}`} post={post} index={index}/>
+         <Post key={`${profile}post_${index}`} post={post} index={index}/>
         )
     }
     return (

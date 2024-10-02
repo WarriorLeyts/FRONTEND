@@ -63,6 +63,13 @@ export const updateEmail = createAsyncThunk('settings/updateEmail', async (updat
   }
   return response.json();
 });
+export const getOtherProfile = createAsyncThunk('profile/otherProfile', async (id) => {
+  const response = await fetch(`/api/profile/${id}`);
+  if (!response.ok) {
+    throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+  }
+  return response.json();
+});
 const profileSlice = createSlice({
   name: 'profile',
   initialState: {
@@ -71,6 +78,8 @@ const profileSlice = createSlice({
     error: null,
     message: null,
     errorsServer: null,
+    otherProfile: null,
+    errorOtherProfile: null,
   },
   reducers: {
     clearDateProfile: ((state) => ({
@@ -140,6 +149,21 @@ const profileSlice = createSlice({
           error: action.error.message,
           ...JSON.parse(action.error.message),
         },
+      }))
+      .addCase(getOtherProfile.fulfilled, (state, action) => ({
+        ...state,
+        otherProfile: {
+          ...action.payload.user,
+          odd: 'dddd',
+        },
+        error: null,
+      }))
+      .addCase(getOtherProfile.rejected, (state, action) => ({
+        ...state,
+        otherProfile: {
+          ...action.payload?.user,
+        },
+        errorOtherProfile: action.error.message,
       }));
   },
 });

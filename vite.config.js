@@ -26,6 +26,7 @@ export default defineConfig({
       '/api/settings/password': 'http://localhost:3000',
       '/api/settings/email': 'http://localhost:3000',
       '/posts/user/': 'http://localhost:3000',
+      '/api/profile/': 'http://localhost:3000',
     },
   },
 });

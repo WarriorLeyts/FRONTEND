@@ -28,7 +28,7 @@ function FeedPage() {
         <main className={styles.mainFeed}>
           <div className={styles.main1}>
             <PostWriter active={active} setActive={setActive}/>
-            <PostsFeed/>
+            <PostsFeed profile={'feed'}/>
           </div>
           <div className={styles.main2}>
             <CardUser/>

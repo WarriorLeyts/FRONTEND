@@ -1,11 +1,10 @@
 import React, { useEffect, useState} from 'react';
 import styles from '../styles/UserHeader.module.css';
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-export default function UserHeader() {
+export default function UserHeader({ profileData }) {
     const navigate = useNavigate();
-    const { userInfo } = useSelector((state) => state.profile);
+    const location = useLocation().pathname;
     const [userDate, setUserDate] = useState({
         name: '',
         nickname: '',
@@ -18,17 +17,19 @@ export default function UserHeader() {
     })
     useEffect(() => {
       setUserDate({
-        ...userInfo
+        ...profileData
       })
-    }, [userInfo])
-    const birthDate = new Date(userDate.dateOfBirth);
-    const day = birthDate.getDate();
-    const month = birthDate.getMonth();
-    const monthsGenitive = [
-        "января", "февраля", "марта", "апреля", "мая", "июня",
-        "июля", "августа", "сентября", "октября", "ноября", "декабря"
-    ];
-    
+    }, [profileData])
+    const formatBirthday = ( dateString ) => {
+      const birthDate = new Date(dateString);
+      const day = birthDate.getDate();
+      const month = birthDate.getMonth();
+      const monthsGenitive = [
+          "января", "февраля", "марта", "апреля", "мая", "июня",
+          "июля", "августа", "сентября", "октября", "ноября", "декабря"
+      ];
+      return `День рождения ${day} ${monthsGenitive[month]}`
+    }
   return (
     <div className={styles.userHeader}>
         <div className={styles.userInfo}>
@@ -39,7 +40,7 @@ export default function UserHeader() {
             <ul className={styles.descriptions}>
                 <li> <img src="../img/location.svg" alt="локация"/>{userDate.location}</li>
                 <li> <img src="../img/link.svg" alt="ссылка"/><a href={userDate.website}>{userDate.website}</a></li>
-                <li> <img src="../img/calendar.svg" alt="календарь"/>{userDate.showBirthDate === 'showAll' && `День рождения ${day} ${monthsGenitive[month]}`}</li>
+                <li> <img src="../img/calendar.svg" alt="календарь"/>{ userDate.dateOfBirth && formatBirthday(userDate.dateOfBirth)}</li>
             </ul>
             <div className={styles.footer}>
                 <ul className={styles.statistics}>
@@ -47,7 +48,9 @@ export default function UserHeader() {
                     <li><p>28</p><span>Читаемых</span></li>
                     <li><p>118</p><span>Читателей</span></li>
                 </ul>
-                <button className={`${styles.btn} btn-reg`} onClick={() => navigate('/settings/profile')}>Редактировать профиль</button>
+                {location !== '/profile' ?
+                 <button className={`${styles.btn} btn-reg`}>Читать</button>
+                : <button className={`${styles.btn} btn-reg`} onClick={() => navigate('/settings/profile')}>Редактировать профиль</button>}
             </div>
         </div>
     </div>
