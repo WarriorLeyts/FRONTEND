@@ -4,6 +4,8 @@ import topicsReducer from './topicsSlice.js';
 import blogsReducer from './blogsSlice.js';
 import userReducer from './userSlice.js';
 import profileReducer from './profileSlice.js';
+import modalsReducer from './modals.js';
+import subscriptionsReducer from './subscriptions.js';
 
 const store = configureStore({
   reducer: {
@@ -12,6 +14,8 @@ const store = configureStore({
     blogs: blogsReducer,
     user: userReducer,
     profile: profileReducer,
+    modals: modalsReducer,
+    subscriptions: subscriptionsReducer,
   },
 });
 

@@ -7,6 +7,7 @@ export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
   }
   return response.json();
 });
+
 export const newPost = createAsyncThunk('posts/newPost', async (post) => {
   const response = await fetch('/posts.json', {
     method: 'POST',
@@ -23,29 +24,71 @@ export const newPost = createAsyncThunk('posts/newPost', async (post) => {
   }
   return response.json();
 });
-export const fetchPostsUser = createAsyncThunk('posts/fetchPostsUser', async (id) => {
-  const response = await fetch(`/posts/user/${id}.json`);
+
+export const fetchPostsUser = createAsyncThunk(
+  'posts/fetchPostsUser',
+  async (id) => {
+    const response = await fetch(`/posts/user/${id}.json`);
+    if (!response.ok) {
+      throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+    }
+    return response.json();
+  },
+);
+
+export const fetchPostsProfile = createAsyncThunk(
+  'posts/fetchPostsProfile',
+  async (id) => {
+    const response = await fetch(`/posts/user/${id}.json`);
+    if (!response.ok) {
+      throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+    }
+    return response.json();
+  },
+);
+
+export const fetchPostsSubscriptions = createAsyncThunk('posts/fetchSubscriptions', async () => {
+  const response = await fetch('/posts/subscriptions');
   if (!response.ok) {
     throw new Error(`Ошибка при загрузке данных: ${response.status}`);
   }
   return response.json();
 });
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState: {
-    posts: [1, 2, 3, 4],
+    homePosts: [],
+    feedPosts: [],
+    profilePosts: [],
+    userPosts: [],
     loading: false,
     newPostLoading: false,
-    error: null,
-    message: null,
   },
   reducers: {
-    clearDate: (state) => ({
+    addPost: (state, action) => ({
       ...state,
-      posts: [1, 2, 3, 4],
-      error: null,
+      feedPosts: [action.payload, ...state.feedPosts],
+      profilePosts: [action.payload, ...state.profilePosts],
       message: null,
     }),
+    upFeedPosts: (state, action) => {
+      if (action.payload.subscriptionMessage === 'Не читать') {
+        return {
+          ...state,
+          feedPosts: state.feedPosts?.filter((item) => !(item.id === action.payload.id)),
+        };
+      }
+      if (state.feedPosts.length !== 0) {
+        return {
+          ...state,
+          feedPosts: [...state.userPosts, ...state.feedPosts],
+        };
+      }
+      return {
+        ...state,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -56,7 +99,7 @@ const postsSlice = createSlice({
       .addCase(fetchPosts.fulfilled, (state, action) => ({
         ...state,
         loading: false,
-        posts: action.payload,
+        homePosts: action.payload,
       }))
       .addCase(fetchPosts.rejected, (state, action) => ({
         ...state,
@@ -84,14 +127,39 @@ const postsSlice = createSlice({
       .addCase(fetchPostsUser.fulfilled, (state, action) => ({
         ...state,
         loading: false,
-        posts: action.payload.posts,
+        userPosts: action.payload.posts,
       }))
-      .addCase(fetchPostsUser.rejected, (state, action) => ({
+      .addCase(fetchPostsUser.rejected, (state) => ({
         ...state,
         loading: false,
-        error: action.error.message,
+      }))
+      .addCase(fetchPostsProfile.pending, (state) => ({
+        ...state,
+        loading: true,
+      }))
+      .addCase(fetchPostsProfile.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        profilePosts: action.payload.posts,
+      }))
+      .addCase(fetchPostsProfile.rejected, (state) => ({
+        ...state,
+        loading: false,
+      }))
+      .addCase(fetchPostsSubscriptions.pending, (state) => ({
+        ...state,
+        loading: true,
+      }))
+      .addCase(fetchPostsSubscriptions.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        feedPosts: action.payload.posts,
+      }))
+      .addCase(fetchPostsSubscriptions.rejected, (state) => ({
+        ...state,
+        loading: false,
       }));
   },
 });
-export const { clearDate } = postsSlice.actions;
+export const { addPost, upFeedPosts } = postsSlice.actions;
 export default postsSlice.reducer;

@@ -40,14 +40,12 @@
     bottom: 0;
     left: 0;
     z-index: 2;
+    background: red;
     background: #ffffff;
     border-radius: 10px;
 }
 .newTweetInp {
     box-sizing: border-box;
-    padding-bottom: 21px;
-    padding-left: 16px;
-    padding-right: 16px;
     background: #FFFFFF;
     width: 100%;
     height: 100%;
@@ -58,9 +56,43 @@
     outline: 0 !important;
     border: 0;
     border-radius: 10px;
-    resize: "none"
+    resize: none;
+}
+.newTweetInpActive {
+    box-sizing: border-box;
+    padding-bottom: 21px;
+    padding-left: 16px;
+    padding-right: 16px;
+    width: 100%;
+    height: 100%;
+    font-family: "Roboto";
+    background: none;
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 24px;
+    outline: 0 !important;
+    border: 0;
+    border-radius: 10px;
+    resize: none;
 }
 .sendTweet {
+    box-sizing: border-box;
+    padding-bottom: 21px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background: #FFFFFF;
+    width: 100%;
+    height: 456px;
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: 900;
+    line-height: 24px;
+    outline: 0 !important;
+    border: 0;
+    border-radius: 10px;
+    resize: none;
+}
+.sendTweetActive {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -81,7 +113,7 @@
     padding-top: 20px;
 }
 .footerTweet {
-    display: flex;
+    display: flex; 
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -172,6 +204,9 @@
     transform-box: fill-box;
 	transform: rotate(-90deg);
 }
+.newTweet_active input {
+    display: none;
+}
 @media (min-width: 1280px) {
     .bgPostWriter {
       display: none;
@@ -183,27 +218,42 @@
         gap: 20px;
         display: flex;
     }
-    .sendTweet {
-        display: flex;
+    .sendTweetActive {
         flex-direction: column;
         border: 3px solid #0057FF;
         width: 100%;
-        height: auto;
+        height: 172px;
         box-shadow: 0px 5px 30px 0px #0000000D;
         border-radius: 10px;
         padding-left: 16px;
         padding-right: 16px;
         padding-bottom: 10px;
     }
-    .newTweetInp {
+    .newTweet_active {
+        position: static;
+        display: flex;
+    }
+    .newTweetInpActive {
         box-sizing: border-box;
         padding-top: 21px;
         padding-bottom: 21px;
         padding-left: 16px;
         padding-right: 16px;
+        width: 100%;
+        font-family: "Lato";
+        font-size: 24px;
+        font-weight: 500;
+        line-height: 24px;
+        outline: 0 !important;
+        border: 0;
+        border-radius: 10px;
+    } 
+    .sendTweet {
+        box-sizing: border-box;
+        padding-top: 18px;
         background: #FFFFFF;
         width: 100%;
-        height: auto;
+        height: 64px;
         font-family: "Roboto";
         font-size: 16px;
         font-weight: 900;
@@ -211,12 +261,17 @@
         outline: 0 !important;
         border: 0;
         border-radius: 10px;
-        resize: "none"
     }
     .btnTweet {
         width: 220px;
     }
     .addedPhoto {
         position: static;
+    }
+    .sendTweet .newTweetInp {
+        background: none;
+    }
+    .footerTweet {
+        display: none;
     }
 }
