@@ -27,6 +27,9 @@ export default defineConfig({
       '/api/settings/email': 'http://localhost:3000',
       '/posts/user/': 'http://localhost:3000',
       '/api/profile/': 'http://localhost:3000',
+      '/api/subscriptions/is-following/': 'http://localhost:3000',
+      '/api/subscriptions/toggle/': 'http://localhost:3000',
+      '/posts/subscriptions': 'http://localhost:3000',
     },
   },
 });

@@ -11,9 +11,9 @@ const port = 3000;
 const { Client } = pkg;
 const client = new Client({
   user: 'muhammad',
-  host: 'dpg-crduvr0gph6c73ekh7kg-a.oregon-postgres.render.com',
-  database: 'demos_zbpd',
-  password: 'su4hNG0OoPIjDFsPBw7TexlUigrwXie5',
+  host: 'dpg-cs1c9223esus739dgd20-a.oregon-postgres.render.com',
+  database: 'demos_zv3i',
+  password: 'bm2lPZs8m2TL79gW4ZTcQz0pua6QQeyD',
   port: 5432,
   ssl: true,
 });
@@ -44,19 +44,19 @@ app.get('/blogs.json', async (req, res) => {
       id: '5',
       name: 'Хабр Научпоп',
       mail: '@habr_popsci',
-      urlPictures: 'img/habr-icon.png',
+      urlPictures: '../img/habr-icon.png',
     },
     {
       id: '6',
       name: 'Матч ТВ',
       mail: '@MatchTV',
-      urlPictures: 'img/match-icon.png',
+      urlPictures: '../img/match-icon.png',
     },
     {
       id: '7',
       name: 'Популярная механика',
       mail: '@PopMechanica',
-      urlPictures: 'img/popmeh-icon.png',
+      urlPictures: '../img/popmeh-icon.png',
     },
   ];
   return res.status(200).send(blogs);
@@ -209,6 +209,7 @@ app.get('/api/settings/profile', async (req, res) => {
   FROM Sessions
   JOIN Users ON Sessions.id_user = Users.id
   WHERE token='${token}'`;
+
   try {
     if (!token) {
       throw new Error('пользователь не авторизован');
@@ -220,6 +221,16 @@ app.get('/api/settings/profile', async (req, res) => {
     if (((new Date() - new Date(tokenAndUser.created_at)) / 60000 > minutsOfWeek)) {
       throw new Error('пользователь не авторизован');
     }
+    const queryGetCountPosts = `SELECT * FROM Posts WHERE id_user = '${tokenAndUser.id}'`;
+    const queryGetCountFollowers = `SELECT * FROM Subscriptions WHERE id_user = '${tokenAndUser.id}'`;
+    const queryGetCountFolloweds = `SELECT * FROM Subscriptions WHERE id_follower = '${tokenAndUser.id}'`;
+
+    const arrQueryDate = await Promise.all([
+      client.query(queryGetCountPosts),
+      client.query(queryGetCountFollowers),
+      client.query(queryGetCountFolloweds),
+    ]);
+
     const user = {
       id: tokenAndUser.id,
       name: tokenAndUser.name,
@@ -230,6 +241,9 @@ app.get('/api/settings/profile', async (req, res) => {
       dateOfBirth: tokenAndUser.date_of_birth,
       showBirthDate: tokenAndUser.show_birth_date,
       avatar: tokenAndUser.avatar,
+      countPosts: arrQueryDate[0].rows.length,
+      countFollowers: arrQueryDate[1].rows.length,
+      countFolloweds: arrQueryDate[2].rows.length,
     };
     return res.status(200).json({ user });
   } catch (error) {
@@ -392,23 +406,40 @@ app.get('/posts/user/:id.json', async (req, res) => {
   WHERE id_user = '${id}'
   ORDER BY Posts.id DESC`;
   const posts = (await client.query(queryGetPosts)).rows;
-  res.status(200).json({ posts });
+  return res.status(200).json({ posts });
 });
 app.get('/api/profile/:id', async (req, res) => {
   const { id } = req.params;
-  const queryGetPosts = `SELECT nickname, avatar, name, aboutme, location, date_of_birth, show_birth_date, website
+  const queryGetPosts = `SELECT id, nickname, avatar, name, aboutme, location, date_of_birth, show_birth_date, website
   FROM Users
   WHERE id = '${id}'`;
   const user = (await client.query(queryGetPosts)).rows[0];
-  if (user.show_birth_date !== 'showAll') {
-    delete user.date_of_birth;
-    return res.status(200).json({ user });
+
+  if (user && user.show_birth_date !== 'showAll') {
+    delete user?.date_of_birth;
   }
-  return res.status(200).json({ user: { ...user, dateOfBirth: user.date_of_birth } });
+  const queryGetCountPosts = `SELECT * FROM Posts WHERE id_user = '${id}'`;
+  const queryGetCountFollowers = `SELECT * FROM Subscriptions WHERE id_user = '${id}'`;
+  const queryGetCountFolloweds = `SELECT * FROM Subscriptions WHERE id_follower = '${id}'`;
+
+  const arrQueryDate = await Promise.all([
+    client.query(queryGetCountPosts),
+    client.query(queryGetCountFollowers),
+    client.query(queryGetCountFolloweds),
+  ]);
+
+  const profile = {
+    ...user,
+    countPosts: arrQueryDate[0].rows.length,
+    countFollowers: arrQueryDate[1].rows.length,
+    countFolloweds: arrQueryDate[2].rows.length,
+  };
+
+  return res.status(200).json({ profile });
 });
 app.get('/profile/:id', async (req, res) => {
   const { id } = req.params;
-  const queryGetPosts = `SELECT nickname, avatar, name, aboutme, location, date_of_birth, show_birth_date, website
+  const queryGetPosts = `SELECT *
   FROM Users
   WHERE id = '${id}'`;
   try {
@@ -420,4 +451,77 @@ app.get('/profile/:id', async (req, res) => {
   } catch (error) {
     return res.status(400).json({ error: error.message });
   }
+});
+app.get('/api/subscriptions/is-following/:followedId', async (req, res) => {
+  const { token } = req.cookies;
+  const { followedId } = req.params;
+  const queryGetToken = `SELECT *   
+  FROM Sessions
+  WHERE token='${token}'`;
+  const getToken = (await client.query(queryGetToken)).rows[0];
+  const queryIsFollowing = `SELECT * 
+  FROM Subscriptions
+  WHERE id_user = '${followedId}' AND id_follower = '${getToken?.id_user}'`;
+
+  const isFollowing = (await client.query(queryIsFollowing)).rows[0];
+
+  if (isFollowing) {
+    return res.status(200).json({ subscriptionMessage: 'Не читать' });
+  }
+  return res.status(200).json({ subscriptionMessage: 'Читать' });
+});
+app.post('/api/subscriptions/toggle/:followedId', async (req, res) => {
+  const { token } = req.cookies;
+  const { followedId } = req.params;
+
+  const queryGetToken = `SELECT *   
+  FROM Sessions
+  WHERE token='${token}'`;
+
+  const getToken = (await client.query(queryGetToken)).rows[0];
+
+  const queryIsFollowing = `SELECT * 
+  FROM Subscriptions
+  WHERE id_user = '${followedId}' AND id_follower = '${getToken?.id_user}'`;
+
+  const queryUnsubscribe = `DELETE 
+  FROM Subscriptions 
+  WHERE id_user = '${followedId}' AND id_follower = '${getToken?.id_user}'`;
+
+  const querySubscribe = `INSERT INTO Subscriptions (id_user, id_follower)
+  VALUES ('${followedId}', '${getToken?.id_user}');`;
+
+  const isFollowing = (await client.query(queryIsFollowing)).rows[0];
+
+  if (isFollowing) {
+    client.query(queryUnsubscribe);
+    return res.status(200).json({ subscriptionMessage: 'Читать' });
+  }
+  client.query(querySubscribe);
+  return res.status(200).json({ subscriptionMessage: 'Не читать' });
+});
+
+app.get('/posts/subscriptions', async (req, res) => {
+  const { token } = req.cookies;
+
+  const queryGetToken = `SELECT *   
+  FROM Sessions
+  WHERE token='${token}'`;
+
+  const getToken = (await client.query(queryGetToken)).rows[0];
+
+  const queryGetPosts = `SELECT Posts.*, Users.*
+  FROM Posts
+  JOIN Users ON Posts.id_user = Users.id
+  WHERE Posts.id_user IN (
+    SELECT id_user
+    FROM Subscriptions
+    WHERE id_follower = '${getToken?.id_user}'
+    UNION
+    SELECT ${getToken?.id_user}
+  )
+  ORDER BY Posts.date DESC;`;
+
+  const posts = (await client.query(queryGetPosts)).rows;
+  res.status(200).json({ posts });
 });
