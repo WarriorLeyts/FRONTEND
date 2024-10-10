@@ -1,40 +1,41 @@
-import '../styles/App.css'
-import Header from '../components/Header.jsx'
-import Statistics from '../components/Statistics.jsx'
-import Main from '../components/Main.jsx'
-import AuthorizationFooter from '../components/AuthorizationFooter'
-import RegModal from '../components/RegModal.jsx'
-import AuthorModal from '../components/AuthorModal.jsx'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getFeedPage } from '@/store/userSlice'
+import "../styles/App.css";
+import Header from "../components/Header.jsx";
+import Statistics from "../components/Statistics.jsx";
+import Main from "../components/Main.jsx";
+import AuthorizationFooter from "../components/AuthorizationFooter";
+import RegModal from "../components/RegModal.jsx";
+import AuthorModal from "../components/AuthorModal.jsx";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getFeedPage } from "@/store/userSlice";
+import { fetchPosts } from "../store/postsSlice";
 
 const Home = () => {
   const dispath = useDispatch();
-  const [active, setActive] = useState(false);
-  const { isAuth, errorAuth } = useSelector((state) => state.user)
+  const posts = useSelector((state) => state.posts.homePosts);
+  const { isAuth } = useSelector((state) => state.user);
   
   useEffect(() => {
-    dispath(getFeedPage());
-  },[])
-
-  useEffect(() => {
-    if(isAuth){
-      window.location.href = '/feed';
+    if (posts.length === 0) {
+      dispath(fetchPosts());
     }
-    console.log(isAuth)
-    console.log(errorAuth)
+    dispath(getFeedPage());
+  }, []);
+  useEffect(() => {
+    if (isAuth) {
+      window.location.href = "/feed";
+    }
   }, [isAuth]);
   return (
     <>
-      <Header setActive={setActive}/>
+      <Header />
       <Statistics />
-      <Main />
-      <AuthorizationFooter setActive={setActive}/>
-      <RegModal active={active} setActive={setActive}/>
-      <AuthorModal active={active} setActive={setActive}/>
+      <Main posts={posts}/>
+      <AuthorizationFooter  />
+      <RegModal />
+      <AuthorModal />
     </>
-  )
-}
+  );
+};
 
 export default Home;
