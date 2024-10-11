@@ -1,21 +1,24 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const registerUser = createAsyncThunk('user/register', async (userData) => {
-  const response = await fetch('/createUser', {
-    method: 'POST',
-    body: JSON.stringify(userData),
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  });
-  if (response.status === 400) {
-    throw new Error((await response.json()).error);
-  }
-  if (!response.ok) {
-    throw new Error(`Ошибка при загрузке данных: ${response.status}`);
-  }
-  return response.json();
-});
+export const registerUser = createAsyncThunk(
+  'user/register',
+  async (userData) => {
+    const response = await fetch('/createUser', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (response.status === 400) {
+      throw new Error((await response.json()).error);
+    }
+    if (!response.ok) {
+      throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+    }
+    return response.json();
+  },
+);
 
 export const loginUser = createAsyncThunk('user/login', async (credentials) => {
   const response = await fetch('/login', {
