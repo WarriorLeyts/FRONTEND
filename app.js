@@ -583,4 +583,3 @@ app.get('/api/profile/:id/following', async (req, res) => {
   following = await Promise.all(following);
   res.status(200).json({ following });
 });
-
