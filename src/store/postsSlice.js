@@ -73,7 +73,7 @@ const postsSlice = createSlice({
       message: null,
     }),
     upFeedPosts: (state, action) => {
-      if (action.payload.subscriptionMessage === 'Не читать') {
+      if (action.payload.subscriptionMessage === 'Читаю') {
         return {
           ...state,
           feedPosts: state.feedPosts?.filter((item) => !(item.id === action.payload.id)),
@@ -82,7 +82,8 @@ const postsSlice = createSlice({
       if (state.feedPosts.length !== 0) {
         return {
           ...state,
-          feedPosts: [...state.userPosts, ...state.feedPosts],
+          feedPosts: [...state.userPosts, ...state.feedPosts].sort((a, b) => new
+          Date(b.date) - new Date(a.date)),
         };
       }
       return {

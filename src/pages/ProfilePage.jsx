@@ -19,7 +19,7 @@ function ProfilePage() {
   const posts = useSelector((state) => state.posts.profilePosts)
 
   useEffect(() => {
-    if (posts.length === 0 && userInfo) {
+    if (!posts.length && userInfo) {
       dispatch(fetchPostsProfile(userInfo?.id));
     }
   }, [userInfo]);
