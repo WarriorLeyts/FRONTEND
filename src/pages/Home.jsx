@@ -16,7 +16,7 @@ const Home = () => {
   const { isAuth } = useSelector((state) => state.user);
   
   useEffect(() => {
-    if (posts.length === 0) {
+    if (!posts.length) {
       dispath(fetchPosts());
     }
     dispath(getFeedPage());

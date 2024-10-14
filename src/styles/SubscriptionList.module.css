@@ -1,0 +1,11 @@
+.subscriptionList {
+    display: flex;
+    flex-direction: column;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+@media (min-width: 1280px) {
+    .subscriptionList {
+        gap: 40px;
+    }
+}

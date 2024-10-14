@@ -44,19 +44,19 @@ app.get('/blogs.json', async (req, res) => {
       id: '5',
       name: 'Хабр Научпоп',
       mail: '@habr_popsci',
-      urlPictures: '../img/habr-icon.png',
+      urlPictures: '/img/habr-icon.png',
     },
     {
       id: '6',
       name: 'Матч ТВ',
       mail: '@MatchTV',
-      urlPictures: '../img/match-icon.png',
+      urlPictures: '/img/match-icon.png',
     },
     {
       id: '7',
       name: 'Популярная механика',
       mail: '@PopMechanica',
-      urlPictures: '../img/popmeh-icon.png',
+      urlPictures: '/img/popmeh-icon.png',
     },
   ];
   return res.status(200).send(blogs);
@@ -466,7 +466,7 @@ app.get('/api/subscriptions/is-following/:followedId', async (req, res) => {
   const isFollowing = (await client.query(queryIsFollowing)).rows[0];
 
   if (isFollowing) {
-    return res.status(200).json({ subscriptionMessage: 'Не читать' });
+    return res.status(200).json({ subscriptionMessage: 'Читаю' });
   }
   return res.status(200).json({ subscriptionMessage: 'Читать' });
 });
@@ -480,6 +480,9 @@ app.post('/api/subscriptions/toggle/:followedId', async (req, res) => {
 
   const getToken = (await client.query(queryGetToken)).rows[0];
 
+  if (getToken?.id_user === +followedId) {
+    return res.status(200).json({ subscriptionMessage: 'Читать' });
+  }
   const queryIsFollowing = `SELECT * 
   FROM Subscriptions
   WHERE id_user = '${followedId}' AND id_follower = '${getToken?.id_user}'`;
@@ -498,7 +501,7 @@ app.post('/api/subscriptions/toggle/:followedId', async (req, res) => {
     return res.status(200).json({ subscriptionMessage: 'Читать' });
   }
   client.query(querySubscribe);
-  return res.status(200).json({ subscriptionMessage: 'Не читать' });
+  return res.status(200).json({ subscriptionMessage: 'Читаю' });
 });
 
 app.get('/posts/subscriptions', async (req, res) => {
@@ -524,4 +527,59 @@ app.get('/posts/subscriptions', async (req, res) => {
 
   const posts = (await client.query(queryGetPosts)).rows;
   res.status(200).json({ posts });
+});
+
+app.get('/api/profile/:id/followers', async (req, res) => {
+  const { id } = req.params;
+  const { token } = req.cookies;
+
+  const queryGetToken = `SELECT *   
+  FROM Sessions
+  WHERE token='${token}'`;
+  const getToken = (await client.query(queryGetToken)).rows[0];
+
+  const queryGetFollowers = `SELECT *
+  FROM Subscriptions
+  JOIN Users ON Subscriptions.id_follower = Users.id
+  WHERE Subscriptions.id_user = '${id}'`;
+
+  let followers = (await client.query(queryGetFollowers)).rows;
+
+  followers = followers?.map(async (item) => {
+    const queryIsFollowing = `SELECT *
+    FROM Subscriptions
+    WHERE id_user = '${item.id}' AND id_follower = '${getToken?.id_user}'`;
+    const isFollowing = (await client.query(queryIsFollowing)).rows[0];
+    return { ...item, subscriptionMessage: isFollowing ? 'Читаю' : 'Читать' };
+  });
+
+  followers = await Promise.all(followers);
+  res.status(200).json({ followers });
+});
+
+app.get('/api/profile/:id/following', async (req, res) => {
+  const { id } = req.params;
+  const { token } = req.cookies;
+  const queryGetToken = `SELECT *   
+  FROM Sessions
+  WHERE token='${token}'`;
+  const getToken = (await client.query(queryGetToken)).rows[0];
+
+  const queryGetFollowers = `SELECT *
+  FROM Subscriptions
+  JOIN Users ON Subscriptions.id_user = Users.id
+  WHERE Subscriptions.id_follower = '${id}'`;
+
+  let following = (await client.query(queryGetFollowers)).rows;
+
+  following = following?.map(async (item) => {
+    const queryIsFollowing = `SELECT *
+    FROM Subscriptions
+    WHERE id_user = '${item.id}' AND id_follower = '${getToken?.id_user}'`;
+    const isFollowing = (await client.query(queryIsFollowing)).rows[0];
+    return { ...item, subscriptionMessage: isFollowing ? 'Читаю' : 'Читать' };
+  });
+
+  following = await Promise.all(following);
+  res.status(200).json({ following });
 });

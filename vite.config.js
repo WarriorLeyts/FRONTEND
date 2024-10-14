@@ -30,6 +30,8 @@ export default defineConfig({
       '/api/subscriptions/is-following/': 'http://localhost:3000',
       '/api/subscriptions/toggle/': 'http://localhost:3000',
       '/posts/subscriptions': 'http://localhost:3000',
+      '/api/profile/:id/followers': 'http://localhost:3000',
+      '/api/profile/:id/following': 'http://localhost:3000',
     },
   },
 });
