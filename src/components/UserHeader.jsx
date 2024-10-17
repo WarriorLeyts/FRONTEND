@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "../styles/UserHeader.module.css";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { toggleSubscription } from "@/store/subscriptions";
 import { useDispatch, useSelector } from "react-redux";
 import { upFeedPosts } from "@/store/postsSlice";
 import { updateUserInfo, updateOtherProfile } from "@/store/profileSlice";
 import formatBirthday from "@/formatBirthday";
+import { addUserFollowers, deleteUserFollowers } from "@/store/subscriptions";
 
 export default function UserHeader({ profileData }) {
   const navigate = useNavigate();
@@ -13,6 +14,24 @@ export default function UserHeader({ profileData }) {
   const location = useLocation().pathname;
   const { userInfo } = useSelector((state) => state.profile);
   const { subscriptionMessage, loading } = useSelector((state) => state.subscriptions);
+
+  const handleSubscription = () => {
+    dispatch(upFeedPosts({ id: profileData?.id, subscriptionMessage }));
+    dispatch(toggleSubscription(profileData?.id));
+    if (subscriptionMessage === 'Читаю') {
+      dispatch(deleteUserFollowers(userInfo));
+    } else {
+      dispatch(addUserFollowers({...userInfo, subscriptionMessage: 'Читать'}));
+    }
+    dispatch(updateUserInfo({ 
+      countFolloweds: subscriptionMessage === 'Читаю' ?
+        userInfo.countFolloweds - 1 : userInfo.countFolloweds + 1,
+    }))
+    dispatch(updateOtherProfile({ 
+      countFollowers: subscriptionMessage === 'Читаю' ?
+        profileData?.countFollowers - 1 : profileData?.countFollowers + 1,
+    })) 
+  }
   return (
     <div className={styles.userHeader}>
       <div className={styles.userInfo}>
@@ -26,17 +45,17 @@ export default function UserHeader({ profileData }) {
         <ul className={styles.descriptions}>
           <li>
             {" "}
-            <img src="../img/location.svg" alt="локация" />
+            <img src="/img/location.svg" alt="локация" />
             {profileData?.location}
           </li>
           <li>
             {" "}
-            <img src="../img/link.svg" alt="ссылка" />
+            <img src="/img/link.svg" alt="ссылка" />
             <a href={profileData?.website}>{profileData?.website}</a>
           </li>
           <li>
             {" "}
-            <img src="../img/calendar.svg" alt="календарь" />
+            <img src="/img/calendar.svg" alt="календарь" />
             {profileData?.dateOfBirth && formatBirthday(profileData?.dateOfBirth)}
           </li>
         </ul>
@@ -47,38 +66,39 @@ export default function UserHeader({ profileData }) {
               <span>Сообщений</span>
             </li>
             <li>
-              <p>{profileData?.countFolloweds}</p>
-              <span>Читаемых</span>
+              <Link to={(location === '/profile') 
+                || (location === '/followers')
+                ||  (location === '/following')
+                 ? '/following' : `/profile/${profileData?.id}/following`}>
+                <p>{profileData?.countFolloweds}</p>
+                <span>Читаемых</span>
+              </Link>
             </li>
             <li>
-              <p>{profileData?.countFollowers}</p>
-              <span>Читателей</span>
+              <Link to={(location === '/profile')
+                || (location === '/followers')
+                ||  (location === '/following')               
+                ? '/followers' : `/profile/${profileData?.id}/followers`}>
+                <p>{profileData?.countFollowers}</p>
+                <span>Читателей</span>
+              </Link>
             </li>
           </ul>
-          {location !== "/profile" ? (
-            <button className={`${styles.btn} btn-reg`} 
-            disabled={loading}
-            onClick={() => {
-              dispatch(upFeedPosts({ id: profileData?.id, subscriptionMessage }));
-              dispatch(toggleSubscription(profileData?.id));
-              dispatch(updateUserInfo({ 
-                countFolloweds: subscriptionMessage === 'Не читать' ?
-                  userInfo.countFolloweds - 1 : userInfo.countFolloweds + 1,
-               }))
-               dispatch(updateOtherProfile({ 
-                countFollowers: subscriptionMessage === 'Не читать' ?
-                  profileData?.countFollowers - 1 : profileData?.countFollowers + 1,
-               })) 
-            }}
-            >
-              {subscriptionMessage}
-            </button>
-          ) : (
+          {(location === '/profile') 
+            || (location === '/followers')
+            || (location === '/following') ? (
             <button
-              className={`${styles.btn} btn-reg`}
+              className={styles.btn}
               onClick={() => navigate("/settings/profile")}
             >
               Редактировать профиль
+            </button>
+          ) : (
+            <button className={ subscriptionMessage === 'Читаю' ? `${styles.btnActive} ${styles.btn}`: styles.btn}
+            disabled={loading}
+            onClick={() => handleSubscription()}
+            >
+              {subscriptionMessage}
             </button>
           )}
         </div>

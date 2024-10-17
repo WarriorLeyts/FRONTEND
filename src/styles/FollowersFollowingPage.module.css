@@ -1,0 +1,28 @@
+.mainProfile {
+    margin-top: 45px;
+    padding: 0, 16px, 0 16px;
+    margin-bottom: 46px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+}
+.main1 {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+.main2 {
+    display: none;
+    gap: 16px;
+    flex-direction: column;
+}
+
+@media (min-width: 1280px) {
+    .mainProfile {
+        margin-top: 96px;
+    }
+    .main2 {
+        display: flex;
+    }
+}

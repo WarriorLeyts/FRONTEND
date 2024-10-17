@@ -12,7 +12,7 @@ const NavbarList = ({ location }) => {
             }
             to="/feed"
           >
-            <img src="../img/home1.svg" />
+            <img src="/img/home1.svg" />
             <p
               className={
                 location === "/feed" ? styles.subLinkAct : styles.subLink
@@ -31,7 +31,7 @@ const NavbarList = ({ location }) => {
                 : styles.navbar_link
             }
           >
-            <img src="../img/user.svg" />
+            <img src="/img/user.svg" />
             <p
               className={
                 location === "/profile" ? styles.subLinkAct : styles.subLink
@@ -52,7 +52,7 @@ const NavbarList = ({ location }) => {
                 : styles.navbar_link
             }
           >
-            <img src="../img/adjust.svg" />
+            <img src="/img/adjust.svg" />
             <p
               className={
                 location === "/settings/profile" ||
