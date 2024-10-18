@@ -2,7 +2,7 @@ import "@/styles/Blogs.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchBlogs } from "../store/blogsSlice";
-
+import BlogItem from "./BlogItem";
 const Blogs = () => {
   const dispatch = useDispatch();
   const blogs = useSelector((state) => state.blogs.blogs);
@@ -10,14 +10,16 @@ const Blogs = () => {
   const error = useSelector((state) => state.blogs.error);
 
   useEffect(() => {
-    dispatch(fetchBlogs());
+    if (!blogs.length) {
+      dispatch(fetchBlogs());
+    }
   }, []);
 
   const getBlogs = () => {
     if (loading || error) {
-      return blogs.map((item, index) => {
+      return [1, 2, 3].map((item) => {
         return (
-          <li className="blogs-item" key={`blog_${index}`}>
+          <li className="blogs-item" key={`blog_${item}`}>
             <div className="blog-icon"> </div>
             <div className="blog-info">
               <div className="no-blog"></div>
@@ -28,19 +30,8 @@ const Blogs = () => {
         );
       });
     }
-    return blogs.map((item, index) => {
-      return (
-        <li className="blogs-item" key={`blog_${index}`}>
-          <img src={`${item.urlPictures}`} alt="" className="blog-icon" />
-          <div className="blog-info">
-            <p className="blog-name">{item.name}</p>
-            <span className="blog-sub">{item.mail}</span>
-          </div>
-          <a className="blogs__btn" href="#">
-            Читать
-          </a>
-        </li>
-      );
+    return blogs.map((blog, index) => {
+      return <BlogItem key={index} blog={blog} />
     });
   };
   return (

@@ -16,6 +16,7 @@
     display: none;
     gap: 16px;
     flex-direction: column;
+    width: 360px;
 }
 
 @media (min-width: 1280px) {

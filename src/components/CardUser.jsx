@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 const CardUser = () => {
   const { userInfo } = useSelector((state) => state.profile);
-  
   return (
     <div className={styles.cardUser}>
       <div className={styles.userInfoBlock}>
