@@ -8,7 +8,7 @@ const Authorization = () => {
   return (
     <>
       <div className="authorization">
-        <img className="logo" src="img/logo.svg" />
+        <img className="logo" src="/img/logo.svg" />
         <h1 className="authorization__title">
           {" "}
           Оставайся на связи с друзьями, даже когда{" "}

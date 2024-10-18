@@ -15,20 +15,17 @@ const SubscriptionItem = ({ subscription, index, length }) => {
     dispatch(toggleSubscription(subscription.id))
     dispatch(upFeedPosts({ id: subscription.id, subscriptionMessage: 'Читаю' }));
 
-    if (subscription.subscriptionMessage === 'Читать') {
+    if (value === 'Читать') {
       dispatch(addSubscription({ ...subscription, subscriptionMessage: value }));
     } else {
       dispatch(deleteSubscription(subscription));
     }
-    if (userInfo?.id !== subscription.id) {
-      dispatch(updateUserInfo({ 
-        countFolloweds: subscription.subscriptionMessage === 'Читаю' ?
-        userInfo.countFolloweds - 1 : userInfo.countFolloweds + 1,
-      }))
-    dispatch(upSubscriptions({ id: subscription.id, subscriptionMessage: value }));  
-    }
+    dispatch(updateUserInfo({ 
+      countFolloweds: subscription.subscriptionMessage === 'Читаю' ?
+      userInfo.countFolloweds - 1 : userInfo.countFolloweds + 1,
+    }))
+    dispatch(upSubscriptions({ id: subscription.id, subscriptionMessage: value }));
     dispatch(upFollowers({ id: subscription.id, subscriptionMessage: value }));
-    return 
   }
   return (
     <>
@@ -44,10 +41,11 @@ const SubscriptionItem = ({ subscription, index, length }) => {
            <p className={styles.infoSubscription__description}>{subscription.aboutme}</p>
         </div>
       </Link>
+        { subscription.id !== userInfo?.id &&
         <button className={ subscription.subscriptionMessage === 'Читаю' ? `${styles.btnActive} ${styles.btn}`: styles.btn}
           onClick={() => handleUpSubscriptions()}
           disabled={loading}
-        >{subscription.subscriptionMessage}</button>
+        >{subscription.subscriptionMessage}</button>}
       </div>
       <div className={styles.line} style={index === (length - 1) ? {display: 'none'} : {}}></div>
     </>
