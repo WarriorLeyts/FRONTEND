@@ -39,26 +39,45 @@ LIMIT 4;`;
   res.status(200).send(posts);
 });
 app.get('/blogs.json', async (req, res) => {
-  const blogs = [
-    {
-      id: '5',
-      name: 'Хабр Научпоп',
-      mail: '@habr_popsci',
-      urlPictures: '/img/habr-icon.png',
-    },
-    {
-      id: '6',
-      name: 'Матч ТВ',
-      mail: '@MatchTV',
-      urlPictures: '/img/match-icon.png',
-    },
-    {
-      id: '7',
-      name: 'Популярная механика',
-      mail: '@PopMechanica',
-      urlPictures: '/img/popmeh-icon.png',
-    },
-  ];
+  const { token } = req.cookies;
+  const queryGetToken = `SELECT *   
+  FROM Sessions
+  WHERE token='${token}'`;
+  const getToken = (await client.query(queryGetToken)).rows[0];
+
+  if (!token || !getToken
+    || ((new Date() - new Date(getToken.created_at)) / 60000 > minutsOfWeek)) {
+    return res.status(400).json({ message: 'пользователь не авторизован' });
+  }
+  const queryGetBlogs = `SELECT users.id AS id, name, nickname, avatar, id_follower, aboutme
+  FROM Subscriptions
+  JOIN Users ON Subscriptions.id_user = Users.id`;
+
+  const getBlogs = (await client.query(queryGetBlogs)).rows;
+  let blogs = [];
+
+  getBlogs.forEach((item) => {
+    let point = 0;
+    let isUniq = true;
+    const countSub = getBlogs.filter((itemFilt) => itemFilt.id === item.id).length;
+    const subscriptionMessage = item.id_follower === getToken.id_user ? 'Читаю' : 'Читать';
+    blogs.forEach((item2, index) => {
+      if (item.id === item2.id) {
+        isUniq = false;
+      }
+      if (item.id === item2.id && item.id_follower === getToken.id_user) {
+        point = index;
+      }
+    });
+    if (isUniq) {
+      blogs.push({ ...item, countSub, subscriptionMessage });
+    }
+    if (point) {
+      blogs[point].subscriptionMessage = 'Читаю';
+      blogs[point].id_follower = item.id_follower;
+    }
+  });
+  blogs = blogs.sort((a, b) => b.countSub - a.countSub).slice(0, 3);
   return res.status(200).send(blogs);
 });
 app.get('/topics.json', async (req, res) => {
@@ -459,6 +478,11 @@ app.get('/api/subscriptions/is-following/:followedId', async (req, res) => {
   FROM Sessions
   WHERE token='${token}'`;
   const getToken = (await client.query(queryGetToken)).rows[0];
+
+  if (!token || !getToken
+    || ((new Date() - new Date(getToken.created_at)) / 60000 > minutsOfWeek)) {
+    return res.status(400).json({ message: 'пользователь не авторизован' });
+  }
   const queryIsFollowing = `SELECT * 
   FROM Subscriptions
   WHERE id_user = '${followedId}' AND id_follower = '${getToken?.id_user}'`;
@@ -479,6 +503,11 @@ app.post('/api/subscriptions/toggle/:followedId', async (req, res) => {
   WHERE token='${token}'`;
 
   const getToken = (await client.query(queryGetToken)).rows[0];
+
+  if (!token || !getToken
+    || ((new Date() - new Date(getToken.created_at)) / 60000 > minutsOfWeek)) {
+    return res.status(400).json({ message: 'пользователь не авторизован' });
+  }
 
   if (getToken?.id_user === +followedId) {
     return res.status(200).json({ subscriptionMessage: 'Читать' });
@@ -513,6 +542,10 @@ app.get('/posts/subscriptions', async (req, res) => {
 
   const getToken = (await client.query(queryGetToken)).rows[0];
 
+  if (!token || !getToken
+    || ((new Date() - new Date(getToken.created_at)) / 60000 > minutsOfWeek)) {
+    return res.status(400).json({ message: 'пользователь не авторизован' });
+  }
   const queryGetPosts = `SELECT Posts.*, Users.*
   FROM Posts
   JOIN Users ON Posts.id_user = Users.id
@@ -526,7 +559,7 @@ app.get('/posts/subscriptions', async (req, res) => {
   ORDER BY Posts.date DESC;`;
 
   const posts = (await client.query(queryGetPosts)).rows;
-  res.status(200).json({ posts });
+  return res.status(200).json({ posts });
 });
 
 app.get('/api/profile/:id/followers', async (req, res) => {
@@ -536,7 +569,12 @@ app.get('/api/profile/:id/followers', async (req, res) => {
   const queryGetToken = `SELECT *   
   FROM Sessions
   WHERE token='${token}'`;
+
   const getToken = (await client.query(queryGetToken)).rows[0];
+  if (!token || !getToken
+    || ((new Date() - new Date(getToken.created_at)) / 60000 > minutsOfWeek)) {
+    return res.status(400).json({ message: 'пользователь не авторизован' });
+  }
 
   const queryGetFollowers = `SELECT *
   FROM Subscriptions
@@ -554,7 +592,7 @@ app.get('/api/profile/:id/followers', async (req, res) => {
   });
 
   followers = await Promise.all(followers);
-  res.status(200).json({ followers });
+  return res.status(200).json({ followers });
 });
 
 app.get('/api/profile/:id/following', async (req, res) => {
@@ -564,6 +602,11 @@ app.get('/api/profile/:id/following', async (req, res) => {
   FROM Sessions
   WHERE token='${token}'`;
   const getToken = (await client.query(queryGetToken)).rows[0];
+
+  if (!token || !getToken
+    || ((new Date() - new Date(getToken.created_at)) / 60000 > minutsOfWeek)) {
+    return res.status(400).json({ message: 'пользователь не авторизован' });
+  }
 
   const queryGetFollowers = `SELECT *
   FROM Subscriptions
@@ -581,5 +624,5 @@ app.get('/api/profile/:id/following', async (req, res) => {
   });
 
   following = await Promise.all(following);
-  res.status(200).json({ following });
+  return res.status(200).json({ following });
 });
