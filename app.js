@@ -81,28 +81,40 @@ app.get('/blogs.json', async (req, res) => {
   return res.status(200).send(blogs);
 });
 app.get('/topics.json', async (req, res) => {
-  const topics = [
-    {
-      hashName: '#javascript',
-      numOfMessage: '2 941 сообщение',
-    },
-    {
-      hashName: '#python3',
-      numOfMessage: '29 718 сообщений',
-    },
-    {
-      hashName: '#ruby',
-      numOfMessage: '958 186 сообщений',
-    },
-    {
-      hashName: '#как_научиться_коду?',
-      numOfMessage: '4 185 сообщений',
-    },
-    {
-      hashName: '#помогите_с_кодом',
-      numOfMessage: '482 сообщения',
-    },
-  ];
+  const queryAllMesages = `SELECT message
+  FROM Posts`;
+
+  const allMessages = (await client.query(queryAllMesages)).rows;
+  let topics = [];
+
+  allMessages.forEach((item) => {
+    let isUniq = true;
+    let hashTags = '';
+    item.message.toLowerCase().split(' ').forEach((word) => {
+      const countMessages = 1;
+      let point = 0;
+      if (word[0] === '#') {
+        topics.forEach((topic, index) => {
+          if (topic.hashName.startsWith(word.slice(0, word.length - 1))) {
+            isUniq = false;
+            point = index;
+          }
+        });
+        if (isUniq) {
+          topics.push({ hashName: word, countMessages });
+        } else {
+          topics[point] = {
+            hashName: topics[point].hashName,
+            countMessages: hashTags.includes(word.slice(0, word.length - 1))
+              ? topics[point].countMessages : topics[point].countMessages + 1,
+          };
+        }
+        hashTags += word;
+      }
+    });
+  });
+  topics = topics.sort((a, b) => b.countMessages - a.countMessages).slice(0, 5);
+
   return res.status(200).send(topics);
 });
 
