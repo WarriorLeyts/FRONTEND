@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { newPost, addPost } from "../store/postsSlice";
 import { setModalActive } from "@/store/modals";
 import { updateUserInfo } from "@/store/profileSlice";
+import { upTopics } from "@/store/topicsSlice";
 
 const PostWriter = () => {
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ const PostWriter = () => {
       nickname: userInfo?.nickname, date: (new Date()).toString()
     }));
     dispatch(updateUserInfo({ countPosts: userInfo?.countPosts + 1}))
+    dispatch(upTopics(post))
   };
 
   return (

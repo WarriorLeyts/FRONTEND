@@ -2,20 +2,21 @@ import "@/styles/Topics.css";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTopics } from "../store/topicsSlice";
+import TopicItem from "./TopicItem";
 
 const Topics = () => {
   const dispatch = useDispatch();
-  const topics = useSelector((state) => state.topics.topics);
-  const loading = useSelector((state) => state.topics.loading);
-  const error = useSelector((state) => state.topics.error);
-
+  const { topics, loading, error} = useSelector((state) => state.topics);
+ 
   useEffect(() => {
-    dispatch(fetchTopics());
-  }, [dispatch]);
-
+    if (!topics.length) {
+      dispatch(fetchTopics());
+    }
+  }, []);
+  
   const getTopics = () => {
     if (loading || error) {
-      return topics.map((item, index) => {
+      return [1, 2, 3, 4].map((item, index) => {
         return (
           <li className="hashtags-item" key={`topic_${index}`}>
             <div className="no-hash"></div>
@@ -24,13 +25,8 @@ const Topics = () => {
         );
       });
     }
-    return topics.map((item, index) => {
-      return (
-        <li className="hashtags-item" key={`topic_${index}`}>
-          <p className="hashtag">{item.hashName}</p>
-          <span className="hashtag-sub">{item.numOfMessage}</span>
-        </li>
-      );
+    return topics?.map((topic, index) => {
+      return <TopicItem key={index} topic={topic} />
     });
   };
 

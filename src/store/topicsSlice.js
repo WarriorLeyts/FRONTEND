@@ -11,11 +11,22 @@ export const fetchTopics = createAsyncThunk('topics/fetchTopics', async () => {
 const topicsSlice = createSlice({
   name: 'topics',
   initialState: {
-    topics: [1, 2, 3, 4],
+    topics: [],
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    upTopics: (state, action) => ({
+      ...state,
+      topics: state.topics.map((hashTag) => {
+        const { message } = action.payload;
+        if (message.startsWith(hashTag.hashName.slice(0, -1))) {
+          return ({ ...hashTag, countMessages: hashTag.countMessages + 1 });
+        }
+        return hashTag;
+      }),
+    }),
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchTopics.pending, (state) => ({
@@ -34,5 +45,5 @@ const topicsSlice = createSlice({
       }));
   },
 });
-
+export const { upTopics } = topicsSlice.actions;
 export default topicsSlice.reducer;

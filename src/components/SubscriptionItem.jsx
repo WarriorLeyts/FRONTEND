@@ -15,7 +15,7 @@ const SubscriptionItem = ({ subscription, index, length }) => {
     dispatch(toggleSubscription(subscription.id))
     dispatch(upFeedPosts({ id: subscription.id, subscriptionMessage: 'Читаю' }));
 
-    if (value === 'Читать') {
+    if (subscription.subscriptionMessage === 'Читать') {
       dispatch(addSubscription({ ...subscription, subscriptionMessage: value }));
     } else {
       dispatch(deleteSubscription(subscription));
@@ -26,6 +26,7 @@ const SubscriptionItem = ({ subscription, index, length }) => {
     }))
     dispatch(upSubscriptions({ id: subscription.id, subscriptionMessage: value }));
     dispatch(upFollowers({ id: subscription.id, subscriptionMessage: value }));
+    return 
   }
   return (
     <>
