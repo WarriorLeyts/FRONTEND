@@ -30,16 +30,20 @@ const AuthorModal = () => {
   const [emailDirty, setEmailDirty] = useState(false);
   const [passwordDirty, setPasswordDirty] = useState(false);
 
+  useEffect(() => {
     if (error) {
-      setEmailDirty("unknown");
-      setPasswordDirty("unknown");
+      setEmailDirty('unknown');
+      setPasswordDirty('unknown')
     }
+   }, [loading]);
 
+  useEffect(() => {
     if (isLoggedIn) {
       setEmailDirty(false);
-      setPasswordDirty(false);
-      navigate("/feed");
+      setPasswordDirty(false)
+      navigate('/feed')
     }
+  }, [isLoggedIn]);
 
   const handleError = (name, value) => {
     switch (String(name)) {

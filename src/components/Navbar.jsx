@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import NavbarList from "./NavbarList";
-import styles from "../styles/FeedPage.module.css";
+import styles from "../styles/Page.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "@/store/profileSlice.js";
 

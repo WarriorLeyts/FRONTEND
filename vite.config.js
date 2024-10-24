@@ -21,6 +21,7 @@ export default defineConfig({
       '/topics.json': 'http://localhost:3000',
       '/createUser': 'http://localhost:3000',
       '/login': 'http://localhost:3000',
+      '/api/search': 'http://localhost:3000',
       '/feed': 'http://localhost:3000',
       '/api/settings/profile': 'http://localhost:3000',
       '/api/settings/password': 'http://localhost:3000',

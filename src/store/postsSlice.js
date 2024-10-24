@@ -55,6 +55,14 @@ export const fetchPostsSubscriptions = createAsyncThunk('posts/fetchSubscription
   return response.json();
 });
 
+export const fetchPostsHashTag = createAsyncThunk('posts/fetchPostsHashTag', async (tag) => {
+  const response = await fetch(`/api/search?tag=${tag}`);
+  if (!response.ok) {
+    throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+  }
+  return response.json();
+});
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -62,6 +70,7 @@ const postsSlice = createSlice({
     feedPosts: [],
     profilePosts: [],
     userPosts: [],
+    tagPosts: [],
     loading: false,
     newPostLoading: false,
   },
@@ -69,7 +78,8 @@ const postsSlice = createSlice({
     addPost: (state, action) => ({
       ...state,
       feedPosts: [action.payload, ...state.feedPosts],
-      profilePosts: [action.payload, ...state.profilePosts],
+      profilePosts: state.profilePosts.length
+        ? [action.payload, ...state.profilePosts] : state.profilePosts,
       message: null,
     }),
     upFeedPosts: (state, action) => {
@@ -157,6 +167,19 @@ const postsSlice = createSlice({
         feedPosts: action.payload.posts,
       }))
       .addCase(fetchPostsSubscriptions.rejected, (state) => ({
+        ...state,
+        loading: false,
+      }))
+      .addCase(fetchPostsHashTag.pending, (state) => ({
+        ...state,
+        loading: true,
+      }))
+      .addCase(fetchPostsHashTag.fulfilled, (state, action) => ({
+        ...state,
+        loading: false,
+        tagPosts: action.payload,
+      }))
+      .addCase(fetchPostsHashTag.rejected, (state) => ({
         ...state,
         loading: false,
       }));

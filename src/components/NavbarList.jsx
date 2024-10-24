@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/Navbar.module.css";
+import { useSelector } from "react-redux";
 const NavbarList = ({ location }) => {
+  const { userInfo } = useSelector((state) => state.profile);
+
   return (
     <nav>
       <ul className={styles.navbar}>
@@ -10,7 +13,7 @@ const NavbarList = ({ location }) => {
             className={
               location === "/feed" ? styles.navbar_link_act : styles.navbar_link
             }
-            to="/feed"
+            to={userInfo?.id ? "/feed" : "/"}
           >
             <img src="/img/home1.svg" />
             <p
@@ -24,7 +27,7 @@ const NavbarList = ({ location }) => {
         </li>
         <li>
           <Link
-            to="/profile"
+            to={userInfo?.id ? "/profile": "/"}
             className={
               location === "/profile"
                 ? styles.navbar_link_act
@@ -43,7 +46,7 @@ const NavbarList = ({ location }) => {
         </li>
         <li>
           <Link
-            to="/settings/profile"
+            to={userInfo?.id ? "/settings/profile" : "/"}
             className={
               location === "/settings/profile" ||
               location === "/settings/email" ||

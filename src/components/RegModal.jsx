@@ -64,16 +64,20 @@ const RegModal = () => {
       handleError(name, value)
     }
 
+    useEffect(() => {
       if (error) {
         setEmailDirty(true);
       }
+     }, [loading]);
 
+    useEffect(() => {
       if (isLoggedIn) {
         setEmailDirty(false);
         setPasswordDirty(false);
         setConfirmDirty(false);
         navigate('/feed');
       }
+    }, [isLoggedIn])
 
     const handleSubmit = async (event) => {
         event.preventDefault();
