@@ -45,30 +45,29 @@ app.get('/blogs.json', async (req, res) => {
   WHERE token='${token}'`;
   const getToken = (await client.query(queryGetToken)).rows[0];
 
-  if (!token || !getToken
-    || ((new Date() - new Date(getToken.created_at)) / 60000 > minutsOfWeek)) {
-    return res.status(400).json({ message: 'пользователь не авторизован' });
-  }
   const queryGetBlogs = `SELECT users.id AS id, name, nickname, avatar, id_follower, aboutme
   FROM Subscriptions
   JOIN Users ON Subscriptions.id_user = Users.id`;
 
   const getBlogs = (await client.query(queryGetBlogs)).rows;
   let blogs = [];
+  const idUserCurrent = getToken?.id_user ? getToken?.id_user : 0;
 
   getBlogs.forEach((item) => {
     let point = 0;
     let isUniq = true;
     const countSub = getBlogs.filter((itemFilt) => itemFilt.id === item.id).length;
-    const subscriptionMessage = item.id_follower === getToken.id_user ? 'Читаю' : 'Читать';
+    const subscriptionMessage = (item.id_follower === idUserCurrent) ? 'Читаю' : 'Читать';
+
     blogs.forEach((item2, index) => {
       if (item.id === item2.id) {
         isUniq = false;
       }
-      if (item.id === item2.id && item.id_follower === getToken.id_user) {
+      if ((item.id === item2.id) && (item.id_follower === idUserCurrent)) {
         point = index;
       }
     });
+
     if (isUniq) {
       blogs.push({ ...item, countSub, subscriptionMessage });
     }
@@ -621,9 +620,9 @@ app.get('/api/profile/:id/following', async (req, res) => {
   }
 
   const queryGetFollowers = `SELECT *
-  FROM Subscriptions
-  JOIN Users ON Subscriptions.id_user = Users.id
-  WHERE Subscriptions.id_follower = '${id}'`;
+    FROM Subscriptions
+    JOIN Users ON Subscriptions.id_user = Users.id
+    WHERE Subscriptions.id_follower = '${id}'`;
 
   let following = (await client.query(queryGetFollowers)).rows;
 
@@ -637,4 +636,35 @@ app.get('/api/profile/:id/following', async (req, res) => {
 
   following = await Promise.all(following);
   return res.status(200).json({ following });
+});
+
+app.get('/api/search', async (req, res) => {
+  const { tag } = req.query;
+
+  const queryGetPosts = `SELECT users.id, name, nickname, avatar, message, message_img, date
+   FROM Posts
+   JOIN Users ON Posts.id_user = Users.id
+   ORDER BY Posts.date DESC`;
+
+  let posts = (await client.query(queryGetPosts)).rows;
+  posts = posts.filter((post) => post.message.includes(tag.slice(0, -1)));
+  posts = JSON.stringify(posts);
+  return res.status(200).send(posts);
+});
+
+app.get('/search', async (req, res) => {
+  const { tag } = req.query;
+
+  const queryGetPosts = `SELECT users.id, name, nickname, avatar, message, message_img, date
+   FROM Posts
+   JOIN Users ON Posts.id_user = Users.id
+   ORDER BY Posts.date DESC`;
+
+  let posts = (await client.query(queryGetPosts)).rows;
+  posts = posts.filter((post) => post.message.includes(tag.slice(0, -1)));
+
+  if (!posts.length) {
+    return res.status(401).send('<script> alert("Нет сообщений с данным хэштегом") </script>');
+  }
+  return res.status(200).type('html').send(html);
 });

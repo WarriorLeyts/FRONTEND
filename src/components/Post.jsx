@@ -3,6 +3,8 @@ import "@/styles/LastMessageList.css";
 import getTimeString from "@/get_time_string.js";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import getBackLightHash from "@/get_backlight_hash";
+import getReplaceLink from "@/get_replace_link";
 
 const Post = ({ post, index }) => {
   const [time, setTime] = useState(getTimeString(post.date, new Date()))
@@ -37,7 +39,7 @@ const Post = ({ post, index }) => {
             </div>
           </div>
           <div className="user-message mg-rg">
-            <p>{post.message}</p>
+            <p dangerouslySetInnerHTML={{ __html: getBackLightHash(getReplaceLink(post.message)) }} />
             {post.message_img ? (
               <img
                 className="message-img"

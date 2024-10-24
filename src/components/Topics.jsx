@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchTopics } from "../store/topicsSlice";
 import TopicItem from "./TopicItem";
+import { Link } from "react-router-dom";
 
 const Topics = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Topics = () => {
       });
     }
     return topics?.map((topic, index) => {
-      return <TopicItem key={index} topic={topic} />
+      return <Link to={`/search?tag=${topic.hashName.slice(1)}`}><TopicItem key={index} topic={topic} /></Link>
     });
   };
 

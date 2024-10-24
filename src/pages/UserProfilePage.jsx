@@ -31,7 +31,7 @@ function UserProfilePage() {
     if(location.pathname === `/profile/${userInfo?.id}`) {
       navigate('/profile')
     }
-  }, [userInfo?.id]);
+  }, [userInfo?.id, id]);
   return (
     <div>
       <Navbar location={location.pathname} />
