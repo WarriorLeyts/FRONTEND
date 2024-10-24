@@ -96,9 +96,9 @@ export default function UserHeader({ profileData }) {
           ) : (
             <button className={ subscriptionMessage === 'Читаю' ? `${styles.btnActive} ${styles.btn}`: styles.btn}
             disabled={loading}
-            onClick={() => handleSubscription()}
+            onClick={() => userInfo?.id ? handleSubscription() : navigate('/')}
             >
-              {subscriptionMessage}
+              {subscriptionMessage ? subscriptionMessage : 'Зарегистриро ваться'}
             </button>
           )}
         </div>
