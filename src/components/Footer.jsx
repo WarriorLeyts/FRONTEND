@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import NavbarList from "./NavbarList";
-import styles from "../styles/FeedPage.module.css";
+import styles from "../styles/Page.module.css";
 import { useSelector } from "react-redux";
 
 export default function Footer({ location }) {

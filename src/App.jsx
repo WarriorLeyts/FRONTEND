@@ -11,6 +11,7 @@ import ProfileSettingsPage from "./pages/ProfileSettingsPage.jsx";
 import PasswordSettingsPage from "./pages/PasswordSettingsPage.jsx";
 import EmailSettingsPage from "./pages/EmailSettingsPage.jsx";
 import Home from "@/pages/Home.jsx";
+import HashtagPage from "./pages/HashtagPage.jsx";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
       <Route path="/settings/profile" element={<ProfileSettingsPage />} />
       <Route path="/settings/password" element={<PasswordSettingsPage />} />
       <Route path="/settings/email" element={<EmailSettingsPage />} />
+      <Route path="/search" element={<HashtagPage />} />
     </Routes>
   );
 };
