@@ -19,7 +19,7 @@ function HashtagPage() {
 
   useEffect(() => {
     dispatch(fetchPostsHashTag(tag));
-  }, [tag]);
+  }, [tag, location]);
 
   
   return (
@@ -27,7 +27,7 @@ function HashtagPage() {
       <Navbar location={location.pathname} />
       <main className={styles.mainFeed}>
         <div className={styles.main1}>
-          <PostsFeed posts={posts} />
+          <PostsFeed  posts={posts} />
         </div>
         <div className={styles.main2}>
           <CardUser />

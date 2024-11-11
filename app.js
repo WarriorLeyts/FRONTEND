@@ -11,9 +11,9 @@ const port = 3000;
 const { Client } = pkg;
 const client = new Client({
   user: 'muhammad',
-  host: 'dpg-cs1c9223esus739dgd20-a.oregon-postgres.render.com',
-  database: 'demos_zv3i',
-  password: 'bm2lPZs8m2TL79gW4ZTcQz0pua6QQeyD',
+  host: 'dpg-csllmgpu0jms73f8pn4g-a.oregon-postgres.render.com',
+  database: 'demos_jo8h',
+  password: 'mLCKgHFBdhJe1j5AOrYcj22fgUZTjsoY',
   port: 5432,
   ssl: true,
 });
@@ -30,13 +30,31 @@ app.listen(port, () => {
 });
 
 app.get('/posts.json', async (req, res) => {
-  const queryGetPosts = `SELECT * 
-FROM Posts
-JOIN Users ON Posts.id_user = Users.id
-ORDER BY Posts.id DESC
-LIMIT 4;`;
-  const posts = JSON.stringify((await client.query(queryGetPosts)).rows);
-  res.status(200).send(posts);
+  const { token } = req.cookies;
+
+  const queryGetToken = `SELECT *
+  FROM Sessions
+  WHERE token='${token}'`;
+
+  const queryGetPosts = `SELECT Posts.id AS post_id, id_user AS id, avatar, nickname, message, name, message_img, date
+  FROM Posts
+  JOIN Users ON Posts.id_user = Users.id
+  ORDER BY Posts.id DESC
+  LIMIT 4;`;
+
+  const getToken = (await client.query(queryGetToken)).rows[0];
+  const getPosts = (await client.query(queryGetPosts)).rows;
+
+  const posts = await Promise.all(getPosts.map(async (item) => {
+    const queryCountLikes = `SELECT *
+    FROM Likes
+    WHERE id_post='${item.post_id}'`;
+    const likes = (await client.query(queryCountLikes)).rows;
+    const isLiked = likes.some((like) => like.id_user === (getToken?.id_user));
+    return { ...item, isLiked, countLikes: likes.length };
+  }));
+
+  res.status(200).send(JSON.stringify(posts));
 });
 app.get('/blogs.json', async (req, res) => {
   const { token } = req.cookies;
@@ -430,12 +448,29 @@ app.post('/api/settings/email', async (req, res) => {
 });
 app.get('/posts/user/:id.json', async (req, res) => {
   const { id } = req.params;
-  const queryGetPosts = `SELECT * 
+  const { token } = req.cookies;
+  const queryGetToken = `SELECT *
+  FROM Sessions
+  WHERE token='${token}'`;
+
+  const queryGetPosts = `SELECT Posts.id AS post_id, id_user AS id, avatar, nickname, message, name, message_img, date
   FROM Posts
   JOIN Users ON Posts.id_user = Users.id
   WHERE id_user = '${id}'
   ORDER BY Posts.id DESC`;
-  const posts = (await client.query(queryGetPosts)).rows;
+
+  const getToken = (await client.query(queryGetToken)).rows[0];
+  const getPosts = (await client.query(queryGetPosts)).rows;
+
+  const posts = await Promise.all(getPosts.map(async (item) => {
+    const queryCountLikes = `SELECT *
+    FROM Likes
+    WHERE id_post='${item.post_id}'`;
+    const likes = (await client.query(queryCountLikes)).rows;
+    const isLiked = likes.some((like) => like.id_user === (getToken?.id_user));
+    return { ...item, isLiked, countLikes: likes.length };
+  }));
+
   return res.status(200).json({ posts });
 });
 app.get('/api/profile/:id', async (req, res) => {
@@ -469,11 +504,11 @@ app.get('/api/profile/:id', async (req, res) => {
 });
 app.get('/profile/:id', async (req, res) => {
   const { id } = req.params;
-  const queryGetPosts = `SELECT *
+  const queryGetUser = `SELECT *
   FROM Users
   WHERE id = '${id}'`;
   try {
-    const user = (await client.query(queryGetPosts)).rows[0];
+    const user = (await client.query(queryGetUser)).rows[0];
     if (!user) {
       return res.status(401).send('<script> alert("пользователь не найден") </script>');
     }
@@ -557,7 +592,7 @@ app.get('/posts/subscriptions', async (req, res) => {
     || ((new Date() - new Date(getToken.created_at)) / 60000 > minutsOfWeek)) {
     return res.status(400).json({ message: 'пользователь не авторизован' });
   }
-  const queryGetPosts = `SELECT Posts.*, Users.*
+  const queryGetPosts = `SELECT Posts.id AS post_id, id_user AS id, avatar, nickname, message, name, message_img, date
   FROM Posts
   JOIN Users ON Posts.id_user = Users.id
   WHERE Posts.id_user IN (
@@ -569,7 +604,17 @@ app.get('/posts/subscriptions', async (req, res) => {
   )
   ORDER BY Posts.date DESC;`;
 
-  const posts = (await client.query(queryGetPosts)).rows;
+  const getPosts = (await client.query(queryGetPosts)).rows;
+
+  const posts = await Promise.all(getPosts.map(async (item) => {
+    const queryCountLikes = `SELECT *
+    FROM Likes
+    WHERE id_post='${item.post_id}'`;
+    const likes = (await client.query(queryCountLikes)).rows;
+    const isLiked = likes.some((like) => like.id_user === (getToken?.id_user));
+    return { ...item, isLiked, countLikes: likes.length };
+  }));
+
   return res.status(200).json({ posts });
 });
 
@@ -640,22 +685,37 @@ app.get('/api/profile/:id/following', async (req, res) => {
 
 app.get('/api/search', async (req, res) => {
   const { tag } = req.query;
+  const { token } = req.cookies;
 
-  const queryGetPosts = `SELECT users.id, name, nickname, avatar, message, message_img, date
+  const queryGetToken = `SELECT *
+  FROM Sessions
+  WHERE token='${token}'`;
+
+  const queryGetPosts = `SELECT users.id, Posts.id AS post_id, avatar, nickname, message, name, message_img, date
    FROM Posts
    JOIN Users ON Posts.id_user = Users.id
    ORDER BY Posts.date DESC`;
 
-  let posts = (await client.query(queryGetPosts)).rows;
-  posts = posts.filter((post) => post.message.includes(tag.slice(0, -1)));
-  posts = JSON.stringify(posts);
-  return res.status(200).send(posts);
+  const getToken = (await client.query(queryGetToken)).rows[0];
+  let getPosts = (await client.query(queryGetPosts)).rows;
+  getPosts = getPosts.filter((post) => post.message.includes(tag.slice(0, -1)));
+
+  const posts = await Promise.all(getPosts.map(async (item) => {
+    const queryCountLikes = `SELECT *
+    FROM Likes
+    WHERE id_post='${item.post_id}'`;
+    const likes = (await client.query(queryCountLikes)).rows;
+    const isLiked = likes.some((like) => like.id_user === (getToken?.id_user));
+    return { ...item, isLiked, countLikes: likes.length };
+  }));
+
+  return res.status(200).send(JSON.stringify(posts));
 });
 
 app.get('/search', async (req, res) => {
   const { tag } = req.query;
 
-  const queryGetPosts = `SELECT users.id, name, nickname, avatar, message, message_img, date
+  const queryGetPosts = `SELECT users.id, Posts.id AS post_id, avatar, nickname, message, name, message_img, date
    FROM Posts
    JOIN Users ON Posts.id_user = Users.id
    ORDER BY Posts.date DESC`;
@@ -667,4 +727,61 @@ app.get('/search', async (req, res) => {
     return res.status(401).send('<script> alert("Нет сообщений с данным хэштегом") </script>');
   }
   return res.status(200).type('html').send(html);
+});
+
+app.post('/api/like/:post_id', async (req, res) => {
+  const { token } = req.cookies;
+  const postId = req.params.post_id;
+
+  const queryGetToken = `SELECT *
+  FROM Sessions
+  WHERE token='${token}'`;
+
+  try {
+    const getToken = (await client.query(queryGetToken)).rows[0];
+    if (!token || !getToken || !postId) {
+      return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
+    }
+    const queryCreateLike = `INSERT INTO Likes (id_user, id_post) 
+  VALUES ('${getToken.id_user}','${postId}')`;
+
+    client.query(queryCreateLike);
+
+    const queryCountLikes = `SELECT *
+  FROM Likes
+  WHERE id_post='${postId}'`;
+
+    const likes = (await client.query(queryCountLikes)).rows;
+
+    return res.status(200).json({ postId, isLiked: true, countLikes: likes.length });
+  } catch (error) {
+    return res.status(400).json({ error: error.message });
+  }
+});
+
+app.delete('/api/unlike/:post_id', async (req, res) => {
+  const { token } = req.cookies;
+  const postId = req.params.post_id;
+
+  const queryGetToken = `SELECT *
+  FROM Sessions
+  WHERE token='${token}'`;
+
+  const getToken = (await client.query(queryGetToken)).rows[0];
+
+  if (!token || !getToken || !postId) {
+    return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
+  }
+  const queryDeleteLike = `DELETE FROM Likes
+    WHERE id_user = '${getToken.id_user}' AND id_post = '${postId}'`;
+
+  client.query(queryDeleteLike);
+
+  const queryCountLikes = `SELECT *
+  FROM Likes
+  WHERE id_post='${postId}'`;
+
+  const likes = (await client.query(queryCountLikes)).rows;
+
+  return res.status(200).json({ postId, isLiked: false, countLikes: likes.length });
 });

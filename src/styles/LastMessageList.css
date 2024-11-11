@@ -89,16 +89,38 @@
 .user-interaction__item {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
-.user-interaction__favs path:hover {
-  fill: #ff0000;
+.user-interaction__favs {
+  cursor: pointer;
+}
+.user-interaction__icon-block {
+  padding: 5px;
+}
+.user-interaction__favs_act {
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+}
+.user-interaction__favs_act path{
+  fill: #0057FF;
   stroke: #0057FF;
 }
+.user-interaction__icon-block:hover  .user-interaction__favs {
+  filter: drop-shadow(2px 2px 2px rgba(0, 0, 0, 0.5));
+}
+.user-interaction__icon-block:hover  .user-interaction__favs path{
+  fill: #0057FF;
+  stroke: #0057FF;
+}
+.user-interaction__icon-block:hover  .user-interaction__favs_act path{
+  fill: none;
+  stroke: rgba(171, 172, 177, 1)
+}
+
 .user-interaction__icon path:hover{ 
   stroke: #0057FF;
 }
 .user-interaction p{
-    margin-left: 12px;
+    margin-left: 7px;
     font-weight: 400;
     font-size: 14px;
     line-height: 24px;
