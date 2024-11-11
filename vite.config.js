@@ -22,7 +22,7 @@ export default defineConfig({
       '/createUser': 'http://localhost:3000',
       '/login': 'http://localhost:3000',
       '/api/search': 'http://localhost:3000',
-      '/feed': 'http://localhost:3000',
+      // '/feed': 'http://localhost:3000',
       '/api/settings/profile': 'http://localhost:3000',
       '/api/settings/password': 'http://localhost:3000',
       '/api/settings/email': 'http://localhost:3000',
@@ -33,6 +33,8 @@ export default defineConfig({
       '/posts/subscriptions': 'http://localhost:3000',
       '/api/profile/:id/followers': 'http://localhost:3000',
       '/api/profile/:id/following': 'http://localhost:3000',
+      '/api/unlike/:post_id': 'http://localhost:3000',
+      '/api/like/:post_id': 'http://localhost:3000',
     },
   },
 });

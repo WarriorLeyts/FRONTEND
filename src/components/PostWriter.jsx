@@ -48,7 +48,7 @@ const PostWriter = () => {
         cx="26"
         cy="26"
         opacity={postSize ? 1 : 0}
-        strokeDasharray={`${postSize / 4} ${500}`}
+        strokeDasharray={`${postSize} ${500}`}
       ></circle>
     </svg>
   );
@@ -103,6 +103,7 @@ const PostWriter = () => {
             onClick={() => dispatch(setModalActive({ newPostActive: false }))}
           ></div>
           <textarea
+            maxlength="200"
             className={activeSendBlock || active ? styles.newTweetInpActive : styles.newTweetInp}
             type="text"
             value={tweet}

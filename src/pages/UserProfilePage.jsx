@@ -31,14 +31,14 @@ function UserProfilePage() {
     if(location.pathname === `/profile/${userInfo?.id}`) {
       navigate('/profile')
     }
-  }, [userInfo?.id, id]);
+  }, [userInfo?.id, id, location]);
   return (
     <div>
       <Navbar location={location.pathname} />
       <main className={styles.mainProfile}>
         <div className={styles.main1}>
           <UserHeader profileData={otherProfile}/>
-          <PostsFeed posts={posts}/>
+          <PostsFeed  posts={posts}/>
         </div>
         <div className={styles.main2}>
           <div>

@@ -22,7 +22,7 @@ function ProfilePage() {
     if (!posts.length && userInfo) {
       dispatch(fetchPostsProfile(userInfo?.id));
     }
-  }, [userInfo]);
+  }, [userInfo, location]);
   
   return (
     <div>
@@ -30,7 +30,7 @@ function ProfilePage() {
       <main className={styles.mainProfile}>
         <div className={styles.main1}>
           <UserHeader profileData={userInfo} />
-          <PostsFeed posts={posts} />
+          <PostsFeed  posts={posts} />
         </div>
         <div className={styles.main2}>
           <div>

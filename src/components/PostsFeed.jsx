@@ -4,6 +4,7 @@ import Post from "./Post";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
+
 const PostsFeed = ({ posts }) => {
   const location = useLocation();
   const loading = useSelector((state) => state.posts.loading);
