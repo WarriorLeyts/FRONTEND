@@ -742,6 +742,15 @@ app.post('/api/like/:post_id', async (req, res) => {
     if (!token || !getToken || !postId) {
       return res.status(401).send('<script> alert("пользователь не авторизован") </script>');
     }
+    const queryIsLiked = `SELECT *
+    FROM Likes
+    WHERE id_user = '${getToken.id_user}' AND id_post = '${postId}'`;
+
+    const isLiked = (await client.query(queryIsLiked)).rows[0];
+
+    if (isLiked) {
+      return res.status(400).json({});
+    }
     const queryCreateLike = `INSERT INTO Likes (id_user, id_post) 
   VALUES ('${getToken.id_user}','${postId}')`;
 
