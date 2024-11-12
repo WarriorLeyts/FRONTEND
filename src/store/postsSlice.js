@@ -63,6 +63,29 @@ export const fetchPostsHashTag = createAsyncThunk('posts/fetchPostsHashTag', asy
   return response.json();
 });
 
+export const likePost = createAsyncThunk('posts/createLike', async (postId) => {
+  const response = await fetch(`/api/like/${postId}`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8',
+    },
+  });
+  if (!response.ok) {
+    throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+  }
+  return response.json();
+});
+
+export const unlikePost = createAsyncThunk('posts/deleteLike', async (postId) => {
+  const response = await fetch(`/api/unlike/${postId}`, {
+    method: 'DELETE',
+  });
+  if (!response.ok) {
+    throw new Error(`Ошибка при загрузке данных: ${response.status}`);
+  }
+  return response.json();
+});
+
 const postsSlice = createSlice({
   name: 'posts',
   initialState: {
@@ -75,6 +98,64 @@ const postsSlice = createSlice({
     newPostLoading: false,
   },
   reducers: {
+    upPosts: (state, action) => ({
+      ...state,
+      homePosts: state.homePosts.map((post) => {
+        if (String(post.post_id) === action.payload.postId) {
+          return {
+            ...post,
+            isLiked: action.payload.isLiked,
+            post_id: action.payload.postId,
+            countLikes: action.payload.countLikes,
+          };
+        }
+        return post;
+      }),
+      feedPosts: state.feedPosts.map((post) => {
+        if (String(post.post_id) === action.payload.postId) {
+          return {
+            ...post,
+            isLiked: action.payload.isLiked,
+            post_id: action.payload.postId,
+            countLikes: action.payload.countLikes,
+          };
+        }
+        return post;
+      }),
+      profilePosts: state.profilePosts.map((post) => {
+        if (String(post.post_id) === action.payload.postId) {
+          return {
+            ...post,
+            isLiked: action.payload.isLiked,
+            post_id: action.payload.postId,
+            countLikes: action.payload.countLikes,
+          };
+        }
+        return post;
+      }),
+      userPosts: state.userPosts.map((post) => {
+        if (String(post.post_id) === action.payload.postId) {
+          return {
+            ...post,
+            isLiked: action.payload.isLiked,
+            post_id: action.payload.postId,
+            countLikes: action.payload.countLikes,
+          };
+        }
+        return post;
+      }),
+      tagPosts: state.tagPosts.map((post) => {
+        if (String(post.post_id) === action.payload.postId) {
+          return {
+            ...post,
+            isLiked: action.payload.isLiked,
+            post_id: action.payload.postId,
+            countLikes: action.payload.countLikes,
+          };
+        }
+        return post;
+      }),
+    }),
     addPost: (state, action) => ({
       ...state,
       feedPosts: [action.payload, ...state.feedPosts],
@@ -182,8 +263,124 @@ const postsSlice = createSlice({
       .addCase(fetchPostsHashTag.rejected, (state) => ({
         ...state,
         loading: false,
+      }))
+      .addCase(likePost.fulfilled, (state, action) => ({
+        ...state,
+        homePosts: state.homePosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
+        feedPosts: state.feedPosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
+        profilePosts: state.profilePosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
+        userPosts: state.userPosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
+        tagPosts: state.tagPosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
+      }))
+      .addCase(unlikePost.fulfilled, (state, action) => ({
+        ...state,
+        homePosts: state.homePosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
+        feedPosts: state.feedPosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
+        profilePosts: state.profilePosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
+        userPosts: state.userPosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
+        tagPosts: state.tagPosts.map((post) => {
+          if (String(post.post_id) === action.payload.postId) {
+            return {
+              ...post,
+              isLiked: action.payload.isLiked,
+              post_id: action.payload.postId,
+              countLikes: action.payload.countLikes,
+            };
+          }
+          return post;
+        }),
       }));
   },
 });
-export const { addPost, upFeedPosts } = postsSlice.actions;
+export const { addPost, upFeedPosts, upPosts } = postsSlice.actions;
 export default postsSlice.reducer;

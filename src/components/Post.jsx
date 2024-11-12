@@ -5,16 +5,29 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getBackLightHash from "@/get_backlight_hash";
 import getReplaceLink from "@/get_replace_link";
+import { useDispatch  } from "react-redux";
+import { likePost, unlikePost, upPosts } from "@/store/postsSlice";
+
 
 const Post = ({ post, index }) => {
-  const [time, setTime] = useState(getTimeString(post.date, new Date()))
+  const dispatch = useDispatch();
+  const [time, setTime] = useState(getTimeString(post.date, new Date()));
   const [count, setCount] = useState(0);
+
   setInterval(() => setCount(prevCount => prevCount + 1), 60_000);
-  
+  const toggleLike = () => {
+    if (post.isLiked) {
+      dispatch(unlikePost(post.post_id))
+      dispatch(upPosts({ postId: post.post_id, isLiked: false, countLikes : post.countLikes - 1 }))
+     } else {
+      dispatch(likePost(post.post_id))
+      dispatch(upPosts({ postId: post.post_id, isLiked: true, countLikes : post.countLikes + 1 }))
+     }
+  }
   useEffect(() => {
     setTime(getTimeString(post.date, new Date()));
     setCount(0)
-  }, [post, count])
+  }, [post, count, post.isLiked])
 
   return (
     <>
@@ -50,7 +63,6 @@ const Post = ({ post, index }) => {
           </div>
           <div className="user-interaction">
             <div className="user-interaction__item">
-              <a href="">
                 <svg
                   className="user-interaction__icon"
                   width="15"
@@ -66,31 +78,30 @@ const Post = ({ post, index }) => {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
               <p>{post.quantityReposts}</p>
             </div>
             <div className="user-interaction__item">
-              <a href="">
-                <svg
-                  className="user-interaction__favs"
-                  width="15"
-                  height="13"
-                  viewBox="0 0 15 13"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M1.875 6.5C0.46875 4.625 0.9375 1.8125 3.28125 0.875C5.625 -0.0624999 7.03125 1.8125 7.5 2.75C7.96875 1.8125 9.84375 -0.0624999 12.1875 0.875C14.5312 1.8125 14.5312 4.625 13.125 6.5C11.7187 8.375 7.5 12.125 7.5 12.125C7.5 12.125 3.28125 8.375 1.875 6.5Z"
-                    stroke="#ABACB1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </a>
-              <p>{post.quantityLike}</p>
+                <div className="user-interaction__icon-block" onClick={() => toggleLike()}>
+                  <svg
+                    className={post.isLiked ? "user-interaction__favs_act" : "user-interaction__favs"}
+                    width="15"
+                    height="13"
+                    viewBox="0 0 15 13"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M1.875 6.5C0.46875 4.625 0.9375 1.8125 3.28125 0.875C5.625 -0.0624999 7.03125 1.8125 7.5 2.75C7.96875 1.8125 9.84375 -0.0624999 12.1875 0.875C14.5312 1.8125 14.5312 4.625 13.125 6.5C11.7187 8.375 7.5 12.125 7.5 12.125C7.5 12.125 3.28125 8.375 1.875 6.5Z"
+                      stroke="#ABACB1"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </div>
+              <p>{post.countLikes ? post.countLikes : ''}</p>
             </div>
+
             <div className="user-interaction__item">
-              <a href="">
                 <svg
                   className="user-interaction__icon"
                   width="13"
@@ -106,7 +117,6 @@ const Post = ({ post, index }) => {
                     strokeLinejoin="round"
                   />
                 </svg>
-              </a>
               <p>{post.quantityShare}</p>
             </div>
           </div>

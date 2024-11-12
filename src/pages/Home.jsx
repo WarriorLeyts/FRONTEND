@@ -11,16 +11,17 @@ import { getFeedPage } from "@/store/userSlice";
 import { fetchPosts } from "../store/postsSlice";
 
 const Home = () => {
-  const dispath = useDispatch();
+  const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.homePosts);
   const { isAuth } = useSelector((state) => state.user);
   
   useEffect(() => {
     if (!posts.length) {
-      dispath(fetchPosts());
+      dispatch(fetchPosts());
     }
-    dispath(getFeedPage());
+    dispatch(getFeedPage());
   }, []);
+
   useEffect(() => {
     if (isAuth) {
       window.location.href = "/feed";
@@ -30,7 +31,7 @@ const Home = () => {
     <>
       <Header />
       <Statistics />
-      <Main posts={posts}/>
+      <Main  posts={posts}/>
       <AuthorizationFooter  />
       <RegModal />
       <AuthorModal />

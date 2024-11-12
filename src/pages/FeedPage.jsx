@@ -21,7 +21,7 @@ function FeedPage() {
     if(posts.length === 0) {
       dispatch(fetchPostsSubscriptions());
     }
-  }, []);
+  }, [location]);
   
   return (
     <>
@@ -29,7 +29,7 @@ function FeedPage() {
       <main className={styles.mainFeed}>
         <div className={styles.main1}>
           <PostWriter />
-          <PostsFeed posts={posts} />
+          <PostsFeed  posts={posts} />
         </div>
         <div className={styles.main2}>
           <CardUser />

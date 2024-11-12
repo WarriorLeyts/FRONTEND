@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { Widget } from "@uploadcare/react-widget";
 import styles from "../styles/postWriter.module.css";
 
-export default function AddPhoto({ imgUrl, setImgUrl }) {
+export default function AddPhoto({ setImgUrl }) {
   const widgetRef = useRef(null);
 
   const handleFileUpload = (fileInfo) => {
