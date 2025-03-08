@@ -11,9 +11,9 @@ const port = 3000;
 const { Client } = pkg;
 const client = new Client({
   user: 'muhammad',
-  host: 'dpg-ctqi81ij1k6c739vc690-a.oregon-postgres.render.com',
-  database: 'demos_y71u',
-  password: 'TOlMPKXvgsyRMZhW7yAaDvDrAqI9gMB8',
+  host: 'dpg-cv60b4nnoe9s73bp2mk0-a.oregon-postgres.render.com',
+  database: 'demos_bzcj',
+  password: 'SA0DkayNm3pa0HOPlzpsfUYRipP1N0Zh',
   port: 5432,
   ssl: true,
 });
